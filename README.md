@@ -1,11 +1,11 @@
-# Cyber Security Learning for beginners
+# Kali 技术文档合集
 
 ---
 
 This article is  including three parts:
 
-- **[kali-Server-Attack](kali-server-attack/README.md)**
-- **[kali-Web-Attack](kali-web-attack/README.md)**
-- **[kali-BackDoor](kali-backdoor/README.md)**
+- **[后门技术](kali-backdoor/)**
+- **[服务器攻击](kali-server-attack/)**
+- **[Web 攻击](kali-web-attack/)**
 
 Source GitHub link is here https://github.com/Yehnn/kali

@@ -1,3 +1,11 @@
-title: Kali tutorial
-description: Kali tutorial documentation
-remote_theme: rundocs/jekyll-rtd-theme
+title: Kali 技术文档合集
+description: Kali 后门、服务器攻击与 Web 攻击技术文档
+theme: minima
+markdown: kramdown
+
+baseurl: "/kali"
+
+include:
+  - kali-backdoor
+  - kali-server-attack
+  - kali-web-attack
