@@ -1,14 +1,12 @@
 import os
 import json
 
-# 分类目录及中文标题
 subdirs = [
     ("kali-backdoor", "后门技术"),
     ("kali-server-attack", "服务器攻击"),
     ("kali-web-attack", "Web 攻击")
 ]
 
-# 读取 title_map.json 以获得每篇文档的中文标题（如有）
 title_map_path = "title_map.json"
 if os.path.exists(title_map_path):
     with open(title_map_path, "r", encoding="utf-8") as f:
