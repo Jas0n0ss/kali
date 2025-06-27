@@ -1,7 +1,6 @@
 import os
 import json
 
-# 分类目录及中文标题
 subdirs = [
     ("kali-backdoor", "后门技术"),
     ("kali-server-attack", "服务器攻击"),
