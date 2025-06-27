@@ -12,7 +12,7 @@ titles = {
     "kali-web-attack": "Web 攻击"
 }
 
-# 生成各子目录 index.md
+# 1. 生成每个子目录的 index.md
 for subdir in subdirs:
     if not os.path.isdir(subdir):
         continue
@@ -21,6 +21,7 @@ for subdir in subdirs:
     md_files.sort()
     lines = [f"# {titles.get(subdir, subdir)}\n"]
     for md in md_files:
+        # 取文件名作为标题（去掉扩展名，可自定义美化）
         title = md.replace('.md', '')
         lines.append(f"- [{title}]({md})")
     content = "\n".join(lines) + "\n"
@@ -28,8 +29,11 @@ for subdir in subdirs:
         f.write(content)
     print(f"Generated {subdir}/index.md")
 
-# 生成根目录 README.md
-readme_lines = ["# Kali 技术文档合集\n"]
+# 2. 生成根目录 README.md，只列出三大分类
+readme_lines = [
+    "# Kali 技术文档合集\n",
+    "欢迎阅读 Kali 技术文档，点击下列分类进入：\n"
+]
 for subdir in subdirs:
     if os.path.isdir(subdir):
         readme_lines.append(f"- [{titles.get(subdir, subdir)}]({subdir}/)")
