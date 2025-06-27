@@ -115,3 +115,7 @@ nav:
         url: /kali-web-attack/19Webshell访问后门
       - title: 20如何避免Web安全漏洞
         url: /kali-web-attack/20如何避免Web安全漏洞
+
+just_the_docs:
+  custom_css:
+    - assets/css/custom.css
