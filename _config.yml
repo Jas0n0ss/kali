@@ -1,9 +1,22 @@
 title: Kali 技术文档合集
 description: Kali 后门、服务器攻击与 Web 攻击技术文档
-theme: minima
-markdown: kramdown
+theme: "just-the-docs"
 baseurl: "/kali"
-include:
-  - kali-backdoor
-  - kali-server-attack
-  - kali-web-attack
+url: "https://jas0n0ss.github.io"
+# 如果你有 docs 目录，需加 include:
+# include:
+#   - kali-backdoor
+#   - kali-server-attack
+#   - kali-web-attack
+
+just_the_docs:
+  collections:
+    kali-backdoor:
+      name: 后门技术
+      permalink: /kali-backdoor/
+    kali-server-attack:
+      name: 服务器攻击
+      permalink: /kali-server-attack/
+    kali-web-attack:
+      name: Web 攻击
+      permalink: /kali-web-attack/
