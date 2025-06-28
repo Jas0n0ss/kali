@@ -13,11 +13,11 @@ navbar:
   - text: "Home"
     url: "/index.md"
   - text: "Backdoor Attacks"
-    url: "/kali-backdoor/index.md"
+    url: "/kali-backdoor"
   - text: "Server Attacks"
-    url: "/kali-server-attack/index.md"
+    url: "/kali-server-attack"
   - text: "Web Attacks"
-    url: "/kali-web-attack/index.md"
+    url: "/kali-web-attack"
 
 # Author settings
 author:
