@@ -5,7 +5,7 @@ baseurl: ""  # Leave empty for the root or set it if it's hosted in a subfolder 
 url: "https://jas0n0ss.github.io/kali"  # Replace with your GitHub Pages URL
 
 # GitHub Pages and theme setup
-remote_theme: pages-themes/cayman@v0.2.0  # Use the remote theme instead
+remote_theme: pages-themes/hacker@v0.2.0  # Changed to the Hacker theme
 markdown: kramdown
 
 # Navigation and other configurations
