@@ -1,0 +1,59 @@
+# Site settings
+title: "Kali Linux Attack Techniques"
+email: your-email@example.com
+description: "A collection of Kali Linux attack techniques for penetration testing."
+baseurl: "" # Leave empty for the root or set it if it's hosted in a subfolder like /project.
+url: "https://jas0n0ss.github.io/kali" # Replace with your GitHub Pages URL
+
+# Build settings
+theme: minima
+markdown: kramdown
+
+# Navigation links
+navbar:
+  - text: "Home"
+    url: "/index.md"
+  - text: "Backdoor Attacks"
+    url: "/kali-backdoor/"
+  - text: "Server Attacks"
+    url: "/kali-server-attack/"
+  - text: "Web Attacks"
+    url: "/kali-web-attack/"
+
+# Social media links (optional)
+social_links:
+  - icon: "github"
+    url: "https://github.com/jas0n0ss"
+
+# Author settings
+author:
+  name: "Jas0n0ss"
+  bio: "Cybersecurity enthusiast and Kali Linux practitioner."
+
+# Google Analytics (optional)
+google_analytics: UA-XXXXX-Y
+
+# Pagination settings (optional)
+paginate: 5 # Number of posts per page (for any blog-style sections)
+
+# Exclude specific files or directories from being processed
+exclude:
+  - README.md
+  - LICENSE
+
+# Permalinks settings
+permalink: "/:year/:month/:day/:title/"
+
+# Jekyll plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Default layout for your site
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+      author: "Jas0n0ss"
+
