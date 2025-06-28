@@ -1,9 +1,8 @@
 # Site settings
 title: "Kali Linux Attack Techniques"
-email: your-email@example.com
 description: "A collection of Kali Linux attack techniques for penetration testing."
 baseurl: ""  # Leave empty for the root or set it if it's hosted in a subfolder like /project.
-url: "https://username.github.io/kali-attacks"  # Replace with your GitHub Pages URL
+url: "https://jas0n0ss.github.io/kali"  # Replace with your GitHub Pages URL
 
 # GitHub Pages and theme setup
 remote_theme: pages-themes/cayman@v0.2.0  # Use the remote theme instead
@@ -19,23 +18,10 @@ navbar:
     url: "/kali-server-attack/"
   - text: "Web Attacks"
     url: "/kali-web-attack/"
-  - text: "Images"
-    url: "/imgs/"
-
-# Social media links (optional)
-social_links:
-  - icon: "github"
-    url: "https://github.com/username"
-  - icon: "twitter"
-    url: "https://twitter.com/username"
 
 # Author settings
 author:
-  name: "Your Name"
   bio: "Cybersecurity enthusiast and Kali Linux practitioner."
-
-# Google Analytics (optional)
-google_analytics: UA-XXXXX-Y
 
 # Pagination settings (optional)
 paginate: 5
