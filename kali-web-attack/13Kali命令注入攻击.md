@@ -41,49 +41,49 @@
 
 在实验桌面中，双击 Xfce 终端，打开终端：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374588595.png/wm)
+![此处输入图片的描述](../imgs/wm_62.png)
 
 使用 `sudo virsh start Metasploitable2` 命令即可启动我们的靶机系统虚拟机：
 
-![start-metasploit.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139532596.png/wm)
+![start-metasploit.png](../imgs/wm_63.png)
 
 等待大约四分钟，待得虚拟机完全启动之后我们打开桌面上的 Firefox：
 
-![open-firefox.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139552463.png/wm)
+![open-firefox.png](../imgs/wm_64.png)
 
 访问我们的靶机系统所使用的 IP 地址`192.168.122.102`：
 
-![view-metasploit-url.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139568548.png/wm)
+![view-metasploit-url.png](../imgs/wm_65.png)
 
 正常的启动靶机系统之后，我们访问其 IP 地址可以得到这样的一个页面。
 
 点击 DVMA 我们便可进入到 DVMA 的登陆页面，默认的登陆用户与密码是 admin 与 password，登陆之后便会进入这样的页面：
 
-![dvwa-index.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139587112.png/wm)
+![dvwa-index.png](../imgs/wm_66.png)
 
 为了能够进行最简单的攻击，我们会把安全默认调制最低，首先进入安全模式的调整页面：
 
-![dvwa-config-security.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139662479.png/wm)
+![dvwa-config-security.png](../imgs/wm_67.png)
 
 然后调整安全的 level 到 low：
 
-![dvwa-config-security-1.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139678741.png/wm)
+![dvwa-config-security-1.png](../imgs/wm_68.png)
 
 当看到页面的下方 Level 的显示变化后，说明修改成功了：
 
-![dvwa-config-security-proof.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139693059.png/wm)
+![dvwa-config-security-proof.png](../imgs/wm_69.png)
 
 ### 5.3 命令注入初试
 
 进入 DVWA 为我们所提供的 Command injection 的实验页面：
 
-![show-page](https://doc.shiyanlou.com/document-uid113508labid2430timestamp1482889722035.png/wm)
+![show-page](../imgs/wm_70.png)
 
 我们看到 DVWA 为我们提供了一个执行 ping 命令的平台，这样的服务在实际生活中也是存在的。例如站长一类的网站，会提供这样的 ping 命令执行服务。
 
 我们可以来尝试一番：
 
-![show-ping-127](https://doc.shiyanlou.com/document-uid113508labid2430timestamp1482889858715.png/wm)
+![show-ping-127](../imgs/wm_71.png)
 
 我们可以看到确实为我们执行了 `ping 127.0.0.1` 的命令并返回给我们结果。
 
@@ -95,7 +95,7 @@ ping 127.0.0.1 && ls
 
 因为平台是内置了一个 `ping` 命令，所以我们可以把 ping 省略掉，输入 `127.0.0.1 && ls`:
 
-![show-two-command](https://doc.shiyanlou.com/document-uid113508labid2430timestamp1482889874363.png/wm)
+![show-two-command](../imgs/wm_72.png)
 
 我们可以看到可以正常执行，说明没有任何的防范，类似的命令还有：
 
@@ -103,7 +103,7 @@ ping 127.0.0.1 && ls
 127.0.0.1;pwd
 ```
 
-![show-fenhao](https://doc.shiyanlou.com/document-uid113508labid2430timestamp1482889882929.png/wm)
+![show-fenhao](../imgs/wm_73.png)
 
 亦或者：
 
@@ -111,7 +111,7 @@ ping 127.0.0.1 && ls
 | ls -lah
 ```
 
-![show-shuxian](https://doc.shiyanlou.com/document-uid113508labid2430timestamp1482889892523.png/wm)
+![show-shuxian](../imgs/wm_74.png)
 
 既然能够获取信息，必然会选择查看有用的信息：
 
@@ -119,7 +119,7 @@ ping 127.0.0.1 && ls
 | cat /etc/passwd
 ```
 
-![show-passwd](https://doc.shiyanlou.com/document-uid113508labid2430timestamp1482889900485.png/wm)
+![show-passwd](../imgs/wm_75.png)
 
 如此的话，似乎什么命令都可以执行，我们甚至可以使用 `wget` 命令下载我们准备好的木马，使他在后台执行，这样我们就可以通过这个某门远程连接或者是 webshell 来远程操控我们的目标主机了。
 
@@ -141,7 +141,7 @@ ping 127.0.0.1 && ls
 
 submit 提交之后，我们会发现页面一直处于加载状态，因为 nc 一直在监听 1111 端口，并没有切换至后台工作：
 
-![show-load](https://doc.shiyanlou.com/document-uid113508labid2430timestamp1482889911753.png/wm)
+![show-load](../imgs/wm_76.png)
 
 经过短时间的等待，kali 虚拟机启动之后，此时我们使用 ssh 登陆上 kali 虚拟机的终端，我们可以通过 netcat 命令与目标主机建立连接，使用这样一个命令：
 
@@ -153,7 +153,7 @@ nc 192.168.122.102 1111
 
 由此我们便可如 ssh 登陆一般控制目标主机了：
 
-![show-nc-connection](https://doc.shiyanlou.com/document-uid113508labid2430timestamp1482889921957.png/wm)
+![show-nc-connection](../imgs/wm_77.png)
 
 通过 `exit` 或者 `ctrl+c` 我们便可断开连接。
 
@@ -165,7 +165,7 @@ nc 192.168.122.102 1111
 use multi/handler
 ```
 
-![use-handler](https://doc.shiyanlou.com/document-uid113508labid2430timestamp1482889931489.png/wm)
+![use-handler](../imgs/wm_78.png)
 
 然后我们将设置攻击使用的脚本：
 
@@ -175,11 +175,11 @@ set PAYLOAD linux/x86/shell/bind_tcp
 
 >**注意**：加载都需要一定的时间，请大家耐心等待。
 
-![set-payload](https://doc.shiyanlou.com/document-uid113508labid2430timestamp1482889941981.png/wm)
+![set-payload](../imgs/wm_79.png)
 
 通过 `show options` 我们可以看到必须设置的配置项：
 
-![show-options](https://doc.shiyanlou.com/document-uid113508labid2430timestamp1482889952316.png/wm)
+![show-options](../imgs/wm_80.png)
 
 我们看到还可以配置目标主机：
 
@@ -189,15 +189,15 @@ set RHOST 192.168.122.102
 
 做好一切准备工作我们就使用 `run` 或者是 `exploit` 命令开始攻击，经过一段时间的等待，我们看到了这样的提示说明这在执行攻击的脚本，与目标主机建立连接：
 
-![show-run](https://doc.shiyanlou.com/document-uid113508labid2430timestamp1482889961344.png/wm)
+![show-run](../imgs/wm_81.png)
 
 这样的提示说明我们已经成功建立连接：
 
-![show-connections](https://doc.shiyanlou.com/document-uid113508labid2430timestamp1482890196638.png/wm)
+![show-connections](../imgs/wm_82.png)
 
 可以随意执行权限之内的所有命令：
 
-![show-command](https://doc.shiyanlou.com/document-uid113508labid2430timestamp1482890207347.png/wm)
+![show-command](../imgs/wm_83.png)
 
 ### 5.5 命令注入防范
 
@@ -205,7 +205,7 @@ set RHOST 192.168.122.102
 
 我首先来查验一下 low 安全级别的源码：
 
-![show-source-code-low](https://doc.shiyanlou.com/document-uid113508labid2430timestamp1482890219527.png/wm)
+![show-source-code-low](../imgs/wm_84.png)
 
 从源码中我们可以看到在使用 POST 提交内容之后，
 
@@ -222,7 +222,7 @@ set RHOST 192.168.122.102
 
 我们将安全等价切换到 medium，再次查看源代码：
 
-![show-source-code-medium.png](https://doc.shiyanlou.com/document-uid113508labid2430timestamp1482890230023.png/wm)/wm)
+![show-source-code-medium.png](../imgs/wm_85.png)/wm)
 
 我们看到确实如此，利用 substitutions 数组变量来设置过滤项与对应的替换的值，然后使用 str_replace() 来将获取到的 IP 变量，若是其中有这些值便都替换掉。
 
@@ -244,7 +244,7 @@ set RHOST 192.168.122.102
 
 我们发现是可以执行的：
 
-![show-medium-po](https://doc.shiyanlou.com/document-uid113508labid2430timestamp1482890240646.png/wm)
+![show-medium-po](../imgs/wm_86.png)
 
 这是因为我们的 `&&` 分开，没有在一起所以不会被过滤掉，但是 `;` 在过滤的名单中，会被替换成空字符，而这样的字符会使得两个分离的 `&&` 聚集再一起，从而使得其能够正常执行。
 
@@ -265,7 +265,7 @@ set RHOST 192.168.122.102
 
 我们可以将安全级别切换至 high，然后查看源代码：
 
-![show-source-code-high.png](https://doc.shiyanlou.com/document-uid113508labid2430timestamp1482890255864.png/wm)
+![show-source-code-high.png](../imgs/wm_87.png)
 
 我们可以看到虽然其处理方式与我们的不同，但是思想一直，就是处理掉所有的特殊字符，通过 stripslashes() 过滤一次下划线什么的特殊字符，然后通过 explode() 来切割成四份，然后判断每一份是不是全数字，若都是再将四部分拼接起来。由此就可以成功的过滤掉所有的特殊字符，即使没有过滤掉也会在判断数字一步中筛选掉。
 
@@ -290,4 +290,4 @@ set RHOST 192.168.122.102
 
 2.利用 mutillidae 环境完成命令注入的实验
 
-![show-env](https://doc.shiyanlou.com/document-uid113508labid2430timestamp1482890267642.png/wm)
+![show-env](../imgs/wm_88.png)

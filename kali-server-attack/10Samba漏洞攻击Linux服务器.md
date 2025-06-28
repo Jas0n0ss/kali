@@ -19,7 +19,7 @@
 - 利用网络文件共享登录目标主机
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480577379137.png-wm)
+![图片描述](../imgs/1480577379137.png-wm.png)
 
 
 
@@ -38,7 +38,7 @@
 | 靶机   | `Metasploitable2` | `msfadmin` | `msfadmin` |
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/ff207c4ac994ae597a753f238bd6b2de/1479811009892.png-wm)
+![图片描述](../imgs/1479811009892.png-wm.png)
 
 ## 二、环境启动
 
@@ -54,12 +54,12 @@ sudo virsh start Kali
 ssh root@Kali
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481101382249.png-wm)
+![图片描述](../imgs/1481101382249.png-wm_2.png)
 
 `Kali` 的登录密码为 `toor`。**注意：等 Kali 启动，输入命令后，要等待一段时间，再对 Kali 进行连接，否则会报错。** 登录成功后，如图所示：
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481101646711.png-wm)
+![图片描述](../imgs/1481101646711.png-wm_2.png)
 
 在开启了目标 Kali Linux 虚拟机主机后，接着打开宿主机 Ubuntu 的命令行终端，输入命令打开目标靶机：
 
@@ -68,7 +68,7 @@ ssh root@Kali
 sudo virsh start Metasploitable2
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483504872990.png-wm)
+![图片描述](../imgs/1483504872990.png-wm.png)
 
 
 ## 三、 扫描漏目标主机漏洞
@@ -88,7 +88,7 @@ sudo msfconsole
 nmap -p 1-1000 -T4 -A -v target >/tmp/report.txt
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479881719755.png-wm)
+![图片描述](../imgs/1479881719755.png-wm.png)
 
 
 这里我们使用到的参数意义如下：
@@ -110,12 +110,12 @@ nmap -p 1-1000 -T4 -A -v target >/tmp/report.txt
 cat /tmp/report.txt
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479881893327.png-wm)
+![图片描述](../imgs/1479881893327.png-wm.png)
 
 接着可以在文本信息中看到这么一段信息：
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479881973101.png-wm)
+![图片描述](../imgs/1479881973101.png-wm.png)
 
 由图可以看到 139 端口和 445 端口的 `Samba` 服务的相关信息：
 
@@ -208,7 +208,7 @@ end
 search samba
 ```
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid212008labid2296timestamp1480572764316.png/wm)
+![此处输入图片的描述](../imgs/wm_7.png)
 
 
 注意：这一步在实验楼中使用 `search samba` 会花较长的时间，同学们可以直接看老师搜索出来的结果，跳过这一步不会影响实验，造成缓慢的主要原因是因为没有进行缓存。解决的办法是使用缓存命令 `db_rebuild_cache` 进行缓存，提高索引速度：
@@ -225,7 +225,7 @@ show options
          
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480572977733.png-wm)
+![图片描述](../imgs/1480572977733.png-wm.png)
 
 
 
@@ -242,7 +242,7 @@ set SMBSHARE tmp
 
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480573418642.png-wm)
+![图片描述](../imgs/1480573418642.png-wm.png)
 
 注意：再次提醒一下，Samba 的该漏洞危害是能够为选定的 Unix 目录（包括所有子目录）创建网络共享。
 
@@ -256,7 +256,7 @@ set SMBSHARE tmp
 exploit 
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480573539217.png-wm)
+![图片描述](../imgs/1480573539217.png-wm.png)
 
 其中如下信息，表示进入成功：
 
@@ -272,7 +272,7 @@ exit
 smbclient //192.168.122.102/tmp
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480573933783.png-wm)
+![图片描述](../imgs/1480573933783.png-wm.png)
 
 ```
 cd rootfs

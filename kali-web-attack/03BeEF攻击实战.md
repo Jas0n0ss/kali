@@ -40,14 +40,14 @@ BeEF 是一个用 ruby 语言编写的开源框架，你可以在 github 中找�
 
 BeEF 是这样工作的：
 
-![beef-framework.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111185964.png/wm)
+![beef-framework.png](../imgs/wm_476.png)
 （此图来自于 [beef_wiki](https://github.com/beefproject/beef/wiki/Architecture)）
 
 BeEF 会提供一个 web 界面供操作，只要访问了嵌入 hook.js 页面，亦或者加载了 hook.js 文件的浏览器，就会不断的以 GET 的方式将其自身的相关消息发送到 BeEF 的 server 端，如此便可以掌握对方的详细信息，便可寻找相关漏洞，实行攻击亦或者将至当成肉鸡想其他设备发起攻击。其中被攻击的浏览器通常称之为 Zombie。
 
 > 就像钓鱼一般，只要鱼想吃鱼饵就会吃到鱼钩，我们就可通过鱼钩来控制鱼、捕获鱼，攻击目标就是鱼，而鱼钩便是 hook.js，这个名字也非常的形象叫做 hook。
 
-![beef-framework1.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111222718.png/wm)
+![beef-framework1.png](../imgs/wm_477.png)
 （此图来自于 [beef_wiki](https://github.com/beefproject/beef/wiki/Architecture)）
 
 而一旦 BeEF 运行起来，其中有两个组件最为重要：
@@ -61,17 +61,17 @@ BeEF 会提供一个 web 界面供操作，只要访问了嵌入 hook.js 页面�
 
 在实验桌面中，双击 Xfce 终端，打开终端：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374588595.png/wm)
+![此处输入图片的描述](../imgs/wm_478.png)
 
 然后我们使用 `sudo virsh start Kali` 命令启动虚拟机，注意区分大小写，虚拟机的名字是大写的字母开始:
 
 接着使用 SSH 连接到 Kali，注意用户名 root，密码 toor 是不显示的，使用命令 `ssh root@kali` 即可，因为当前实验环境中已经把 IP 地址和主机名的对应写入到了 `/etc/hosts` 文件中，避免输入不好记的 IP 地址：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374660945.png/wm)
+![此处输入图片的描述](../imgs/wm_479.png)
 
 然后我们通过 `cd /usr/share/beef-xss/` 命令进入 BeEF 的主目录中：
 
-![beef-ls.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111252573.png/wm)
+![beef-ls.png](../imgs/wm_480.png)
 
 其中文件的作用：
 
@@ -126,19 +126,19 @@ hook.js 主要就是为了伪造用户的身份来获取用户的相关信息。
 cd /usr/share/beef-xss
 ```
 
-![beef-home.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111279208.png/wm)
+![beef-home.png](../imgs/wm_481.png)
 
 通过 `less config.yaml` 查看 BeEF 的配置信息:
 
-![beef-less-config.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111293477.png/wm)
+![beef-less-config.png](../imgs/wm_482.png)
 
 在配置文件中我们查看关于 http 相关的信息，我们可以知道 BeEF 运行在 3000 号端口上：
 
-![beef-config-http.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111309283.png/wm)
+![beef-config-http.png](../imgs/wm_483.png)
 
 通过搜查 user 关键字，我们可以看到 BeEF 所使用的数据库，以及数据库的名称，用户名，密码，以及管理员的用户名、密码：
 
-![beef-config-db.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111323676.png/wm)
+![beef-config-db.png](../imgs/wm_484.png)
 
 通过 `q` 退出配置文件的查看之后运行主目录中程序的启动脚本
 
@@ -146,19 +146,19 @@ cd /usr/share/beef-xss
 ./beef
 ```
 
-![beef-start.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111350472.png/wm)
+![beef-start.png](../imgs/wm_485.png)
 
 接着我们便会看到字符界面中有程序启动的信息浮现出来，启动 BeEF 有些许缓慢，需要耐心等待，待得出现这样一行信息便表示 BeEF 已经完全启动好了，我们便可以通过浏览器访问后台页面了。
 
-![beef-boot.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111362704.png/wm)
+![beef-boot.png](../imgs/wm_486.png)
 
 我们可以通过桌面的 Firefox 访问刚刚我们所获得的 URL，进入后台页面会要求我们输入用户名密码，而用户名密码都是使用的默认值：` beef `。
 
-![beef-login.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111378046.png/wm)
+![beef-login.png](../imgs/wm_487.png)
 
 进入后台页面之后我们看到这样的几个板块：
 
-![beef-panel.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111394566.png/wm)
+![beef-panel.png](../imgs/wm_488.png)
 
 然后我们新打开一个页面访问这样的一个 url：
 
@@ -166,19 +166,19 @@ cd /usr/share/beef-xss
 http://192.168.122.101:3000/demos/butcher/index.html
 ```
 
-![beef-view-demo.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111413148.png/wm)
+![beef-view-demo.png](../imgs/wm_489.png)
 
 访问这个页面之后，我们回到后台页面，我们会发现在 `Online Browsers` 中多了一个主机，这是因为在我们刚刚访问的页面中便嵌入了 `hook.js`，而我们的浏览器从服务器中下载了该页面的 html 并解析执行，在读取到 `hook.js` 的时候也不管三七二十一一股脑的都执行了，由此该浏览器便与 BeEF 后台相连接，并保持通信，所以我们的 `Online Browsers` 多了一台主机。
 
-![beef-hooked-view.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111428958.png/wm)
+![beef-hooked-view.png](../imgs/wm_490.png)
 
 我们返回刚刚的钓鱼页面，并通过 F12 查看页面的相关信息，切换至网络的选项，我们可以看到该页面中有一个 hook.js 在不断的向外 GET 与 POST 信息：
 
-![beef-hooked-view.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111456901.png/wm)
+![beef-hooked-view.png](../imgs/wm_491.png)
 
 我们还可以随便查看一条消息，知道其发送的具体内容：
 
-![beef-demos-page-f12-detail.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111477115.png/wm)
+![beef-demos-page-f12-detail.png](../imgs/wm_492.png)
 
 当然我们同样还可以通过 wireshark 抓取 virbr0 网卡上的数据包查看更为详尽的内容。
 
@@ -186,27 +186,27 @@ http://192.168.122.101:3000/demos/butcher/index.html
 
 我们回到后台的管理页面中，点击主机的图标，我们可以看到关于该主机浏览器的详细信息便展示出来了：
 
-![beef-browser-info-1.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111494821.png/wm)
+![beef-browser-info-1.png](../imgs/wm_493.png)
 
-![beef-browser-info-2.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111508978.png/wm)
+![beef-browser-info-2.png](../imgs/wm_494.png)
 
 在获取到相关的平台信息之后，相信大家最关心的还是如何去攻击目标，切换至 Commands 选项卡我们可以看到所有已经加载进来的攻击模块：
 
-![beef-command.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111529759.png/wm)
+![beef-command.png](../imgs/wm_495.png)
 
 随便打开一个文件夹我们便可看到每个攻击模块前面都有不同颜色的灯，不同的颜色代表着不同的意义，若是有认真查看 Getting started 页面的同学便知道各项是什么意思：
 
-![beef-command-corlor-meaning.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111545947.png/wm)
+![beef-command-corlor-meaning.png](../imgs/wm_496.png)
 
 ### 6.2 BeEF 的初试
 
 在了解了 BeEF 大概的框架结构之后我们可以来尝试一番，展开 `Browser`-->`Hooked Domain`，点击 `Get Page HTML` 模块，我们可以在用户未察觉的情况下获取目标当且访问的页面源码：
 
-![beef-get-html.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111736174.png/wm)
+![beef-get-html.png](../imgs/wm_497.png)
 
 在点击执行之后我们会查看到 `Module Results History` 中多了一项任务，点击该任务我们便可以看到用户正在查看页面的源码了：
 
-![beef-get-html-info.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111756333.png/wm)
+![beef-get-html-info.png](../imgs/wm_498.png)
 
 其实这样的实现并不困难，我们查看一下源码便知道，其中 Get Page HTML 的命令源码位于 `/usr/share/beef-xss/modules/browser/hooked_domain/get_page_html/command.js`。我们用 less 工具来查看一下
 
@@ -216,11 +216,11 @@ less /usr/share/beef-xss/modules/browser/hooked_domain/get_page_html/command.js
 
 查看其中的相关命令：
 
-![beef-getpagehtml-command.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111776751.png/wm)
+![beef-getpagehtml-command.png](../imgs/wm_499.png)
 
 那么调用的这两个函数又做了怎样的事情呢？我们用 less 来查看一下这个文件 `/usr/share/beef-xss/core/main/client/browser.js`，查找一下刚刚两个函数的名字（直接输入 /getPage 然后一个回车便可搜索）
 
-![beef-get-html-code.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111790228.png/wm)
+![beef-get-html-code.png](../imgs/wm_500.png)
 
 原理很简单，就是将这两个简单的命令发送给远程的浏览器，而远程的浏览器便调用 javascript 的解析器解析并执行这两个命令，这样就获取到了我们所需要的相关信息，
 
@@ -228,49 +228,49 @@ less /usr/share/beef-xss/modules/browser/hooked_domain/get_page_html/command.js
 
 只要稍微懂一点 javascript 的同学就知道既然能够做到这一点，那么给目标主机的浏览器弹一个窗口也没有问题咯，的确是这样：
 
-![beef-alert.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111805903.png/wm)
+![beef-alert.png](../imgs/wm_501.png)
 
 执行之后，我们查看之前让我们上钩的页面，我们可以看到：
 
-![beef-alert-result.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111820810.png/wm)
+![beef-alert-result.png](../imgs/wm_502.png)
 
 通过 `less /usr/share/beef-xss/modules/browser/hooked_domain/alert_dialog/command.js` 我们可以看到，这个的实现更简单，就是让远程调用 alert 函数即可。
 
 我们还可以让页面重定向：
 
-![beef-redirect.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111843790.png/wm)
+![beef-redirect.png](../imgs/wm_503.png)
 
 执行之后我们会发现页面跳转到了 localhost 的页面上了：
 
-![beef-redirect-result.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111863072.png/wm)
+![beef-redirect-result.png](../imgs/wm_504.png)
 
 你不会以为 BeEF 中的攻击模块都这么无用吗？不是的，我们还可以使用这样一个模块：
 
-![beef-start-pretty.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111879121.png/wm)
+![beef-start-pretty.png](../imgs/wm_505.png)
 
 该模块会弹出一个与 Facebook 登陆窗口一模一样的窗口，让你误以为你掉线了，需要重新登陆，此时若是你输入了用户名、密码，那么攻击者就真的获取到了你的登陆名与密码。
 
 执行之后的效果：
 
-![beef-pretty-facebook.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111895582.png/wm)
+![beef-pretty-facebook.png](../imgs/wm_506.png)
 
 若是输入了用户名与密码：
 
-![beef-pretty-login.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111909274.png/wm)
+![beef-pretty-login.png](../imgs/wm_507.png)
 
 返回我们的后台页面，我们可以看到，目标用户的登录名与密码就这么轻易的被我们获取到了。
 
-![beef-pretty-result.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111926689.png/wm)
+![beef-pretty-result.png](../imgs/wm_508.png)
 
 同样我们可以查看源码 `less /usr/share/beef-xss/modules/social_engineering/pretty_theft/command.js`，原理并不是多么的高深：
 
 通过 DOM 执行一些 HTML 的语句，来创造出登陆时的界面：
 
-![beef-pretty-html.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111946038.png/wm)
+![beef-pretty-html.png](../imgs/wm_509.png)
 
 然后等待用户将用户名与密码提交之后将结果返回回来：
 
-![beef-pretty-getusernamepassword.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111960370.png/wm)
+![beef-pretty-getusernamepassword.png](../imgs/wm_510.png)
 
 这就是钓鱼网站的骗局，弄出一个与官网一模一样的界面，让你误以为就是官网，从而骗取的登陆信息等等。原理并不复杂，代码也不多，这里有这么多是因为模拟了 7 个登陆界面，还有做一些判断在里面。
 
@@ -335,11 +335,11 @@ vim /usr/share/beef-xss/extensions/metasploit/config.yaml
 msf > load msgrpc ServerHost=127.0.0.1 Pass=abc123
 ```
 
-![load-msgrpc.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111979257.png/wm)
+![load-msgrpc.png](../imgs/wm_511.png)
 
 此时我们再次启动 BeEF，我们可以看到加载信息中有 metasploit 的相关模块的加载：
 
-![star-with-metasploit.png](https://doc.shiyanlou.com/document-uid113508labid2398timestamp1482111997482.png/wm)
+![star-with-metasploit.png](../imgs/wm_512.png)
 
 这样我们便实现了 BeEF 与 metasploit 的强强联合，如此我们就可以利用 XSS 做更深入、更自动化的渗透了。但是由于我们环境的原因，在 BeEF 后台加载 metasploit 相关 Command 的时候会一直连接不上，有兴趣的同学可以在本地尝试一下。
 

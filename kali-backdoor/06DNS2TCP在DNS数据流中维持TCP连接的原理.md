@@ -38,7 +38,7 @@
 - TCP 支持的应用协议：Telnet（远程登录）、FTP（文件传输协议）、SMTP（简单邮件传输协议）。TCP用于传输数据量大，可靠性要求高的应用。
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/ff207c4ac994ae597a753f238bd6b2de/1481683173674.png-wm)
+![图片描述](../imgs/1481683173674.png-wm.png)
 > 图来自维基百科传输控制协议
 
 与 TCP 协议经常一起出现的，叫用户数据报协议 UDP，全名为 User Data Protocol，其中有两点值得注意：
@@ -47,7 +47,7 @@
 
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/ff207c4ac994ae597a753f238bd6b2de/1481684162270.png-wm)
+![图片描述](../imgs/1481684162270.png-wm.png)
 
 
 在了介绍了 TCP 协议与 UDP 协议这两个重要概念之后，我们对这两个协议做一个总结：
@@ -67,7 +67,7 @@
 - 第二次握手：服务器收到 syn 包，必须确认客户的SYN（ack=j+1），同时自己也发送一个 SYN 包（syn=k），即 SYN+ACK 包，此时服务器进入 SYN_RECV 状态。
 - 第三次握手：客户端收到服务器的 SYN＋ACK 包，向服务器发送确认包 ACK（ack=k+1），此包发送完毕，客户端和服务器进入 ESTABLISHED 状态，完成三次握手。
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/ff207c4ac994ae597a753f238bd6b2de/1481698984593.png-wm)
+![图片描述](../imgs/1481698984593.png-wm.png)
 
 ## 四、 DNS 隧道技术
 
@@ -118,7 +118,7 @@ A    b  默认  你的服务器IP地址
 
 接下来输入帮助命令，查看 DNS2TCP 服务器端的工具的参数使用。在 Kali 终端中，输命令 `dns2tcpd`，可以看到帮助信息：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481771537147.png-wm)
+![图片描述](../imgs/1481771537147.png-wm.png)
 
 其中的参数含义表格如下：
 
@@ -169,7 +169,7 @@ kill all dns2tcpd
 
 下面继续讲解 DNS2TCP 客户端隧道工具的使用，及其配置含义。本实验理解 DNS2TCP 在 DNS 隧道技术中的使用流程和原理即可。在实验楼 Kali 终端中，输入帮助命令 `dns2tcpc`，可以查看 DNS 客户端的具体参数信息：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481772378890.png-wm)
+![图片描述](../imgs/1481772378890.png-wm.png)
 
 其中客户端器端的参数含义表格如下：
 
@@ -197,7 +197,7 @@ dns2tcpc -r ssh -z a.shiyanlou.com X.X.X.X -l 8888 -d 2
 
 本实验主要介绍了使用 DNS2TCP 在 DNS 数据流中维持 TCP 连接的原理，其中还包括了 DNS2TCP 服务器端和客户端的配置问题，其中还介绍了 TCP 协议和 UDP 协议的概念和区别。本实验的主要知识结构如下图所示：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/ff207c4ac994ae597a753f238bd6b2de/1481815366811.png-wm)
+![图片描述](../imgs/1481815366811.png-wm.png)
 
 
 ## 六、课后作业

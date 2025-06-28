@@ -71,7 +71,7 @@ Dos 攻击的方式非常的明确，我们可以通过 SYN 攻击来理解 Dos 
 
 TCP 是面向连接的，可靠的进程通信的协议，提供全双工服务，即数据可在同一时间双向传输，也正是因为 TCP 的可靠连接，所以广泛应用在大多数的应用层协议，而 TCP 在建立一个连接需要三次交互，这个过程叫 Three-way Handshake（三次握手）。
 
-![TCP-connect-finialpacket.png](https://doc.shiyanlou.com/document-uid113508labid2122timestamp1476354199104.png/wm)（此图来自于由浅入深学网络）
+![TCP-connect-finialpacket.png](../imgs/wm_170.png)（此图来自于由浅入深学网络）
 
 1. 由客户端使用一个随机的端口号，向服务器端特定的端口号发送 SYN 建立连接的请求，并将 TCP 的 SYN 控制信号位至为1。SYN（synchronous）是 TCP/IP 建立连接时使用的握手信号，客户端将该段的序列号设置为一个随机值。
 2. 服务器端收到了客户端的请求，会向客户端发送一个确认的信息，表示已收到请求，这使得数据包里会将 ACK 设置为客户端请求序列号+1，同时服务器端还会向客户端发送一个 SYN 建立连接的请求，SYN 的序列号为另外一个随机的值
@@ -93,21 +93,21 @@ CLOSED -> LISTEN -> SYN recv -> ESTABLISHED
 
 同样首先我们将使用 `sudo virsh start Kali` 来启动 Kali 的实验环境：
 
-![start-kali](https://doc.shiyanlou.com/document-uid113508labid2432timestamp1483601152509.png/wm)
+![start-kali](../imgs/wm_171.png)
 
 通过 `sudo virsh start Metasploitable2` 命令来启动靶机系统：
 
-![start-metasploit](https://doc.shiyanlou.com/document-uid113508labid2432timestamp1483601144011.png/wm)
+![start-metasploit](../imgs/wm_172.png)
 
 启动虚拟机需要一定的时间，稍等大约 4 分钟我们便可使用 `ssh root@kali` 登陆至 Kali 的终端：
 
-![ssh-kali](https://doc.shiyanlou.com/document-uid113508labid2432timestamp1483601135573.png/wm)
+![ssh-kali](../imgs/wm_173.png)
 
 若是出现这样的情况，说明 Kali 虚拟机还未启动完全：
 
-![error-ssh](https://doc.shiyanlou.com/document-uid113508labid2432timestamp1483601129180.png/wm)
+![error-ssh](../imgs/wm_174.png)
 
-![error-ssh2](https://doc.shiyanlou.com/document-uid113508labid2432timestamp1483601120965.png/wm)
+![error-ssh2](../imgs/wm_175.png)
 
 我们可以通过这样一个命令来模拟一次 SYN flood 的攻击：
 
@@ -115,19 +115,19 @@ CLOSED -> LISTEN -> SYN recv -> ESTABLISHED
 hping3 -S -P -U --flood -V --rand-source 192.168.122.102
 ```
 
-![run-hping3](https://doc.shiyanlou.com/document-uid113508labid2432timestamp1483601113642.png/wm)
+![run-hping3](../imgs/wm_176.png)
 
 该命令便是通过 hping3 工具，设置 SYN、PUSH、URG 的标志位，向 192.168.122.102 发动 flood 攻击，并且其中 `--rand-source` 参数设置数据包中的 IP 源地址为随机地址，而不是其本身的 IP 地址。
 
 稍等片刻我们再次访问 `192.168.122.102/mutillidae` 时，我们会发现其异常的缓慢，网页在不停的加载中，一直处于加载中：
 
-![show-result](https://doc.shiyanlou.com/document-uid113508labid2432timestamp1483074122435.png/wm)
+![show-result](../imgs/wm_177.png)
 
 这样访问异常的慢，便是由 Dos 所导致，而之所以还能服务，这是因为我们所发送的数据包量还不够大，还在服务器的承受范围之内。
 
 于此同时我们还可以尝试登陆我们的靶机 `ssh msfadmin@target`，我们都会发现异常的缓慢，半天密码提示框都没有出现：
 
-![ssh-no-response](https://doc.shiyanlou.com/document-uid113508labid2432timestamp1483601102633.png/wm)
+![ssh-no-response](../imgs/wm_178.png)
 
 若是如此，我们觉得效果不明显，我们可以在 Kali 中使用 `ctrl+c` 来结束 hping3 命令。
 
@@ -139,11 +139,11 @@ ab -n 10000000 -c 600 http://192.168.122.102/mutillidae
 
 该命令便是向我们靶机模拟发送1000万个请求，同时并发量为600个，我们可以 ssh 登陆上我们的靶机：
 
-![ssh-metasploit](https://doc.shiyanlou.com/document-uid113508labid2432timestamp1483601091371.png/wm)
+![ssh-metasploit](../imgs/wm_179.png)
 
 通过 top 查看此时系统的负载情况:
 
-![show-top](https://doc.shiyanlou.com/document-uid113508labid2432timestamp1483074108207.png/wm)
+![show-top](../imgs/wm_180.png)
 
 我们可以看到此时系统的负载非常的高，并且全是 apache2 的进程。这就是 Dos 攻击，让目的主机疲于应付我们的大量请求，而无法处理正常的请求。
 

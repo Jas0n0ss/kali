@@ -62,7 +62,7 @@ sudo virsh start Metasploitable2
 ssh root@Kali
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483505661337.png-wm)
+![图片描述](../imgs/1483505661337.png-wm.png)
 
 ## 三、利用 SSH 弱密码进行暴力破解
 
@@ -76,7 +76,7 @@ $ cd /usr/share/metasploit-framework/data/wordlists/
 $ ls
 ```
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2313timestamp1480485297226.png/wm)
+![此处输入图片的描述](../imgs/wm_25.png)
 
 
 
@@ -84,7 +84,7 @@ $ ls
 
 查看字典文件长度（有917行）和内容（每行为两个单词，前一个为用户名，后一个为密码）：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2313timestamp1480485305009.png/wm)
+![此处输入图片的描述](../imgs/wm_26.png)
 
 此次使用的攻击脚本文件为 `/usr/share/metasploit-framework/modules/auxiliary/scanner/ssh/ssh_login.rb`，注意这个目录下还有很多其他 SSH 攻击的脚本，感兴趣可以查看下。查看并分析攻击脚本的核心代码内容：
 
@@ -243,7 +243,7 @@ msf > set userpass_file /usr/share/metasploit-framework/data/wordlists/piata_ssh
 msf > set verbose false
 ```
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2313timestamp1480485320672.png/wm)
+![此处输入图片的描述](../imgs/wm_27.png)
 
 ### 3.5 暴力破解攻击
 
@@ -255,7 +255,7 @@ msf > show options
 
 开始执行暴力破解，使用的是 `exploit` 命令：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2313timestamp1480485329919.png/wm)
+![此处输入图片的描述](../imgs/wm_28.png)
 
 注意：执行时间比较长，我们可以在出现第一次正确信息的时候（大概几分钟）执行 `Ctrl-C` 中断程序，然后继续后续的实验操作。
 
@@ -264,7 +264,7 @@ msf > show options
 暴力破解的时间会很长，但中间会陆续输出一些成功的用户名和密码对，因为靶机上的可以通过 SSH 登录的用户很多，并且都有弱密码，所以会输出多个，为了节约时间，我们可以在输出第一个的时候就直接 `Ctrl-C` 退出后续的暴力破解过程。
 
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2313timestamp1480485336980.png/wm)
+![此处输入图片的描述](../imgs/wm_29.png)
 
 当匹配成功的时候，攻击脚本会自动创建一个 SSH 连接会话，我们可以使用 `sessions -i <session_id>` 这个命令将终端切换到会话中。
 
@@ -272,7 +272,7 @@ msf > show options
 
 进入到这个 Shell 中我们就可以执行一系列的命令了：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2313timestamp1480485344343.png/wm)
+![此处输入图片的描述](../imgs/wm_30.png)
 
 ### 3.7 其他暴力破解的方法
 
@@ -334,7 +334,7 @@ msf auxiliary(vnc_login) > exploit
 
 很快 vnc_login 的攻击结果就出来了，因为 vnc 登录没有输入用户名只需要尝试各种常见的弱密码，结果可以看到 vnc 登录的密码为 `password`：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2313timestamp1480485354713.png/wm)
+![此处输入图片的描述](../imgs/wm_31.png)
 
 思考：为什么我们没有设置 vnc_login 的 userpass_file 字典文件也可以进行暴力破解攻击？
 

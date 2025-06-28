@@ -73,7 +73,7 @@ whois baidu.com
 
 通过这样的命令我们可以得到：
 
-![whois-info.png](https://doc.shiyanlou.com/document-uid113508labid2397timestamp1481528361228.png/wm)
+![whois-info.png](../imgs/wm_89.png)
 
 信息非常的多，我们主要可以从中获取到 DNS 服务器的信息，以及域名注册人的联系方式等相关信息，这样的一些信息会在后续阶段发挥作用，但是现在的第三方域名注册机构大多都注意到隐私保护这一块，所以在注册信息部分看不到相关人员信息了。
 
@@ -98,7 +98,7 @@ host -t ns baidu.com
 
 所以我们基本上可以通过 host 工具查出该域名下的大部分子域名以及这些子域名的对应关系。
 
-![host-ns.png](https://doc.shiyanlou.com/document-uid113508labid2397timestamp1481528475486.png/wm)
+![host-ns.png](../imgs/wm_90.png)
 
 与 host 功能类似的功能的工具还有 `dig`、`dnsenum`、`dnsdict6`、`fierce`、`dmitry` 等等。
 
@@ -108,7 +108,7 @@ host -t ns baidu.com
 dig shiyanlou.com any
 ```
 
-![dig-info.png](https://doc.shiyanlou.com/document-uid113508labid2397timestamp1481528492916.png/wm)
+![dig-info.png](../imgs/wm_91.png)
 
 这样的一些工具虽然功能很类似，但是他们的侧重点不同所以各有各的优势，只有能够达到我们的目的，能利用该工具搜集到我们需要的信息的便是好工具。
 
@@ -169,7 +169,7 @@ nmap -sn target
 
 在攻击一个主机之前我们当然要看它是否处于活动状态，否则后面的一切都属于白忙活，这样的扫描称之为探索扫描，通过这个命令我们会得到这样的显示：
 
-![nmap-sn-info.png](https://doc.shiyanlou.com/document-uid113508labid2397timestamp1481528531640.png/wm)
+![nmap-sn-info.png](../imgs/wm_92.png)
 
 `-sn` 参数通常被称作 ping 扫描，用于发现目标主机，探测其是否处于开机状态。其原理便是该命令会在局域网中广播 ARP 请求，若是响应了请求的话定是处于开机状态，而反之则处于关闭的状态。
 
@@ -177,7 +177,7 @@ nmap -sn target
 
 我们可以在 shiyanlou 的 shell 中使用 `ifconfig eth0` 知道主机的内网地址：
 
-![ifconfig-eth0.png](https://doc.shiyanlou.com/document-uid113508labid2397timestamp1481528561303.png/wm)
+![ifconfig-eth0.png](../imgs/wm_93.png)
 
 然后在 kali 中使用同样的方法来扫描宿主机，会发现结果中并没有 MAC 地址：
 
@@ -186,7 +186,7 @@ nmap -sn target
 nmap -sn 10.105.222.73
 ```
 
-![nmap-sn-info-icmp.png](https://doc.shiyanlou.com/document-uid113508labid2397timestamp1481528588428.png/wm)
+![nmap-sn-info-icmp.png](../imgs/wm_94.png)
 
 若是我们通过在 shiyanlou 的 shell 中挂起或者关闭我们的靶机系统，我们在使用同样的命令，它会提示说目标主机似乎处于关闭的状态，因为主机没有响应其 ARP 请求：
 
@@ -195,7 +195,7 @@ nmap -sn 10.105.222.73
 sudo virsh suspend Metasploitable2
 ```
 
-![suspend-meta.png](https://doc.shiyanlou.com/document-uid113508labid2397timestamp1481528608420.png/wm)
+![suspend-meta.png](../imgs/wm_95.png)
 
 然后再在 kali 中尝试查看其状态：
 
@@ -205,7 +205,7 @@ nmap -sn target
 
 会得到这样的结果：
 
-![nmap-sn-info-shutdown.png](https://doc.shiyanlou.com/document-uid113508labid2397timestamp1481528631576.png/wm)
+![nmap-sn-info-shutdown.png](../imgs/wm_96.png)
 
 拥有类似功能的工具还有 netdiscover，arping，scapy。他们大多都是直接针对 ARP（scapy 较为强大，可以针对网络层，甚至是传输层的探测，但是使用起来也相对复杂一点），针对数据链路层发现主机的工具，这里便不在一一介绍，有兴趣的同学可以去了解一下。
 
@@ -226,7 +226,7 @@ nmap target -PA80 -sn
 
 通过该命令我们可以得到这样的结果：
 
-![nmap-sn-info-PA.png](https://doc.shiyanlou.com/document-uid113508labid2397timestamp1481528655892.png/wm)
+![nmap-sn-info-PA.png](../imgs/wm_97.png)
 
 > **注意**：若是你得到的结果是 shutdown，与我的不同，那是因为我们刚刚将其挂起了，需要它恢复才行。`sudo virsh resume Metasploitable2`
 
@@ -238,7 +238,7 @@ nmap -sS target
 
 我们可以看到靶机中所有基于 TCP 协议开放的端口：
 
-![nmap-sS-info.png](https://doc.shiyanlou.com/document-uid113508labid2397timestamp1481528680894.png/wm)
+![nmap-sS-info.png](../imgs/wm_98.png)
 
 当然若是你想查看 UDP 相关的开放端口，我们也可以使用 `-sU` 参数，但是对于 UDP 的端口扫描十分的缓慢，大约需要 10 分钟左右甚至更多的时间，在他定格的画面敲击回车可以看见其扫描的进度：
 
@@ -246,7 +246,7 @@ nmap -sS target
 nmap target -sU
 ```
 
-![nmap-sU-info.png](https://doc.shiyanlou.com/document-uid113508labid2397timestamp1481528702145.png/wm)
+![nmap-sU-info.png](../imgs/wm_99.png)
 
 因为 UDP 本身是无连接的协议，所以一个打开的 UDP 端口并不会给我们返回任何响应包，不过如果端口关闭，某些系统将返回`PORT_UNREACH` 信息。由此可以查探 UDP 的端口是否开放，因为是某些系统给予响应，所以这样的探测方式也有可能出错。这就是为什么 UDP 的扫描如此的慢，不像 TCP 开放的端口三次握手，很快就有响应数据包传回，就可以知道端口是否开放。
 
@@ -258,7 +258,7 @@ nmap -O target
 
 我们会得到这样的一些信息：
 
-![nmap-o-info.png](https://doc.shiyanlou.com/document-uid113508labid2397timestamp1481528747206.png/wm)
+![nmap-o-info.png](../imgs/wm_100.png)
 
 其中 `-O` 参数的作用便是开启操作系统的检测，从图中我们可以看到 nmap 扫描除了目标主机当前能够检测到的所有开放的端口，并且在最后提供了目标主机操作系统的类型与版本的猜测。
 
@@ -272,7 +272,7 @@ nmap -O target
 nmap -sV target
 ```
 
-![nmap-sV-info.png](https://doc.shiyanlou.com/document-uid113508labid2397timestamp1481528769300.png/wm)
+![nmap-sV-info.png](../imgs/wm_101.png)
 
 在图中我们可以看到，每个端口上运行的组件我们都知道了，80 上运行的 Apache 不是 nginx，我们只需要查找 Apache 相关的漏洞，由此可以减少很多不必要的工作（例如去搜集其他组件的相关漏洞）。
 
@@ -282,7 +282,7 @@ nmap -sV target
 nmap -A target
 ```
 
-![nmap-A-info.png](https://doc.shiyanlou.com/document-uid113508labid2397timestamp1481528785115.png/wm)
+![nmap-A-info.png](../imgs/wm_102.png)
 
 往上翻看我们可以发现这次得到信息量非常的大，不仅显示了开放出来的端口号，同时把对应端口使用的服务以及服务使用的软件本版信息一同显示出来，最后给予了更加详尽的操作系统版本的信息。使用 `-A` 参数与使用 `-sV` 参数都可以获得相关服务识别的信息，但是他们的侧重点不同，根据自己需要信息的重点来选择怎样的参数。
 
@@ -298,7 +298,7 @@ nmap -A target
 nmap -sA target
 ```
 
-![nmap-sA-info.png](https://doc.shiyanlou.com/document-uid113508labid2397timestamp1481528800980.png/wm)
+![nmap-sA-info.png](../imgs/wm_103.png)
 
 而如何做到的防火墙识别？最简单的方法便是通过 TCP 三次握手的不同数据包得到的不同响应来判断，是否被防火墙所过滤：
 
@@ -343,7 +343,7 @@ Metasploit 相对来说比 Nmap 来扫描更加的简单，他仅仅针对有限
 root@kali:~# msfconsole 
 ```
 
-![msfconsole-start.png](https://doc.shiyanlou.com/document-uid113508labid2397timestamp1481528821288.png/wm)
+![msfconsole-start.png](../imgs/wm_104.png)
 
 接着使用 use 命令来调用我们需要使用的模块：
 
@@ -351,7 +351,7 @@ root@kali:~# msfconsole
 msf > use auxiliary/scanner/discovery/udp_sweep 
 ```
 
-![msfconsole-use.png](https://doc.shiyanlou.com/document-uid113508labid2397timestamp1481528837310.png/wm)
+![msfconsole-use.png](../imgs/wm_105.png)
 
 然后使用 set 命令来设置使用该模块时需要设置的参数，再此之前还可以使用 `show options` 命令来有哪些参数可以设置，哪些参数必须要设置：
 
@@ -359,7 +359,7 @@ msf > use auxiliary/scanner/discovery/udp_sweep
 msf  auxiliary(udp_sweep) > show options
 ```
 
-![msfconsole-show-option.png](https://doc.shiyanlou.com/document-uid113508labid2397timestamp1481528857743.png/wm)
+![msfconsole-show-option.png](../imgs/wm_106.png)
 
 通过这命令我们可以看到一个表格，其中包含所有可以设置的参数，有参数的名字，有设置的值，有是否为必须设置的参数，最后还有相关参数的描述
 
@@ -374,11 +374,11 @@ msf  auxiliary(udp_sweep) > set RHOSTS 192.168.122.1-100
 
 设置 `THREADS` 参数为执行命令的线程数，设置高一点可以帮助我们提高扫描的时间
 
-![msfconsole-set](https://doc.shiyanlou.com/document-uid113508labid2397timestamp1481528871534.png/wm)
+![msfconsole-set](../imgs/wm_107.png)
 
 最后使用 `run` 命令就可以自动执行模块了，执行之后便会直接把结果显示在下方，是不是很简单，只需要四个步骤，并且我们可以看到用不了多久结果便展示出来了，端口对应的服务，使用的 UDP 版本：
 
-![msfconsole-run.png](https://doc.shiyanlou.com/document-uid113508labid2397timestamp1481528892343.png/wm)
+![msfconsole-run.png](../imgs/wm_108.png)
 
 这样便比 nmap 的扫描来的高效许多。
 
@@ -391,7 +391,7 @@ msf  auxiliary(udp_sweep) > set RHOSTS 192.168.122.1-100
 root@kali:~# msfconsole 
 ```
 
-![msfconsole-start.png](https://doc.shiyanlou.com/document-uid113508labid2397timestamp1481528821288.png/wm)
+![msfconsole-start.png](../imgs/wm_104.png)
 
 接着第二步便是选择使用的模块，当然若是当前使用了其他模块
 
@@ -407,7 +407,7 @@ msf auxiliary(udp_sweep) > back
 msf > use auxiliary/scanner/portscan/ack
 ```
 
-![msfconsole-change-use.png](https://doc.shiyanlou.com/document-uid113508labid2397timestamp1481528926300.png/wm)
+![msfconsole-change-use.png](../imgs/wm_110.png)
 
 第三步便是查看参数与设置参数参数：
 
@@ -428,7 +428,7 @@ msf auxiliary(ack) > set THREADS 10
 
 ```
 
-![msfconsole-change-set.png](https://doc.shiyanlou.com/document-uid113508labid2397timestamp1481528939272.png/wm)
+![msfconsole-change-set.png](../imgs/wm_111.png)
 
 第四步便是执行命令开始扫描
 
@@ -436,7 +436,7 @@ msf auxiliary(ack) > set THREADS 10
 msf auxiliary(ack) > run
 ```
 
-![msfconsole-change-run.png](https://doc.shiyanlou.com/document-uid113508labid2397timestamp1481528953068.png/wm)
+![msfconsole-change-run.png](../imgs/wm_112.png)
 
 3.网站的组件常见漏洞
 
@@ -454,13 +454,13 @@ msf auxiliary(ack) > run
 如何学习渗透测试 site:www.zhihu.com
 ```
 
-![![google-hacking-site.png](https://doc.shiyanlou.com/document-uid113508labid2397timestamp1481528971066.png/wm)](http:///wm)
+![![google-hacking-site.png](../imgs/wm_113.png)](http:///wm)
 
 我们还可以使用 `OR` 参数，该参数表示只要匹配其前后两个词的任意一个都给出结果。
 
 > **注意**：在搜索引擎中对内容并不却分大小写，但是此处的 OR 参数需要使用大写。
 
-![google-hacking-or.png](https://doc.shiyanlou.com/document-uid113508labid2397timestamp1481528986840.png/wm)
+![google-hacking-or.png](../imgs/wm_114.png)
 
 而与 `site:` 参数同类型的常有参数还有这样一些：
 
@@ -481,7 +481,7 @@ msf auxiliary(ack) > run
 related:www.codecademy.com
 ```
 
-![google-hacking-related.png](https://doc.shiyanlou.com/document-uid113508labid2397timestamp1481528999248.png/wm)
+![google-hacking-related.png](../imgs/wm_115.png)
 
 这只是一些非常简单的用法，当然这个东西本身也并不是很难，但只要灵活的运用就会收到你所意想不到的信息，收集的好甚至能够得到别人后台数据库的登陆用户名、密码（如 phpadmin）。
 
@@ -500,13 +500,13 @@ joomscan -u target
 
 然后他会把检测到的结果展示出来：
 
-![joomla-info](https://doc.shiyanlou.com/document-uid113508labid2397timestamp1481529024732.png/wm)
+![joomla-info](../imgs/wm_116.png)
 
 能把大部分可能被利用的 web 漏洞都展示出来，并做了相关的说明。
 
 与之类似的工具还有 Nikto，Nikto 一个开源的 Perl 模块，它是通过识别潜在可疑的文件，对网页服务器进行全面的多种扫描：
 
-![nikto-info](https://doc.shiyanlou.com/document-uid113508labid2397timestamp1481529035680.png/wm)
+![nikto-info](../imgs/wm_117.png)
 
 ### 5.4 漏洞验证
 

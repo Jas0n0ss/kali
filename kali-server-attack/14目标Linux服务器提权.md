@@ -32,7 +32,7 @@
 | 靶机   | `Metasploitable2` | `msfadmin` | `msfadmin` |
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480402741165.png-wm)
+![图片描述](../imgs/1480402741165.png-wm.png)
 
 ## 二、环境启动
 
@@ -44,13 +44,13 @@
 然后我们使用 `virsh start` 命令启动虚拟机，再次查看状态虚拟机已经进入 running 状态：
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479890565816.png-wm)
+![图片描述](../imgs/1479890565816.png-wm_8.png)
 
 注意由于虚拟机启动需要时间，大概要等四分钟左右我们就可以使用 SSH 访问两台虚拟机了。
 
 首先使用 SSH 连接到 Kali，我们大部分的攻击操作都需要在 Kali 虚拟机中进行，注意用户名root，密码 toor 是不显示的，使用命令 `ssh root@kali` 即可，因为当前实验环境中已经把 IP 地址和主机名的对应写入到了 `/etc/hosts` 文件中，避免输入不好记的 IP 地址：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479890676283.png-wm)
+![图片描述](../imgs/1479890676283.png-wm_8.png)
 
 现在两台实验环境都已经启动，我们可以开始渗透测试实验了。
 
@@ -77,7 +77,7 @@ set RHOST 192.168.122.102
 exploit
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483509960404.png-wm)
+![图片描述](../imgs/1483509960404.png-wm.png)
 
 
 由攻击的 gif 图可以看出，目前已经成功建立了管道连接。其中值得注意的是，在攻击结束之后，会建立一个 `session` 保存当前的会话。gif 动图中显示的是，`Command shell session 4 opened` 是因为运行了四次攻击。
@@ -96,7 +96,7 @@ whoami
 id
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483510378675.png-wm)
+![图片描述](../imgs/1483510378675.png-wm.png)
 
 
 由上图可以看出，当前登录的用户为 `daemon`，id 并非为 0 ，0 为管理员用户，并非像我们之前那样，直接获取 root 权限。在真正的渗透测试过程中，非 root 权限的情况很多，这时候，为了完全掌控所渗透的目标主机，我们需要做的事情，就是提高当前登录用户的权限，简而言之，就是提权。
@@ -110,7 +110,7 @@ id
 
 在渗透成功之后，一般情况下我们需要对目标靶机系统的详细信息做一个评估。在本实验中渗透成功之后，我们当前的用户为低权限的非 root 用户，此时需要做如下工作，进行提权准备：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480405131027.png-wm)
+![图片描述](../imgs/1480405131027.png-wm.png)
 
 在终端中输入如命令，用以查看系统的发行版本，如图所示：
 
@@ -119,7 +119,7 @@ id
 lsb_release -a
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480405308859.png-wm)
+![图片描述](../imgs/1480405308859.png-wm.png)
 
 由图可以看出，我们渗透的目标主机为 Ubuntu 操作系统。版本号为 Ubuntu 8.04 是属于比较老的一个版本。接着我们再输入 `uname -a`，查看操作系统的内核版本：
 
@@ -128,7 +128,7 @@ lsb_release -a
 uname -a
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480405546281.png-wm)
+![图片描述](../imgs/1480405546281.png-wm.png)
 
 接着进行比较关键的一步，查找可以用的 SUID 文件来提权，在终端中，继续输入命令：
 
@@ -139,7 +139,7 @@ find / -perm -u=s -type f 2>/dev/null
 这里同学们如果觉得实验的命令过长，可以通过复制本命令，然候粘贴到实验的剪切板，接着在实验楼中，通过 `ctrl` + `shit` + `v` 进行粘贴。如果一切顺利，你将会看到如果列表：
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480405790093.png-wm)
+![图片描述](../imgs/1480405790093.png-wm.png)
 
 在上面的列表中，可以发现有一个 nmap ，一般来说，低版本的 nmap 会有一个可以提权的漏洞，我们可以试试先查看 namp 的版本。也并不是每个都有漏洞，在渗透攻击的过程中，正常情况下，我们需要对多个可能出现漏洞的地方进行尝试，这样才能够找出漏洞。
 
@@ -152,7 +152,7 @@ find / -perm -u=s -type f 2>/dev/null
 /usr/bin/nmap --version
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483510778353.png-wm)
+![图片描述](../imgs/1483510778353.png-wm.png)
 
 
 注意单词的拼写，特别是 `nmap`。
@@ -183,7 +183,7 @@ nmap> !sh
 whoami
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480406813156.png-wm)
+![图片描述](../imgs/1480406813156.png-wm.png)
 
 好了，现在你就是 `root`， `root` 就是你了，提权成功！
 

@@ -47,18 +47,18 @@
 首先使用 `virsh list` 命令查看当前环境中虚拟机的列表和状态，注意需要使用 sudo，另外需要加上参数 `--all` 才会显示所有关机状态的虚拟机：
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479890445878.png-wm)
+![图片描述](../imgs/1479890445878.png-wm.png)
 
 然后我们使用 `virsh start` 命令启动虚拟机，再次查看状态虚拟机已经进入 running 状态：
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479890565816.png-wm)
+![图片描述](../imgs/1479890565816.png-wm.png)
 
 注意由于虚拟机启动需要时间，大概要等四分钟左右我们就可以使用 SSH 访问两台虚拟机了。
 
 首先使用 SSH 连接到 Kali，我们大部分的攻击操作都需要在 Kali 虚拟机中进行，注意用户名root，密码 toor 是不显示的，使用命令 `ssh root@kali` 即可，因为当前实验环境中已经把 IP 地址和主机名的对应写入到了 `/etc/hosts` 文件中，避免输入不好记的 IP 地址：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479890676283.png-wm)
+![图片描述](../imgs/1479890676283.png-wm.png)
 
 现在两台实验环境都已经启动，我们可以开始渗透测试实验了。
 
@@ -183,7 +183,7 @@ msf > use auxiliary/scanner/nfs/nfsmount
 
 **注意：msfconsole 的提示符中增加了 `nfsmount` 信息。**
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2317timestamp1480495148878.png/wm)
+![此处输入图片的描述](../imgs/wm.png)
 
 
 ### 3.4 配置模块
@@ -205,13 +205,13 @@ msf > set threads 5
 msf > show options
 ```
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2317timestamp1480495163777.png/wm)
+![此处输入图片的描述](../imgs/wm_1.png)
 
 ### 3.5 执行扫描
 
 开始执行，使用的是 `exploit` 命令，扫描的结果中展示了目标服务器提供的共享存储挂载信息，可以看到 `/` 被完整的提供了：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2317timestamp1480495172862.png/wm)
+![此处输入图片的描述](../imgs/wm_2.png)
 
 
 ## 四、挂载并利用错误配置进行攻击
@@ -232,7 +232,7 @@ nfspy -o server=192.168.122.102:/,rw /mnt
 
 现在我们进入到 `/mnt` 目录，可以看到所有在 target 服务器上的文件。
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2317timestamp1480495180539.png/wm)
+![此处输入图片的描述](../imgs/wm_3.png)
 
 ### 4.2 创建攻击使用的证书
 
@@ -242,7 +242,7 @@ SSH 服务可以使用密码登录也可以使用证书登录，证书登录的�
 
 首先我们创建一组公私钥证书，使用 `ssh-keygen` 命令，一路回车都使用默认配置就可以，创建得到的证书在 Kali 主机的 `/root/.ssh` 目录：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2317timestamp1480495187408.png/wm)
+![此处输入图片的描述](../imgs/wm_4.png)
 
 其中：
 
@@ -254,13 +254,13 @@ SSH 服务可以使用密码登录也可以使用证书登录，证书登录的�
 
 设置 SSH 无密码登录只需要将上一步骤创建的 `id_rsa.pub` 证书添加到目标服务器的 `/root/.ssh/authorized_keys` 文件的尾部即可：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2317timestamp1480495195115.png/wm)
+![此处输入图片的描述](../imgs/wm_5.png)
 
 ### 4.4 连接测试
 
 在 Kali 的命令行我们测试是否可以直接 SSH 连接靶机：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2317timestamp1480495203206.png/wm)
+![此处输入图片的描述](../imgs/wm_6.png)
 
 连接成功，不需要输入任何密码。
 

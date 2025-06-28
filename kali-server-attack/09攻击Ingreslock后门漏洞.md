@@ -29,7 +29,7 @@
 | 目标靶机 | Metasploitable2 | target | 192.168.122.102 |
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480388470011.png-wm)
+![图片描述](../imgs/1480388470011.png-wm.png)
 
 
 
@@ -50,7 +50,7 @@ sudo virsh start Metasploitable2
 
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483505113969.png-wm)
+![图片描述](../imgs/1483505113969.png-wm.png)
 
 使用 `ping` 命令可以知道 Kali Linux 是否已经完全启动成功，当宿主机 Ubuntn 和 Kali Linux 两台主机能够 ping 通的时候，说明 Kali 已经启动。此时输入命令使用 ssh 进行连接：
 
@@ -59,7 +59,7 @@ sudo virsh start Metasploitable2
 ssh root@Kali
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483505661337.png-wm)
+![图片描述](../imgs/1483505661337.png-wm_1.png)
 
 ## 三、渗透扫描
 
@@ -77,7 +77,7 @@ ingreslock 1524/TCP 端口经常被用作后门程序监听端口，这个端口
 
 在下面的实验中，我们依旧遵循着渗透攻击的流程。渗透测试的流程分别为：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480387936307.png-wm)
+![图片描述](../imgs/1480387936307.png-wm.png)
 
 
 渗透扫描，我们一般使用扫描神器 Nmap 对即将要渗透的目标主机的端口进行扫描。其中，Nmap (Network Mapper(网络映射器) 是一款开放源代码的网络探测和安全审核的工具。它的设计目标是快速地扫描大型网络，你也可以用它扫描单个主机。
@@ -89,7 +89,7 @@ ingreslock 1524/TCP 端口经常被用作后门程序监听端口，这个端口
 sudo service postgresql start
 
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480000480023.png-wm)
+![图片描述](../imgs/1480000480023.png-wm_1.png)
 
 
 接着在实验楼的 Kali 终端中，输入命令，打开 MSF 终端：
@@ -101,7 +101,7 @@ msfconsole
 
 注意：如果是新开的环境，要记得像之前那样先使用 `msfdb init` 初始化数据库，进入 MSF 终端后使用 `db_rebuild_cache` 来重建缓存，以加快后面扫描的速度。
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483506121734.png-wm)
+![图片描述](../imgs/1483506121734.png-wm.png)
 
 使用扫描神器 Nmap 对渗透的目标主机，进行扫描：
 
@@ -110,7 +110,7 @@ msfconsole
 nmap -sV -T4 target
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480388571702.png-wm)
+![图片描述](../imgs/1480388571702.png-wm.png)
 
 
 
@@ -139,7 +139,7 @@ nmap -sV -T4 target
 telnet 192.168.122.102 1524
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483506462552.png-wm)
+![图片描述](../imgs/1483506462552.png-wm.png)
 
 由 gif 动图可以知道，使用命令后已经连接上目标主机 `192.168.122.102`。
 
@@ -155,7 +155,7 @@ ifconfig
 ```
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480393981395.png-wm)
+![图片描述](../imgs/1480393981395.png-wm.png)
 
 输入命令 `hostname`，用以查看所登录的主机名称：
 
@@ -164,7 +164,7 @@ ifconfig
 hostname
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480394128487.png-wm)
+![图片描述](../imgs/1480394128487.png-wm.png)
 
 输入命令 `whoami` ，查看当前用户身份:
 
@@ -173,7 +173,7 @@ hostname
 whoami
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480394252124.png-wm)
+![图片描述](../imgs/1480394252124.png-wm.png)
 
 到了这一步，渗透测试成功。下面我们再次回顾下，渗透攻击中，测试是否渗透成功的三个步骤参数，及其代表的含义：
 
@@ -213,7 +213,7 @@ whoami
 > https://www.youtube.com/watch?v=3YqpwHixiIA
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480395886665.png-wm)
+![图片描述](../imgs/1480395886665.png-wm.png)
 
 
 ## 七、课后作业

@@ -36,7 +36,7 @@
 
 首先大家都知道 AJAX 是 Asynchronous JavaScript and XML 的缩写，异步的 javascript 与 XML。使用 ajax 带来最大的好处是通过后台加载数据，并能够在不重新加载页面的情况下将加载的数据显示出来或者处理。
 
-![AJAX_diagram_sm.gif](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483598905062.png/wm)
+![AJAX_diagram_sm.gif](../imgs/wm_431.png)
 （此图来自于[billnasara](http://www.billnsara.com/js/ajax.asp)）
 
 也就是我们所说的动态的局部刷新，这样的处理非常方便并使得用户的体验非常好。
@@ -69,7 +69,7 @@
 wget http://labfile.oss.aliyuncs.com/courses/717/LATEST-mutillidae-2.6.42.zip
 ```
 
-![download-mutillidae](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483598922713.png/wm)
+![download-mutillidae](../imgs/wm_432.png)
 
 > **注意**：自己搭建环境的同学，从 sourceforge 中下下来的源码中 ajax 部分有一个小 bug，已向作者提出，本环境中的已修改好。需要自己修改的同学可以查看 [sourceforge 中的提交](https://sourceforge.net/p/mutillidae/bugs/23/)。
 
@@ -79,7 +79,7 @@ wget http://labfile.oss.aliyuncs.com/courses/717/LATEST-mutillidae-2.6.42.zip
 unzip LATEST-mutillidae-2.6.42.zip
 ```
 
-![unzip-mutillidae](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483598935899.png/wm)
+![unzip-mutillidae](../imgs/wm_433.png)
 
 成功的解压之后我们在当前目录便可看见一个有执行权限的目录 `mutillidae`，我们需要将该目录放置 apache 的根目录中：
 
@@ -98,7 +98,7 @@ sudo service nginx stop
 sudo service apache2 start
 ```
 
-![stop-start](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483598948967.png/wm)
+![stop-start](../imgs/wm_434.png)
 
 与此同时我们还需要开启 MySQL：
 
@@ -106,36 +106,36 @@ sudo service apache2 start
 sudo service mysql start
 ```
 
-![start-mysql](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599210772.png/wm)
+![start-mysql](../imgs/wm_435.png)
 
 然后我们打开桌面的 Firefox，在地址栏中访问 `localhost/mutillidae`，我们会得到这样的页面：
 
-![open-mutillidae](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599223354.png/wm)
+![open-mutillidae](../imgs/wm_436.png)
 
 出现这样的页面是因为 mutillidae 检测到我们没有相关的数据库，我们只需要点击 `setup/reset the DB` 即可，让它自动为我们创建好数据库：
 
-![setup-db](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599232074.png/wm)
+![setup-db](../imgs/wm_437.png)
 
 这样的情况便是没有启动 MySQL 的反应：
 
-![setup-db-load](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599240511.png/wm)
+![setup-db-load](../imgs/wm_438.png)
 
 正常启动了 MySQL 的情况应该是这样的：
 
-![create-success](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599248448.png/wm)
+![create-success](../imgs/wm_439.png)
 看到这样的界面说明我们成功的搭建好了我们的 Mutillidae 环境：
 
-![show-index](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599269305.png/wm)
+![show-index](../imgs/wm_440.png)
 
 我们在这里可以找到 mutillidae 为我们提供的环境：
 
-![entry-json.png](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599279654.png/wm)
+![entry-json.png](../imgs/wm_441.png)
 
 如此我们边做好了第一步准备工作，紧接着我们需要安装 Burp Suite。
 
 Burp Suite 的安装十分简单，我们只需要下载其可执行文件 jar 包即可正常的运行，我们通过 `wget http://10.154.42.72/burpsuite_free.jar` 命令即可成功下载：
 
-![download-burp](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599287745.png/wm)
+![download-burp](../imgs/wm_442.png)
 
 我们只需要执行这样一个命令即可是它运行起来：
 
@@ -143,89 +143,89 @@ Burp Suite 的安装十分简单，我们只需要下载其可执行文件 jar �
 java -Xmx1g -jar burpsuite_free.jar
 ```
 
-![start-burp](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599299649.png/wm)
+![start-burp](../imgs/wm_443.png)
 
 其中 `Xmx` 参数是我们指定其可用最多的内存限制，截图中使用 2G 使得环境较为卡顿，建议试试 1G。而 `&` 是让其在后台运行。
 
 紧接着就是询问我们接收其 Licence 与否，当然是同意了：
 
-![accept-licence](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599307940.png/wm)
+![accept-licence](../imgs/wm_444.png)
 
 若是遇到这样的问题，则直接选择 delete 即可：
 
-![delete-tmp](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599316195.png/wm)
+![delete-tmp](../imgs/wm_445.png)
 
 接下来便全部选择 next 即可：
 
-![next-burp](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599323736.png/wm)
+![next-burp](../imgs/wm_446.png)
 
 最后选择启动 burp：
 
-![start-burp-butto,.png](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599335051.png/wm)
+![start-burp-butto,.png](../imgs/wm_447.png)
 
 经过一小段的时间等待，我们便可看见 burp 的正常启动了：
 
-![show-burp](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599344967.png/wm)
+![show-burp](../imgs/wm_448.png)
 
 如此我们便成功的启动好了 Burp，然后我们需要将 Burp 与我们的 Firefox 关联起来，在 Firefox 的地址栏中输入 `about:preferences#advanced`，我们便可进入到 Firefox 的高级设置中：
 
-![entry-advence](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599357386.png/wm)
+![entry-advence](../imgs/wm_449.png)
 
 然后我们选择网络：
 
-![chose-network](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599365154.png/wm)
+![chose-network](../imgs/wm_450.png)
 
 进入了网络设置的选项卡中，我们选择连接中的设置：
 
-![chose-setting](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599373693.png/wm)
+![chose-setting](../imgs/wm_451.png)
 
 我们手动配置代理，这样即可连接到我们的 Burp 上：
 
-![setting-proxy](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599381460.png/wm)
+![setting-proxy](../imgs/wm_452.png)
 
 此处的端口可以自行设定，只要不要与已经使用的端口号冲突即可，
 
 然后将下方不是用代理的白名单中内容删除，否则数据包将无法转发到我们的 Brup Suite 中：
 
-![show-no-use-proxy](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599388287.png/wm)
+![show-no-use-proxy](../imgs/wm_453.png)
 
 最后点击确定。
 
 与此同时我们切换至 Burp Suite 界面，切换至 proxy 的选项中：
 
-![entry-proxy-option](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599396707.png/wm)
+![entry-proxy-option](../imgs/wm_454.png)
 
 然后修改端口号与 Firefox 中的配置相同，若本来就配置的 8080 则无需修改：
 
-![modify-port](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599405930.png/wm)
+![modify-port](../imgs/wm_455.png)
 
 因为环境中的 tomcat 在启动中，使用的 8080 端口，所以我们使用的 8181，当然我们可以停止掉 tomcat 然后便可使用 8080 端口了。
 
 然后选择 Running 即可：
 
-![running-proxy](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599413751.png/wm)
+![running-proxy](../imgs/wm_456.png)
 
 由此我们边做好了所有的准备工作。
 
 此时我们提交任何的请求都会先经过 Burp Suite，我们可以刷新一下页面，页面会一直处于加载中的状态，因为被 Burp Suite 所截取：
 
-![show-burp-action.png](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599426963.png/wm)
+![show-burp-action.png](../imgs/wm_457.png)
 
 接下来我们将观察我们的实验环境，所以我们可以暂时先关闭 Burp Suite 的截取：
 
-![turn-off](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599434775.png/wm)
+![turn-off](../imgs/wm_458.png)
 
 ### 5.3 实战
 
 紧接着我们来观察我们的实验环境，这是一个通过列表来查看工具的功能，选择一个工具的名字，点击 `Lookup Tool` 我们就可以看到相关工具的信息了：
 
-![show-lookup-tool](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599443052.png/wm)
+![show-lookup-tool](../imgs/wm_459.png)
 
 我们没有刷新页面，但是却动态的加载出了内容，我们可以猜想这里使用了 Ajax 的方法。
 
 我们在页面上空白处通过右键查看页面源代码，使用 `ctrl+F` 查找 `XMLHTTP` 这样的关键字：
 
-![show-xml](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599454730.png/wm)
+![show-xml](../imgs/wm_460.png)
 
 可以看到这样的代码：
 
@@ -239,29 +239,29 @@ XMLHttpRequest 对象是 AJAX 的使用核心，用于在后台与服务器交�
 
 此时我们重新开启 Intercept：
 
-![turn-on](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599463135.png/wm)
+![turn-on](../imgs/wm_461.png)
 
 然后我们再次随机选择一个列表内容，然后点击查询：
 
-![show-detail](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599475212.png/wm)
+![show-detail](../imgs/wm_462.png)
 
 从上到下都是基本的报头参数，从 Host 到 Cookie 都是正常的，但是在最下面我们可以到又要给 `ToolID` 的参数：
 
-![show-toolid](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599483462.png/wm)
+![show-toolid](../imgs/wm_463.png)
 
 说明该工具在数据库中的 ID 值为 1，数据具体内容的查询通过 ID 值来查询，我们可以尝试此处是否有注入点，我们在 `11` 后添加一个 `'`，然后点击 Forward，之前我们的 SQL 注入课程中有讲解到回显式测试：
 
-![change-toolid](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599492071.png/wm)
+![change-toolid](../imgs/wm_464.png)
 
 转发之后我们回到页面，我们看到了这样的报错：
 
-![show-fenhao-error](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599499021.png/wm)
+![show-fenhao-error](../imgs/wm_465.png)
 
 我们可以看到，因为我们的无法错误而导致没有正确执行的异常。说明这就是一个可注入的点。
 
 我们再尝试只是一个 `'`：
 
-![show-fen](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599507107.png/wm)
+![show-fen](../imgs/wm_466.png)
 
 此时我们便发现了 ajax 存在着 SQL 注入的漏洞。
 
@@ -269,19 +269,19 @@ XMLHttpRequest 对象是 AJAX 的使用核心，用于在后台与服务器交�
 
 我们再次点击 `Lookup Tool`，然后我们右键 Burp 中消息的拦截，选择 `send to Repeater`:
 
-![sent-to-repeater](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599516634.png/wm)
+![sent-to-repeater](../imgs/wm_467.png)
 
 当然也可以直接使用快捷键 `ctrl+R`。然后我们到中继器中查看：
 
-![chose-repeater](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599526169.png/wm)
+![chose-repeater](../imgs/wm_468.png)
 
 我们可以看到这样的界面：
 
-![show-repeater](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599535017.png/wm)
+![show-repeater](../imgs/wm_469.png)
 
 Repeater 可以这样使用：
 
-![show-response](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599547945.png/wm)
+![show-response](../imgs/wm_470.png)
 
 从响应的消息中我们可以看出接收端收到 `toolIDRequested` 参数，从 `penTestTools` 表中接收到 `tool_id`、`tool_name`、`phase_to_use`、`tool_type`、`comment` 这样 5 项内容。
 
@@ -297,7 +297,7 @@ select tool_id,tool_name,phase_to_use,tool_type,comment from penTestTools where 
 1' union select version(),null,null,null,null #
 ```
 
-![show-mysql-version](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599560048.png/wm)
+![show-mysql-version](../imgs/wm_471.png)
 
 接下来的内容便主要是 SQL 注入类似了。我们还可以使用 `database()` 查看到当前我们使用的数据库：
 
@@ -305,21 +305,21 @@ select tool_id,tool_name,phase_to_use,tool_type,comment from penTestTools where 
 1' union select version(),database(),null,null,null #
 ```
 
-![show-database()](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599573422.png/wm)
+![show-database()](../imgs/wm_472.png)
 
 步步深入，我们还可以查看到表：
 
-![show-tables](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599581609.png/wm)
+![show-tables](../imgs/wm_473.png)
 
 因为返回来的是 json，所以数据看起来可能有些乱，我们可以把我们的命令切换回 proxy 执行，发送出去：
 
-![show-tables-forword](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599590238.png/wm)
+![show-tables-forword](../imgs/wm_474.png)
 
 紧接着我们就是尝试更多的 SQL 语句，查看更多的信息。
 
 这就是 Ajax 的安全问题，对于这中问题的防范与 SQL 注入的防范类似，我们只需要在我们获取数据时，过滤一下特殊字符即可，例如在 mutillidae 中，便是使用的 `real_escape_string()` 方法将特殊字符转义：
 
-![fangyu](https://doc.shiyanlou.com/document-uid113508labid2433timestamp1483599601583.png/wm)
+![fangyu](../imgs/wm_475.png)
 
 ## 6. 总结
 

@@ -34,7 +34,7 @@
 | 靶机   | `Metasploitable2` | `msfadmin` | `msfadmin` |
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479800834785.png-wm)
+![图片描述](../imgs/1479800834785.png-wm.png)
 
 
 ## 二、环境启动
@@ -46,25 +46,25 @@
 
 接着先使用 `virsh list` 命令查看当前环境中虚拟机的列表和状态，注意需要使用 sudo，另外需要加上参数 `--all` 才会显示所有关机状态的虚拟机：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374596120.png/wm)
+![此处输入图片的描述](../imgs/wm_8.png)
 
 然后我们使用 `virsh start` 命令启动虚拟机，再次查看状态虚拟机已经进入 running 状态：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374654148.png/wm)
+![此处输入图片的描述](../imgs/wm_9.png)
 
 注意由于虚拟机启动需要时间，大概要等四分钟左右我们就可以使用 SSH 访问两台虚拟机了。
 
 首先使用 SSH 连接到 Kali，我们大部分的攻击操作都需要在 Kali 虚拟机中进行，注意用户名root，密码 toor 是不显示的，使用命令 `ssh root@kali` 即可，因为当前实验环境中已经把 IP 地址和主机名的对应写入到了 `/etc/hosts` 文件中，避免输入不好记的 IP 地址：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374660945.png/wm)
+![此处输入图片的描述](../imgs/wm_10.png)
 
 然后打开一个新的终端标签页，SSH 连接到 Metasploitable2 中，用户名 msfadmin，密码 msfadmin：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374671316.png/wm)
+![此处输入图片的描述](../imgs/wm_11.png)
 
 在 Kali 虚拟机中 `ping target` 测试两台虚拟机都可以通过内部的虚拟网络进行连接，使用 Ctrl-C 退出 ping：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374678330.png/wm)
+![此处输入图片的描述](../imgs/wm_12.png)
 
 现在两台实验环境都已经启动了，我们可以开始渗透测试了。
 
@@ -75,7 +75,7 @@
 
 在 Metasploit 的设计中，尽可能地使用模块化的概念，以便提高代码的复用效率。该框架是用 Ruby 语言开发的，包括 Perl 写的脚本，C ，汇编，和 Python 各种组件。它基本上是专为 Linux 的操作系统设计的，因此它的命令结构具有与 Linux 命令外壳非常相似，但现在，它支持所有主流操作系统，如 Windows，Solaris 和 Mac 上。
 
-![](https://dn-simplecloud.shiyanlou.com/uid/212008/1479204451678.png-wm)
+![](../imgs/1479204451678.png-wm_1.png)
 
 | 英文名称   | 模块名字       | 具体作用                                                     |
 | ---------- | -------------- | ------------------------------------------------------------ |
@@ -108,7 +108,7 @@ Nessus 是当前使用最广泛的漏洞扫描工具之一。Nessus 采用 clien
 确保已经登录实验楼的 Kali 终端：
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479804623200.png-wm)
+![图片描述](../imgs/1479804623200.png-wm.png)
 
 首先搜索 Metasploit 的 `scanner` 模块：
 
@@ -123,7 +123,7 @@ sudo find /usr -name scanner
 find <位置> -name <文件名>
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479804833731.png-wm)
+![图片描述](../imgs/1479804833731.png-wm.png)
 
 第一个文件就是我们要找的文件路径，通过 `cd` 命令，进入到该文件夹下。教同学们一个快速的方法，Kali 中的粘贴复制快捷键分别是 `ctrl + shit + c` 和 `ctrl + shit + v`：
 
@@ -132,7 +132,7 @@ find <位置> -name <文件名>
 cd /usr/share/metasploit-framework/modules/auxiliary/scanner
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479805030179.png-wm)
+![图片描述](../imgs/1479805030179.png-wm.png)
 
 
 ### 4.2 编写 `simple_tcp.rb` 文件
@@ -175,7 +175,7 @@ class MetasploitModule < Msf::Auxiliary
 end 
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479805528729.png-wm)
+![图片描述](../imgs/1479805528729.png-wm.png)
 
 接着按 `esc`，再输入 `:wq` 保存退出
 
@@ -228,7 +228,7 @@ sudo msfconsole
 
 注意：需要等待几分钟才能启动好。
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479806189453.png-wm)
+![图片描述](../imgs/1479806189453.png-wm.png)
 
 接着在实验楼中，打开新的 `Xfce` 终端，并创建 `shiyanlou.txt` 文件：
 
@@ -237,7 +237,7 @@ sudo msfconsole
 vi shiyanlou.txt
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479806114320.png-wm)
+![图片描述](../imgs/1479806114320.png-wm.png)
 
 在该 `shiyanlou.txt` 文件中，输入任意代码，用以当扫描器扫到该端口时，触发的的欢迎消息，这里我输入：
 
@@ -246,7 +246,7 @@ vi shiyanlou.txt
 Life is short, i use Python.
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479806414906.png-wm)
+![图片描述](../imgs/1479806414906.png-wm.png)
 
 按 `esc` 并输入 `:wq` 保存退出。
 
@@ -256,7 +256,7 @@ Life is short, i use Python.
 # 启动监听命令
 sudo nc -l 12345 < shiyanlou.txt
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479806541659.png-wm)
+![图片描述](../imgs/1479806541659.png-wm.png)
 
 回车，这时程序卡在了那里，这是正常现象，别慌。说明程序以及开始对端口 `12345` 进行了监听，命令 `nc` 是 Linux 监听端口的命令，参数 `-l` 后面代表的是监听的端口号。而 `< shiyanlou.txt` 代表的是当扫描器扫到这个端口时，反馈回去 `shiyanlou.txt` 中的内容。
 
@@ -271,11 +271,11 @@ sudo nc -l 12345 < shiyanlou.txt
 use auxiliary/scanner/simple_tcp
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479806978533.png-wm)
+![图片描述](../imgs/1479806978533.png-wm.png)
 
 在终端中，输入命令 `info` ，可以查看我们编写的 `simple_tcp` 这个模块信息;
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479807067685.png-wm)
+![图片描述](../imgs/1479807067685.png-wm.png)
 
 接着设置必要参数，这里我们将扫描的主机，也就是真正监听的主机的 IP 地址：
 
@@ -284,12 +284,12 @@ use auxiliary/scanner/simple_tcp
 set RHOSTS 192.168.122.1
 ```
 **注意，不是 RHOST 而是 RHOSTS，多了一个 `S`，什么时候是 RHOSTS 而不是 RHOST可以 使用 `show optionis` 查看**
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479807244433.png-wm)
+![图片描述](../imgs/1479807244433.png-wm.png)
 
 接着输入命令 `run`，启动进行扫描，扫描成功标志，得到扫描的目标主机的反馈：
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479807343731.png-wm)
+![图片描述](../imgs/1479807343731.png-wm.png)
 
 
 ## 五、总结

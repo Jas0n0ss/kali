@@ -51,19 +51,19 @@ DVMA 是 Damn Vulnerable Web App 的简称，它是一个专门用于 web 渗透
 
 在实验桌面中，双击 Xfce 终端，打开终端：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374588595.png/wm)
+![此处输入图片的描述](../imgs/wm_399.png)
 
 使用 `sudo virsh start Metasploitable2` 命令即可启动我们的靶机系统虚拟机：
 
-![start-metasploit.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139532596.png/wm)
+![start-metasploit.png](../imgs/wm_400.png)
 
 稍等片刻，待得虚拟机完全启动之后我们打开桌面上的 Firefox：
 
-![open-firefox.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139552463.png/wm)
+![open-firefox.png](../imgs/wm_401.png)
 
 访问我们的靶机系统所使用的 IP 地址`192.168.122.102`：
 
-![view-metasploit-url.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139568548.png/wm)
+![view-metasploit-url.png](../imgs/wm_402.png)
 
 正常的启动靶机系统之后，我们访问其 IP 地址可以得到这样的一个页面。
 
@@ -76,55 +76,55 @@ DVMA 是 Damn Vulnerable Web App 的简称，它是一个专门用于 web 渗透
 
 点击 DVMA 我们便可进入到 DVMA 的登陆页面，默认的登陆用户与密码是 admin 与 password，登陆之后便会进入这样的页面：
 
-![dvwa-index.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139587112.png/wm)
+![dvwa-index.png](../imgs/wm_403.png)
 
 从页面上我们可以看到，该平台为我们提供了所有常见的 web 漏洞攻击方式：
 
-![dvwa-info.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139626005.png/wm)
+![dvwa-info.png](../imgs/wm_404.png)
 
 并且我们还可以通过调整不同的安全级别，让我们不仅能方便我们对攻击方式原理的理解，同时还能让我们连接对应攻击方式的防范措施。
 
 首先为了能够进行最简单的攻击，我们会把安全默认调制最低，首先进入安全模式的调整页面：
 
-![dvwa-config-security.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139662479.png/wm)
+![dvwa-config-security.png](../imgs/wm_405.png)
 
 然后调整安全的 level 到 low：
 
-![dvwa-config-security-1.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139678741.png/wm)
+![dvwa-config-security-1.png](../imgs/wm_406.png)
 
 当看到页面的下方 Level 的显示变化后，说明修改成功了：
 
-![dvwa-config-security-proof.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139693059.png/wm)
+![dvwa-config-security-proof.png](../imgs/wm_407.png)
 
 ## 6. DVWA 的实战
 
 我们选择 XSS reflected 的选型，我们就会进入到 DVWA 为我们提供的反射型 XSS 的攻击平台：
 
-![dvwa-reflected.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139718790.png/wm)
+![dvwa-reflected.png](../imgs/wm_408.png)
 
 这样的场景就像我们在上论坛、电商、教务网等等的时候，我们在修改信息、登陆、判断时填写表单然后提交一样。
 
 我们在文本框中输入任意字符，然后点击提交：
 
-![dvwa-reflected-test-1.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139739967.png/wm)
+![dvwa-reflected-test-1.png](../imgs/wm_409.png)
 
 提交之后我们会看到这样的变化：
 
-![dvwa-reflected-test-change.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139751458.png/wm)
+![dvwa-reflected-test-change.png](../imgs/wm_410.png)
 
 这是一个很简单的功能，就是我们输入了用户名，后台的 PHP 程序将我们的输入存储在一个变量之中，然后将该变量提交至后台，后台读取该变量的值，然后输出。
 
 从 URL 的变化我们可以看出使用了一个 name 的变量，那我们若是手动的更改 URL 上 name 变量的值：
 
-![dvwa-reflected-change-get](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139813754.png/wm)
+![dvwa-reflected-change-get](../imgs/wm_411.png)
 
 敲回车以后我们会发现，页面中的输出的内容发生了变化：
 
-![dvwa-reflected-get-change](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139837396.png/wm)
+![dvwa-reflected-get-change](../imgs/wm_412.png)
 
 在下方我们有一个查看源码的按钮，我们可以查看一下这个功能是如何实现的：
 
-![dvwa-reflected-source](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139862395.png/wm)
+![dvwa-reflected-source](../imgs/wm_413.png)
 
 我们可以看到这段代码，就是做了一个简单的判断，输入框中是否有值，没有值就设置判断是否为空的变量 $isempty 为真，然后不做任何的处理，若是有值就输出 hello 与我们输入的内容。
 
@@ -136,11 +136,11 @@ DVMA 是 Damn Vulnerable Web App 的简称，它是一个专门用于 web 渗透
 <script>alert("nihao,shiyanlou")</script>
 ```
 
-![dvwa-reflected-js-alert](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139882293.png/wm)
+![dvwa-reflected-js-alert](../imgs/wm_414.png)
 
 然后我们再次提交，我们可以看到此时我们的页面会有弹窗出来：
 
-![dvwa-reflected-alert-proof](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139895031.png/wm)
+![dvwa-reflected-alert-proof](../imgs/wm_415.png)
 
 这就是页面执行了我们注入的恶意 javascript 代码，我们可以看到 URL 的变化，我们若是复制该 URL 给其他人使用，会得到与刚刚同样的结果。可以尝试一下。
 
@@ -180,19 +180,19 @@ Hello <script>alert("nihao,shiyanlou")</script>
 
 这样停止页面的加载：
 
-![stop-load-page.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139912352.png/wm)
+![stop-load-page.png](../imgs/wm_416.png)
 
 然后找到此时弹窗的代码：
 
-![dvwa-reflected-js-source-proof](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139931342.png/wm)
+![dvwa-reflected-js-source-proof](../imgs/wm_417.png)
 
 这就是反射型 XSS 的原理，我们还能通过这样的漏洞获取此时用户的 cookie 值，在文本框中输入 `<script>alert(document.cookie)</script>`，然后提交：
 
-![dvwa-reflected-get-cookie](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139942932.png/wm)
+![dvwa-reflected-get-cookie](../imgs/wm_418.png)
 
 通过 cookie 自动登陆，使得我们在获取到用户的 cookie 值之后便可实现中间人攻击，仿冒用户登陆，进而查看更多的私密信息，设置用此获利。
 
-![reflected-cross-site-scripting.jpg](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139956321.png/wm)
+![reflected-cross-site-scripting.jpg](../imgs/wm_419.png)
 （此图来自于 [hackingloops](https://www.hackingloops.com/how-to-test-reflected-cross-site-scripting-vulnerability/)）
 
 >**中间人攻击**：中间人攻击（Man-in-the-MiddleAttack，简称“ MITM 攻击”）中间人攻击很早就成为了黑客常用的一种古老的攻击手段，并且一直到今天还具有极大的扩展空间。
@@ -205,21 +205,21 @@ Hello <script>alert("nihao,shiyanlou")</script>
 
 我们修改我们的安全级别到中等：
 
-![change-script-level](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139986221.png/wm)
+![change-script-level](../imgs/wm_420.png)
 
 然后我们再次尝试我们上述弹窗的方法：
 
-![dvwa-mid-test](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482140000574.png/wm)
+![dvwa-mid-test](../imgs/wm_421.png)
 
 我们会发现不起作用了，得到的是这样的结果：
 
-![dvwa-mid-test-proof](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482140016543.png/wm)
+![dvwa-mid-test-proof](../imgs/wm_422.png)
 
 似乎我们输入的 `<script>` 标签被替换了，使得浏览器无法将其便认为 javascript 的代码。
 
 我们可以查看一下源代码：
 
-![dvwa-mid-code](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482140029886.png/wm)
+![dvwa-mid-code](../imgs/wm_423.png)
 
 我们发现相对于之前的代码，有这样的变化：
 
@@ -231,29 +231,29 @@ echo 'Hello ' . str_replace('<script>', '', $_GET['name']);
 
 而我们通过 php 的使用手册中可以看到该函数的作用：
 
-![code-meaning](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482140043192.png/wm)
+![code-meaning](../imgs/wm_424.png)
 
 也就是说上述的代码的意思是搜索变量中的所有 `<script>` 字符串，并将其替换成空，由此便可以防范任意的 javascript 代码的执行了。所以我们得到的结果只是输出中间那一串字符。
 
 但是这样的防范是不够的，因为我们知道 HTML 是一种弱类型的语言，稍微的一点语法错误也可以正常执行，并且没有区分大小写，所以我们只需要将刚刚代码中的 script 改成大写的 `<SCRIPT>` 又可以正常的执行了：
 
-![dvwa-mid-daxie](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482140062928.png/wm)
+![dvwa-mid-daxie](../imgs/wm_425.png)
 
 这是因为刚刚那个方法中的 str_replace() 是区分大小写的，所以没能过滤掉，而 HTML 的解析却可以正常的解析：
 
-![dvwa-mid-daxie-proof](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482140074717.png/wm)
+![dvwa-mid-daxie-proof](../imgs/wm_426.png)
 
 难道这样的 XSS 漏洞就没有办法解决了吗？肯定是有的，我们将安全的级别调整至最高一级：
 
-![change-script-level-high](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482140088360.png/wm)
+![change-script-level-high](../imgs/wm_427.png)
 
 此时，我们再次尝试会发现，无论是大小写，浏览器都不会将其解析成 javascript 代码，而是直接将其输出：
 
-![dvwa-high-show](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482140104382.png/wm)
+![dvwa-high-show](../imgs/wm_428.png)
 
 我们再来查看此时的源代码发生了怎样的变化：
 
-![dvwa-high-source-code](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482140120328.png/wm)
+![dvwa-high-source-code](../imgs/wm_429.png)
 
 我们可以看到源码中把 str_replace() 切换成了 htmlspecialchars()。
 
@@ -302,6 +302,6 @@ echo 'Hello ' . str_replace('<script>', '', $_GET['name']);
 
 在访问靶机 IP 地址时，选择 Mutillidae 选项进入页面。XSS 的实验环境在：
 
-![mutillidae-show](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482140201787.png/wm)
+![mutillidae-show](../imgs/wm_430.png)
 
 在该环境中实现反射型 xss 的攻击。

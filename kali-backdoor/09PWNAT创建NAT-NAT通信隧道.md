@@ -26,7 +26,7 @@
 
 Kali Linux 是一款提前安装有许多信息安全渗透工具的 Linux 操作系统。其中渗透工具 Metasploit 非常受黑客与安全信息人士的喜爱。在本实验中，先讲解必须掌握的概念性知识，接着会介绍如何使用 PWNAT 创建 NAT-NAT 通信隧道。
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/ff207c4ac994ae597a753f238bd6b2de/1482109006298.png-wm)
+![图片描述](../imgs/1482109006298.png-wm.png)
 
 ## 二、启动环境
 
@@ -41,10 +41,10 @@ sudo virsh start Kali
 # 连接 Kali 虚拟机
 ssh root@Kali
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482118071678.png-wm)
+![图片描述](../imgs/1482118071678.png-wm.png)
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482118212747.png-wm)
+![图片描述](../imgs/1482118212747.png-wm.png)
 
 **还有一点值得注意的是，如果在开启 Kali 后，马上进行连接，则会报错误 `ssh: connect to host Kali port 22: No route to host`。报错的原因是因为 Kali 虚拟机还未完全启动，需要一点时间才能完成启动。**
 
@@ -64,7 +64,7 @@ NAT 是 1994 年提出的。当在专用网内部的一些主机本来已经分�
 
 NAT 除了带来方便和代价之外，对全双工连接支持的缺少在一些情况下，可以看作是一个有好处的特征而不是一个限制。在一定程度上，NAT 依赖于本地网络上的一台机器来初始化，和路由器另一边的主机的任何连接，它可以阻止外部网络上的主机的恶意活动。
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/ff207c4ac994ae597a753f238bd6b2de/1482115890075.png-wm)
+![图片描述](../imgs/1482115890075.png-wm.png)
 > 图片来自互联网：http://samy.pl/pwnat/
 
 ### 3.3 PWNAT 是什么，使用什么传输协议？
@@ -107,7 +107,7 @@ PWNAT 是不需要任何帮助就在两个 NAT 后面的电脑之间建立连接
 pwnat -h
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482113433562.png-wm)
+![图片描述](../imgs/1482113433562.png-wm.png)
 
 上图中显示的参数含义分别为：
 
@@ -134,7 +134,7 @@ pwnat -h
 pwnat -s 8080
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482113573262.png-wm)
+![图片描述](../imgs/1482113573262.png-wm.png)
 
 由显示的输出信息 `Listening on UDP 0.0.0.0:8080` 中可以看出 `on UDP`，即使用的协议是用户数据报文协议。
 
@@ -142,7 +142,7 @@ pwnat -s 8080
 
 在宿主机 Ubuntu 中，重新打开新的终端窗口连接 Kali Linux 虚拟机：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482113672026.png-wm)
+![图片描述](../imgs/1482113672026.png-wm.png)
 
 同样的，由之前的 `pwnat -h` 查看帮助命令可以知道，PWNAT 客户端的语法命令为：
 
@@ -157,11 +157,11 @@ pwnat -s 8080
 pwnat -c 8000 192.168.122.101 8080 shiyanlou.com 80
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482136933736.png-wm)
+![图片描述](../imgs/1482136933736.png-wm.png)
 
 **`注意：`在实际的生产环境中，客户端连接的远程主机地址，还得需要自己配置，由于实验未能联网，未能实现真正意义上的打洞穿透。由于联网的原因，远程配置在此不进行配置演示。PWNAT 的服务器端和客户端使用命令，即为上述实验文档所示。当一切配置正常，打洞成功会看到如下形式的提示：**
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482137703851.png-wm)
+![图片描述](../imgs/1482137703851.png-wm.png)
 
 本实验主要了解 PWNAT 创建 NAT-NAT 隧道通信这一过程，对于文档中提到的 NAT 特点，以及七层网络协议一定要掌握清楚。后门实验的重心，是在攻陷目标主机后，使用木马建立攻击机和目标靶机两者之间的连接。在下一节的实验中，将会介绍新的方法创建木马程序。
 
@@ -173,7 +173,7 @@ pwnat -c 8000 192.168.122.101 8080 shiyanlou.com 80
 
 除了 PWNAT 外，还有一个类似的工具叫 N2NC，也是基于 UDP 打洞。UDP 是用户数据报文协议，是一个简单的面向数据报的传输层协议。UDP 常常与 TCP/IP 协议一起出现，初学者很容易将这两个协议混淆。上述实验文档内容的结构如下：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482131738046.png-wm)
+![图片描述](../imgs/1482131738046.png-wm.png)
 
 
 ## 六、课后作业

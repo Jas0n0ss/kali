@@ -22,7 +22,7 @@
 
 其中，本实验五基本知识点的思维导图为：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479546439313.png-wm)
+![图片描述](../imgs/1479546439313.png-wm.png)
 
 
 ### 1.3 实验环境
@@ -35,7 +35,7 @@
 
 实验在 kali Linux 环境下进行渗透测试。先通过 ssh 登录 Kali，再使用 Metasploit 对目标主机进行操作。
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479545541098.png-wm)
+![图片描述](../imgs/1479545541098.png-wm.png)
 
 ## 二、 Nmap 扫描器基本使用
 
@@ -64,7 +64,7 @@ sudo virsh start Metasploitable2
 ```
 ssh root@Kali
 ```
-![实验楼](https://dn-simplecloud.shiyanlou.com/2120081479370040177-wm)
+![实验楼](../imgs/2120081479370040177-wm.png)
 
 注意，`virsh` 启动过程，大概要等四分钟左右。
 
@@ -77,7 +77,7 @@ sudo service postgresql start
 这里启动服务，会等大概十秒钟左右：
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483500198879.png-wm)
+![图片描述](../imgs/1483500198879.png-wm.png)
 
 然后初始化数据库。初始化数据库后需要等待大约 10 分钟的时间。
 
@@ -92,7 +92,7 @@ sudo msfconsole
 ```
 这里估计会等两分钟左右：
 
-![实验楼](https://dn-simplecloud.shiyanlou.com/2120081479370633248-wm)
+![实验楼](../imgs/2120081479370633248-wm.png)
 
 在终端输入命令，进行数据库缓存重建：
 
@@ -100,7 +100,7 @@ sudo msfconsole
 db_rebuild_cache
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483500288931.png-wm)
+![图片描述](../imgs/1483500288931.png-wm.png)
 
 
 执行 db_rebuild_cache 命令来创建缓存，创建缓存的过程大概 5 - 10 分钟，创建缓存后 search 命令的执行速度可以很快在几秒钟得到结果。
@@ -123,7 +123,7 @@ nmap -T4 -A <target ip>
 
 nmap -T4 -A target
 ```
-![实验楼](https://dn-simplecloud.shiyanlou.com/2120081479452449996-wm)
+![实验楼](../imgs/2120081479452449996-wm.png)
 
 其中， `-T` 是扫描的速度设置:
 
@@ -150,7 +150,7 @@ nmap -T4 -sn <target ip>
 nmap -T4 -sn target
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483500624979.png-wm)
+![图片描述](../imgs/1483500624979.png-wm.png)
 
 
 #### 2.1.3 端口扫描
@@ -166,7 +166,7 @@ namp -T4 <target ip>
 nmap -T4 target
 ```
 
-![实验楼](https://dn-simplecloud.shiyanlou.com/2120081479452945761-wm)
+![实验楼](../imgs/2120081479452945761-wm.png)
 
 #### 2.1.4 操作系统扫描
 
@@ -187,7 +187,7 @@ nmap -T4 -O target
 
 
 
-![实验楼](https://dn-simplecloud.shiyanlou.com/2120081479453056282-wm)
+![实验楼](../imgs/2120081479453056282-wm.png)
 
 上述的扫描方式能满足一般的信息搜集需求。而若想利用 Nmap 探索出特定的场景中更详细的信息，则需仔细地设计 Nmap 命令行参数，以便精确地控制 Nmap 的扫描行为。
 
@@ -209,7 +209,7 @@ nmap 192.168.122.102/24
 # 或者 nmap target/24 
 ```
 
-![实验楼](https://dn-simplecloud.shiyanlou.com/2120081479450104489-wm)
+![实验楼](../imgs/2120081479450104489-wm.png)
 
 #### 3.1.2 扫描多个 ip 目标：
 
@@ -225,7 +225,7 @@ nmap 192.168.122.102 127.0.0.1
 
 # 等价 nmap target Kali
 ```
-![实验楼](https://dn-simplecloud.shiyanlou.com/2120081479450482085-wm)
+![实验楼](../imgs/2120081479450482085-wm.png)
 
 
 #### 3.1.3 扫描一个范围的目标：
@@ -235,7 +235,7 @@ nmap 192.168.122.102 127.0.0.1
 ```
 nmap 192.168.122.1-100
 ```
-![实验楼](https://dn-simplecloud.shiyanlou.com/2120081479375726088-wm)
+![实验楼](../imgs/2120081479375726088-wm.png)
 
 #### 3.1.4 扫描除了一个 IP 外的所有主机
 
@@ -244,7 +244,7 @@ nmap 192.168.122.1-100
 ```
 nmap 192.168.122.102/24 -exclude 192.168.122.88
 ```
-![实验楼](https://dn-simplecloud.shiyanlou.com/2120081479450670404-wm)
+![实验楼](../imgs/2120081479450670404-wm.png)
 
 #### 3.1.5 扫描特定端口
 
@@ -263,7 +263,7 @@ nmap -p<端口>，<端口>，<端口> <target ip>
 ```
 nmap -p80,22,66 192.168.122.102
 ```
-![实验楼](https://dn-simplecloud.shiyanlou.com/2120081479450968235-wm)
+![实验楼](../imgs/2120081479450968235-wm.png)
 
 #### 3.1.6 查看本地路由
 
@@ -271,7 +271,7 @@ nmap -p80,22,66 192.168.122.102
 nmap --iflist
 ```
 
-![实验楼](https://dn-simplecloud.shiyanlou.com/2120081479451986418-wm)
+![实验楼](../imgs/2120081479451986418-wm.png)
 
 #### 3.1.7 指定网口和 ip 地址
 
@@ -289,7 +289,7 @@ nmap -e eth0 target
 | ---- | -------------------------------------- |
 | `-e` | 告诉 nmap 使用哪个接口发送和接受数据包 |
 
-![实验楼](https://dn-simplecloud.shiyanlou.com/2120081479453596702-wm)
+![实验楼](../imgs/2120081479453596702-wm.png)
 
 #### 3.1.8 定制探测包
 
@@ -301,7 +301,7 @@ Nmap提供 `-scanflags` 选项，用户可以对需要发送的 TCP 探测包的
 ```
 nmap -sS -T4 target
 ```
-![实验楼](https://dn-simplecloud.shiyanlou.com/2120081479453877376-wm)
+![实验楼](../imgs/2120081479453877376-wm.png)
 
 Nmap 默认扫描只扫描 1000 个最可能开发的端口。
 
@@ -314,7 +314,7 @@ Nmap 默认扫描只扫描 1000 个最可能开发的端口。
 ```
 nmap -sF -T4 target
 ```
-![实验楼](https://dn-simplecloud.shiyanlou.com/2120081479458103334-wm)
+![实验楼](../imgs/2120081479458103334-wm.png)
 
 #### 3.1.11 ACK 扫描
 
@@ -324,7 +324,7 @@ nmap -sF -T4 target
 nmap -sA -T4 target
 ```
 
-![实验楼](https://dn-simplecloud.shiyanlou.com/2120081479458212222-wm)
+![实验楼](../imgs/2120081479458212222-wm.png)
 
 #### 3.1.12 扫描路由器 TFTP
 
@@ -333,7 +333,7 @@ nmap -sA -T4 target
 ```
 nmap -sU -p69 -nvv target
 ```
-![实验楼](https://dn-simplecloud.shiyanlou.com/2120081479458727550-wm)
+![实验楼](../imgs/2120081479458727550-wm.png)
 
 ## 四、扫描数据导入 Metasploit
 
@@ -344,7 +344,7 @@ nmap -sU -p69 -nvv target
 ```
 nmap -sV -Pn -oX shiyanlou.xml target/24
 ```
-![实验楼](https://dn-simplecloud.shiyanlou.com/2120081479459281528-wm)
+![实验楼](../imgs/2120081479459281528-wm.png)
 
 输入命令，导入文件 `shiyanlou.xml` 到 Metasploit 中：
 
@@ -352,7 +352,7 @@ nmap -sV -Pn -oX shiyanlou.xml target/24
 db_import shiyanlou.xml
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483508737294.png-wm)
+![图片描述](../imgs/1483508737294.png-wm.png)
 
 
 利用命令查看存储在数据库的扫描结果，在终端中，输入命令：
@@ -360,7 +360,7 @@ db_import shiyanlou.xml
 ```
 services
 ```
-![实验楼](https://dn-simplecloud.shiyanlou.com/2120081479459678086-wm)
+![实验楼](../imgs/2120081479459678086-wm.png)
 
 -----------
 
@@ -388,7 +388,7 @@ msf > show nops
 search ms12-020
 ```
 
-![实验楼](https://dn-simplecloud.shiyanlou.com/2120081479461240666-wm)
+![实验楼](../imgs/2120081479461240666-wm.png)
 
 ##### 2. 命令 `use` 使用模块：
 
@@ -396,7 +396,7 @@ search ms12-020
 use auxiliary/dos/windows/rdp/ms12_020_maxchannelids
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483500764733.png-wm)
+![图片描述](../imgs/1483500764733.png-wm.png)
 
 
 ##### 3. 命令 `show options` 查看需要填写的参数：
@@ -411,7 +411,7 @@ set RHOST 192.168.122.102
 
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483508920880.png-wm)
+![图片描述](../imgs/1483508920880.png-wm.png)
 
 
 ##### 5. 最后由 `run` 命令，执行我们的 `auxiliary` 攻击模块

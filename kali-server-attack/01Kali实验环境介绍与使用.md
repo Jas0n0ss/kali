@@ -41,7 +41,7 @@ Kali 系统内预装了很多安全相关的工具，例如非常有名的 Nmap 
 
 Kali Linux 中目前最新版是 2016 年发布的 2.0-2016.2 版本，实验楼的实验环境中使用的就是这个版本的虚拟机。在其中包含了 600 多个渗透测试的工具，并继承了为安全审计定制的内核补丁。
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374556255.png/wm)
+![此处输入图片的描述](../imgs/wm_53.png)
 
 *图片来自 Kali 官网*
 
@@ -169,11 +169,11 @@ setvcpus        修改虚拟处理器的数量
 
 在实验桌面中，双机 Xfce 终端，打开终端，后续所有的操作命令都在这个终端中输入。
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374588595.png/wm)
+![此处输入图片的描述](../imgs/wm_54.png)
 
 点击终端上的`文件按钮-》打开标签`新建一个标签，然后使用 `virsh list` 命令查看当前环境中虚拟机的列表和状态，注意需要使用 sudo，另外需要加上参数 `--all` 才会显示所有关机状态的虚拟机：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374596120.png/wm)
+![此处输入图片的描述](../imgs/wm_55.png)
 
 然后我们使用 `virsh start` 命令启动虚拟机，注意区分大小写，虚拟机的名字是大写的字母开始，再次查看状态虚拟机已经进入 running 状态：
 
@@ -187,11 +187,11 @@ $ sudo virsh start Metasploitable2
 ping -c 3 target
 ```
 
-![实验楼](https://dn-simplecloud.shiyanlou.com/87971533885010535-wm)
+![实验楼](../imgs/87971533885010535-wm.png)
 
 在上一个标签执行 `ping target` 测试 kali 能否 ping 通靶机，使用 Ctrl-C 退出 ping：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/8797/1533885576808.png-wm)
+![图片描述](../imgs/1533885576808.png-wm.png)
 
 现在两台实验环境都已经启动了，我们可以开始渗透测试了。
 
@@ -329,19 +329,19 @@ Metasploitable2 环境中的默认的用户名和密码都是 msfadmin，并且 
 
 按照 7.3 的步骤，我们使用 SSH 登录到 Metasploitable2中，用户名 msfadmin，密码 msfadmin：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374727064.png/wm)
+![此处输入图片的描述](../imgs/wm_56.png)
 
 ### 9.4 查看开放的服务
 
 为了能够更大范围的测试各种服务的漏洞，当前的系统中开放了很多种服务，使用命令 `netstat -tln` 查看当前系统监听的端口：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374737464.png/wm)
+![此处输入图片的描述](../imgs/wm_57.png)
 
 从上面的列表中可以发现，当前系统启动了非常多的网络服务，例如 21 端口是 FTP 服务的监听端口，22 是 SSH 服务监听端口，这些服务都具备一定被攻击的风险，后续的若干个实验都会尝试在外部通过相应服务的漏洞攻入 Metasploitable2 系统中。
 
 我们再使用 `rpcinfo` 命令查看当前系统开放的服务：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374747716.png/wm)
+![此处输入图片的描述](../imgs/wm_58.png)
 
 这个列表中分别列出了端口号和对应的服务。
 
@@ -366,7 +366,7 @@ Metasploitable2 上的系统和数据账户都有非常严重的弱口令，至�
 
 系统中预装了几个具备各种 Web 漏洞的 Web 服务，可以通过打开实验环境中的 Firefox 浏览器，输入 `http://target` 来查看：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374760210.png/wm)
+![此处输入图片的描述](../imgs/wm_59.png)
 
 这些 Web 应用都具备很多容易利用的 Web 漏洞，我们将在另外一个训练营中学习如何利用 Web 漏洞进行 Web 渗透。
 
@@ -376,13 +376,13 @@ Metasploitable2 上的系统和数据账户都有非常严重的弱口令，至�
 
 首先使用 SSH 连接到 Kali，我们大部分的攻击操作都需要在 Kali 虚拟机中进行，注意用户名root，密码 toor 是不显示的，使用命令 `ssh root@kali` 即可，因为当前实验环境中已经把 IP 地址和主机名的对应写入到了 `/etc/hosts` 文件中，避免输入不好记的 IP 地址：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374769353.png/wm)
+![此处输入图片的描述](../imgs/wm_60.png)
 
 ### 10.2 扫描目标主机开放的服务
 
 我们可以在 Kali 使用 Nmap 工具扫描 Metasploitable2 中开放的服务，为了节省时间，我们只扫描1-1000号端口，注意 Nmap 的参数使用：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374777134.png/wm)
+![此处输入图片的描述](../imgs/wm_61.png)
 
 在后续的实验中，我们将学习 Nmap 的详细使用，这里仅仅简单介绍下如何在实验环境的两台虚拟机之间使用工具扫描。
 

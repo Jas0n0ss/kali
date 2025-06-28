@@ -42,7 +42,7 @@ Kali 系统内预装了很多安全相关的工具，例如非常有名的 Nmap 
 
 Kali Linux 中目前最新版是 2016 年发布的 2.0-2016.2 版本，实验楼的实验环境中使用的就是这个版本的虚拟机。在其中包含了 600 多个渗透测试的工具，并继承了为安全审计定制的内核补丁。
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374556255.png/wm)
+![此处输入图片的描述](../imgs/wm_513.png)
 
 *图片来自 Kali 官网*
 
@@ -79,7 +79,7 @@ Web 应用的架构无外乎会涉及到这样的一些组件：
 - Web app（通常为部署网站的后台应用）
 - DB（数据库，数据存储所在）
 
-![web-app-set-up.png](https://doc.shiyanlou.com/document-uid113508labid1873timestamp1480644466992.png/wm)
+![web-app-set-up.png](../imgs/wm_514.png)
 （此图来自于[thomas G+](http://3.bp.blogspot.com/-iDUx3T0MaAA/UIPRdLbS3FI/AAAAAAAABJo/m9rF6yB45Aw/s1600/DOUBLEGUARD.JPG)）
 
 而这样的方式会受到这样的一些攻击：
@@ -201,29 +201,29 @@ setvcpus        修改虚拟处理器的数量
 
 在实验桌面中，双机 Xfce 终端，打开终端，后续所有的操作命令都在这个终端中输入。
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374588595.png/wm)
+![此处输入图片的描述](../imgs/wm_515.png)
 
 首先使用 `virsh list` 命令查看当前环境中虚拟机的列表和状态，注意需要使用 sudo，另外需要加上参数 `--all` 才会显示所有关机状态的虚拟机：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374596120.png/wm)
+![此处输入图片的描述](../imgs/wm_516.png)
 
 然后我们使用 `virsh start` 命令启动虚拟机，注意区分大小写，虚拟机的名字是大写的字母开始，再次查看状态虚拟机已经进入 running 状态：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374654148.png/wm)
+![此处输入图片的描述](../imgs/wm_517.png)
 
 注意由于虚拟机启动需要时间，大概要等四分钟左右我们就可以使用 SSH 访问两台虚拟机了。
 
 首先使用 SSH 连接到 Kali，我们大部分的攻击操作都需要在 Kali 虚拟机中进行，注意用户名root，密码 toor 是不显示的，使用命令 `ssh root@kali` 即可，因为当前实验环境中已经把 IP 地址和主机名的对应写入到了 `/etc/hosts` 文件中，避免输入不好记的 IP 地址：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374660945.png/wm)
+![此处输入图片的描述](../imgs/wm_518.png)
 
 然后打开一个新的终端标签页，SSH 连接到 Metasploitable2 中，用户名 msfadmin，密码 msfadmin：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374671316.png/wm)
+![此处输入图片的描述](../imgs/wm_519.png)
 
 在 Kali 虚拟机中 `ping target` 测试两台虚拟机都可以通过内部的虚拟网络进行连接，使用 Ctrl-C 退出 ping：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374678330.png/wm)
+![此处输入图片的描述](../imgs/wm_520.png)
 
 现在两台实验环境都已经启动了，我们可以开始渗透测试了。
 
@@ -261,19 +261,19 @@ Metasploitable2 环境中的默认的用户名和密码都是 msfadmin，并且 
 
 按照 7.3 的步骤，我们使用 SSH 登录到 Metasploitable2中，用户名 msfadmin，密码 msfadmin：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374727064.png/wm)
+![此处输入图片的描述](../imgs/wm_521.png)
 
 ### 9.4 查看开放的服务
 
 为了能够更大范围的测试各种服务的漏洞，当前的系统中开放了很多种服务，使用命令 `netstat -tln` 查看当前系统监听的端口：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374737464.png/wm)
+![此处输入图片的描述](../imgs/wm_522.png)
 
 从上面的列表中可以发现，当前系统启动了非常多的网络服务，例如 21 端口是 FTP 服务的监听端口，22 是 SSH 服务监听端口，这些服务都具备一定被攻击的风险，后续的若干个实验都会尝试在外部通过相应服务的漏洞攻入 Metasploitable2 系统中。
 
 我们再使用 `rpcinfo` 命令查看当前系统开放的服务：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374747716.png/wm)
+![此处输入图片的描述](../imgs/wm_523.png)
 
 这个列表中分别列出了端口号和对应的服务。
 
@@ -298,7 +298,7 @@ Metasploitable2 上的系统和数据账户都有非常严重的弱口令，至�
 
 系统中预装了几个具备各种 Web 漏洞的 Web 服务，可以通过打开实验环境中的 Firefox 浏览器，输入 `http://target` 来查看：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374760210.png/wm)
+![此处输入图片的描述](../imgs/wm_524.png)
 
 这些 Web 应用都具备很多容易利用的 Web 漏洞，我们将在另外一个训练营中学习如何利用 Web 漏洞进行 Web 渗透。
 
@@ -308,13 +308,13 @@ Metasploitable2 上的系统和数据账户都有非常严重的弱口令，至�
 
 首先使用 SSH 连接到 Kali，我们大部分的攻击操作都需要在 Kali 虚拟机中进行，注意用户名root，密码 toor 是不显示的，使用命令 `ssh root@kali` 即可，因为当前实验环境中已经把 IP 地址和主机名的对应写入到了 `/etc/hosts` 文件中，避免输入不好记的 IP 地址：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374769353.png/wm)
+![此处输入图片的描述](../imgs/wm_525.png)
 
 ### 10.2 扫描目标主机开放的服务
 
 我们可以在 Kali 使用 Nmap 工具扫描 Metasploitable2 中开放的服务，为了节省时间，我们只扫描1-1000号端口，注意 Nmap 的参数使用：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374777134.png/wm)
+![此处输入图片的描述](../imgs/wm_526.png)
 
 在后续的实验中，我们将学习 Nmap 的详细使用，这里仅仅简单介绍下如何在实验环境的两台虚拟机之间使用工具扫描。
 

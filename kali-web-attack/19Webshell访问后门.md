@@ -52,14 +52,14 @@ Weevely 是一款非常有名的 PHP 木马生成工具，其也被叫做 PHP �
 
 什么是 weevely 呢？Weevely 是一个隐形的 PHP 网页的外壳，模拟的远程连接。这是一个 Web 应用程序后开发的重要工具，可用于像一个隐藏的后门，作为一个有用的远程控制台更换管理网络帐户，即使托管在免费托管服务。只是生成并上传目标 Web 服务器上的 PHP 代码，Weevely 客户端在本地运行 shell 命令传输。（此段来自于百度百科）
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/ff207c4ac994ae597a753f238bd6b2de/1481526381185.png-wm)
+![图片描述](../imgs/1481526381185.png-wm_2.png)
 
 ### 5.3 Webshell 环境
 
 一切攻击的前提都是在于建立环境之上，所示实验的第一步也是起动实验环境。
 在实验桌面中，双击 Xfce 终端，打开终端：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374588595.png/wm)
+![此处输入图片的描述](../imgs/wm_118.png)
 
 先让我们启动 Kali 虚拟机，启动 Kali 虚拟机程序，需要在终端中输入如下命令：
 
@@ -70,13 +70,13 @@ sudo virsh start Kali
 # 注意，Kali 中 K 为大写字母
 ssh root@Kali
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481101382249.png-wm)
+![图片描述](../imgs/1481101382249.png-wm_3.png)
 
 > 注意：等 Kali 启动，输入命令后，要等待一段时间，再对 Kali 进行连接，否则会得到如图中报错
 
 等 Kali 虚拟机完全启动之后，再次执行命令：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481101646711.png-wm)
+![图片描述](../imgs/1481101646711.png-wm_3.png)
 
 就能够正常的登陆上 kali 的终端页面。
 
@@ -84,37 +84,37 @@ ssh root@Kali
 
 在实验桌面中，双击 Xfce 终端，打开终端：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374588595.png/wm)
+![此处输入图片的描述](../imgs/wm_118.png)
 
 使用 `sudo virsh start Metasploitable2` 命令即可启动我们的靶机系统虚拟机：
 
-![start-metasploit.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139532596.png/wm)
+![start-metasploit.png](../imgs/wm_120.png)
 
 稍等片刻，待得虚拟机完全启动之后我们打开桌面上的 Firefox：
 
-![open-firefox.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139552463.png/wm)
+![open-firefox.png](../imgs/wm_121.png)
 
 访问我们的靶机系统所使用的 IP 地址`192.168.122.102`：
 
-![view-metasploit-url.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139568548.png/wm)
+![view-metasploit-url.png](../imgs/wm_122.png)
 
 正常的启动靶机系统之后，我们访问其 IP 地址可以得到这样的一个页面。
 
 点击 DVMA 我们便可进入到 DVMA 的登陆页面，默认的登陆用户与密码是 admin 与 password，登陆之后便会进入这样的页面：
 
-![dvwa-index.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139587112.png/wm)
+![dvwa-index.png](../imgs/wm_123.png)
 
 为了能够进行最简单的攻击，我们会把安全默认调制最低，首先进入安全模式的调整页面：
 
-![dvwa-config-security.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139662479.png/wm)
+![dvwa-config-security.png](../imgs/wm_124.png)
 
 然后调整安全的 level 到 low：
 
-![dvwa-config-security-1.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139678741.png/wm)
+![dvwa-config-security-1.png](../imgs/wm_125.png)
 
 当看到页面的下方 Level 的显示变化后，说明修改成功了：
 
-![dvwa-config-security-proof.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139693059.png/wm)
+![dvwa-config-security-proof.png](../imgs/wm_126.png)
 
 ### 5.4 Webshell 实战
 
@@ -130,7 +130,7 @@ ssh root@Kali
 
 在 kali 中输入 `weevely` 命令命令我们可以看到：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481009912564.png-wm)
+![图片描述](../imgs/1481009912564.png-wm_1.png)
 
 显示了 weevely 的版本信息，已经常用的参数用法：
 
@@ -151,7 +151,7 @@ weevely generate <password> <path>
 weevely generate shiyanlou /var/www/html/webshell.php
 ```
 
-![show-generate](https://doc.shiyanlou.com/document-uid113508labid2436timestamp1483274487502.png/wm)
+![show-generate](../imgs/wm_127.png)
 
 这条命令中的各个参数，所代表的含义分别为：
 
@@ -170,14 +170,14 @@ Generated backdoor with password 'shiyanlou' in '/var/www/html/webshell.php' of 
 
 通过 `ls -lah /var/www/html` 我们可以看到：
 
-![show-result](https://doc.shiyanlou.com/document-uid113508labid2436timestamp1483274500744.png/wm)
+![show-result](../imgs/wm_128.png)
 
 的确成功的生成了后门 webshell.php 文件。
 
 通过 `less /var/www/html/webshell.php` 我们可以观察其源码：
 
 
-![show-source-code](https://doc.shiyanlou.com/document-uid113508labid2436timestamp1483274509073.png/wm)
+![show-source-code](../imgs/wm_129.png)
 
 我们可以看到代码显示的非常混乱，从变量名到格式等等，似乎有些看不懂的感觉，但这就是 weevely 的最大特点：隐蔽性。不论数据通道和控制通道，都做到很大程度的隐蔽，其生成的 webshell 程序，很难被安全工具发现。这样即使是有杀毒软件也很难会发现该程序是一个不安全的程序。
 
@@ -201,17 +201,17 @@ $J=str_replace('*X','',$e.$t.$H.$n.$P.$O.$B.$s.$g.$x.$r.$L);
 
 我们打开 DVWA 为我们所提供环境：
 
-![show-file-include](https://doc.shiyanlou.com/document-uid113508labid2436timestamp1483274520682.png/wm)
+![show-file-include](../imgs/wm_130.png)
 
 因为我们的 kali 没有提供图形界面，我们没有办法在 kali 中上传我们呢的 webshell 到 DVWA 中，所以我们需要先将其下载到 shiyanlou 中，然后通过 shiyanlou 上传至 DVWA 中。
 
 我们在 shiyanlou 终端中使用 `scp root@kali:/var/www/html/webshell.php ./` 命令来将 kali 中我们生成好的 webshell 文件下载至本地：
 
-![use-scp](https://doc.shiyanlou.com/document-uid113508labid2436timestamp1483274529417.png/wm)
+![use-scp](../imgs/wm_131.png)
 
 然后在 DVWA 为我们提供的上传漏洞平台中，我们点击浏览将我们的 webshell.php 上传至我们的目标服务器：
 
-![upload-file](https://doc.shiyanlou.com/document-uid113508labid2436timestamp1483274541528.png/wm)
+![upload-file](../imgs/wm_132.png)
 
 然后点击 `Upload` 将我们选择的文件上传至服务器。成功的上传让我们得到一个地址，并提示我们成功的上传了。
 
@@ -223,23 +223,23 @@ $J=str_replace('*X','',$e.$t.$H.$n.$P.$O.$B.$s.$g.$x.$r.$L);
 
 执行命令之后我们会得到这样的返回：
 
-![show-run-weevely](https://doc.shiyanlou.com/document-uid113508labid2436timestamp1483274552623.png/wm)
+![show-run-weevely](../imgs/wm_133.png)
 
 提供了我们一个 weevely 的交互，我们可以直接输入我们需要的命令，例如 `pwd`:
 
-![show-run](https://doc.shiyanlou.com/document-uid113508labid2436timestamp1483274564237.png/wm)
+![show-run](../imgs/wm_134.png)
 
 从图中我们可以看到本地的 weevely 与我们投放的 webshell 成功的建立了连接，并且我们发现我们成功的以 `www-data` 用户登陆上了目标主机。
 
 由此我们便像 `ssh www-data@192.168.122.102` 一般登陆上了目标主机，在其中我们可以执行所有在权限范围之内的命令：
 
-![show-command](https://doc.shiyanlou.com/document-uid113508labid2436timestamp1483274575331.png/wm)
+![show-command](../imgs/wm_135.png)
 
 这便是 webshell，通过一个简单的脚本就能够使得攻击者如 ssh 一般登陆目标主机的 shell，执行各种各样的命令。
 
 > **注意**：若是我们在执行 weevely 的时候遇到这样的错误：
 
-![show-error](https://doc.shiyanlou.com/document-uid113508labid2436timestamp1483275106000.png/wm)
+![show-error](../imgs/wm_136.png)
 
 我们需要通过 `rm -rf /root/.weevely` 命令来删除本地中的缓存即可
 

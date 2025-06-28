@@ -51,9 +51,9 @@ sudo virsh start Kali
 # 连接 Kali 虚拟机
 ssh root@Kali
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482118071678.png-wm)
+![图片描述](../imgs/1482118071678.png-wm)
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482992363161.png-wm)
+![图片描述](../imgs/1482992363161.png-wm)
 
 **还有一点要注意的是，如果在开启 Kali 后，马上进行连接，则会报错误 `ssh: connect to host Kali port 22: No route to host`。报错的原因是因为 Kali 虚拟机还未完全启动，需要一点时间才能完成启动。**
 
@@ -245,7 +245,7 @@ injection.o: injection.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482992919970.png-wm)
+![图片描述](../imgs/1482992919970.png-wm)
 
 在生成 libdynlib.so 时使用了`-fPIC` 选项，生成地址无关性的动态库。makefile 文件在编译过程中起到非常重要的作用。对于 makefile 文件不熟悉的请务必先阅读如下文件，上述代码的作用是生成三个重要要文件 `libdynlib.so` 和可运行文件 `app`，以及 `injection.o`：
 
@@ -255,11 +255,11 @@ injection.o: injection.c
 
 此时在命令行终端中，可以看到已经使用 Vi 命令编写了如下文件：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482993089738.png-wm)
+![图片描述](../imgs/1482993089738.png-wm)
 
 接着在命令行终端中执行 `make -f makefile`  命令生成三个重要文件  `libdynlib.so` 和可运行文件 `app`，以及 `injection.o`。
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482993068494.png-wm)
+![图片描述](../imgs/1482993068494.png-wm)
 
 直接运行 `./app`会报错，报错的原因是没有将 libdynlib.so 放到 `/usr/lib` 下。解决报错通常有两种办法，一是将 libdynlib.so 文件复制到 `/usr/lib` 下，另一个办法是将动态库所在的目录，即当前目录，添加到 `LD_LIBRARY_PATH`环境变量中。这里我们使用第一种办法，将文件 libdynlib.so 复制到文件夹 `/usr/lib` 下，在命令行终端中输入如下命令：
 ```
@@ -267,14 +267,14 @@ injection.o: injection.c
 cp libdynlib.so /usr/lib/
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482993187053.png-wm)
+![图片描述](../imgs/1482993187053.png-wm)
 
 为了方便后续的操作，接着在实验楼宿主机 Ubuntu 终端中，新开两个窗口，分别再连接 Kali Linux 虚拟机：`（注意：Kali 的 K 是大写的 K，密码是 toor）`
 ```
 # 连接 Kali Linux 密码是：toor
 ssh root@Kali 
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482993321407.png-wm)
+![图片描述](../imgs/1482993321407.png-wm)
 
 ## 五、过程实现
 
@@ -285,7 +285,7 @@ ssh root@Kali
 # 运行程序 app
 ./app
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482993507772.png-wm)
+![图片描述](../imgs/1482993507772.png-wm)
 
 ### 5.2 运行 `GDB` 进行调试
 
@@ -295,7 +295,7 @@ ssh root@Kali
 # 语法为 gdb <file> <PID>
 gdb app 1022
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482993859629.png-wm)
+![图片描述](../imgs/1482993859629.png-wm)
 
 `重要：下图为注入的核心概括`
 
@@ -303,7 +303,7 @@ gdb app 1022
 
 `重要：下图为注入的核心概括`
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/ff207c4ac994ae597a753f238bd6b2de/1483081405152.png-wm)
+![图片描述](../imgs/1483081405152.png-wm)
 
 ### 5.3 在 `GDB` 使用 `open` 函数
 
@@ -312,7 +312,7 @@ gdb app 1022
 # 打开 injection.o 
 (gdb) call open("injection.o", 2)
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482994119340.png-wm)
+![图片描述](../imgs/1482994119340.png-wm)
 
 其中，使用 `open 函数`，第二个参数 `2` 意思是对于 injection.o 的权限是 2，即 `O_RDWR` 读/写。由于函数 injection 内部函数重定位时修改地址，故需要读写权限，open 函数返回的是文件的描述符。
 
@@ -329,7 +329,7 @@ gdb app 1022
 # 查看当前目录下的文件
 ls -l
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482996003340.png-wm)
+![图片描述](../imgs/1482996003340.png-wm)
 
 其中对于 `mmap 函数` 的函数原型如下所示，对于其参数含义如下列表：
 ```
@@ -377,14 +377,14 @@ readelf -r app
 **（注意：可能你目前的机子得到的数值不一定为 08049860 ，这个函数起始地址以自身机子显示的数值为准）**
 **（注意：可能你目前的机子得到的数值不一定为 08049860 ，这个函数起始地址以机子显示的数值为准）**
 **（注意：可能你目前的机子得到的数值不一定为 08049860 ，这个函数起始地址以机子显示的数值为准）**
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482996857149.png-wm)
+![图片描述](../imgs/1482996857149.png-wm)
 
 在得到 print 的起始地址之后，使用命令 `p /x *0x08049860`，其中 `0x08049860` 为print 函数起始地址数值。`（注意：不要忘记 * 号）`
 ```
 (gdb) p /x *0x08049860
 ```
 如果上诉所有步骤没有错误，得到的返回结果应该为步骤 5.5 的结果，即 `$3` 中的数值 `0xb7746530` ，如图所示：
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482997315516.png-wm)
+![图片描述](../imgs/1482997315516.png-wm)
 
 ### 5.7  使用 injection 函数地址替换 print 函数地址
 
@@ -404,7 +404,7 @@ cat /proc/1022/maps
 # 0xb7763000 为起始地址
 b7763000-b7764000 rwxs 00000000 08:01 1054712    /root/injection.o
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482997733038.png-wm)
+![图片描述](../imgs/1482997733038.png-wm)
 
 在步骤 5.6 中，我们由命令 `readelf -r app` 得到 print 函数地址为 `0x08049860`。
 
@@ -418,7 +418,7 @@ readelf -S injection.o
 ```
 [ 1] .text             PROGBITS        00000000 000034 00001e 00  AX  0   0  1
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482998793872.png-wm)
+![图片描述](../imgs/1482998793872.png-wm)
 
 在刚才输入 `ls -l`的命令行端口中，输入如下命令得到 injection 函数在 injection 中的偏移量：
 **（注意：是小写的 s ）**
@@ -432,7 +432,7 @@ readelf -s injection.o
 ```
 14: 00000000    30 FUNC    GLOBAL DEFAULT    1 injection
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482998969196.png-wm)
+![图片描述](../imgs/1482998969196.png-wm)
 
 接下来我们使用 injection 函数地址替换 print 函数地址。在 GDB 调试窗口中，输入如下命令：
 
@@ -473,7 +473,7 @@ readelf -r injectino.o
 0000000f  00000501 R_386_32          00000000   .rodata
 00000014  00001002 R_386_PC32        00000000   puts
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1482999971172.png-wm)
+![图片描述](../imgs/1482999971172.png-wm)
 
 ### 5.9 在 `GDB` 中使用 print & print
 
@@ -486,7 +486,7 @@ print & print
 ```
 $5 = (void (*)()) 0xb7746530 <print>
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483001027636.png-wm)
+![图片描述](../imgs/1483001027636.png-wm)
 
 ### 5.10 在 `GDB` 中使用 print *
 
@@ -500,7 +500,7 @@ $5 = (void (*)()) 0xb7746530 <print>
 # print 符号重定位的附加数
 $6 = -4 
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483001161673.png-wm)
+![图片描述](../imgs/1483001161673.png-wm)
 
 
 ### 5.11 在 `GDB` 中使用 set 命令
@@ -513,7 +513,7 @@ set *(0xb7763000 + 0x000034 + 0x00000007) = 0xb7746530 - (0xb7763000 + 0x000034 
 ```
 其中要注意的是每个地址的数值从哪里来的，在步骤阶段性小结中已经提到。
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483001804576.png-wm)
+![图片描述](../imgs/1483001804576.png-wm)
 
 ### 5.12 在 `GDB` 中使用 print & system
 
@@ -538,7 +538,7 @@ print *(0xb7763000 + 0x000034 + 0x00000014)
 ​```
 $8 = -4
 ​```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483002625352.png-wm)
+![图片描述](../imgs/1483002625352.png-wm)
 
 ### 5.14 在 `GDB` 中使用 set 命令
 
@@ -548,7 +548,7 @@ $8 = -4
 set *(0xb7763000 + 0x000034 + 0x00000014)  = 0xb75cd850 - (0xb7763000 + 0x000034 + 0x00000014) - 4
 ​```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483002792884.png-wm)
+![图片描述](../imgs/1483002792884.png-wm)
 
 ### 5.15 在 `GDB` 中使用 print *
 
@@ -561,7 +561,7 @@ print *(0xb7763000 + 0x000034 + 0x0000000f)
 ​```
 $9 = 0
 ​```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483002982977.png-wm)
+![图片描述](../imgs/1483002982977.png-wm)
 
 ### 5.16 在 `GDB` 中使用 set 命令
 
@@ -576,13 +576,13 @@ $9 = 0
  [ 5] .rodata           PROGBITS        00000000 000052 000010 00   A  0   0  1
 ​```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483003131790.png-wm)
+![图片描述](../imgs/1483003131790.png-wm)
 
 ​```
 # 重新设定地址
 set *(0xb7763000 + 0x000034 + 0x0000000f) = 0xb7763000 + 0x000052
 ​```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483003304788.png-wm)
+![图片描述](../imgs/1483003304788.png-wm)
 
 
 ### 5.17 退出 GDB 窗口
@@ -606,7 +606,7 @@ hello, Mr_Rihgt！
 
 本实验由于其地址处于变化的状态，只要在调试的 20 个步骤中的任何一个地址出现问题，GDB 使用的过程中打错一个字符地址，则都可能导致实验失败。本实验花费的时间较久。我们再来回顾一下本实验的重要结构：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/ff207c4ac994ae597a753f238bd6b2de/1483081405152.png-wm)
+![图片描述](../imgs/1483081405152.png-wm)
 
 在实验的过程中，总结有如下常见的实验错误：
 
@@ -711,5 +711,5 @@ make
 
 其中值得注意的是，在实验的过程中，一定要将更换的地址填写正确，地址前面的符号如 `0x` 一定不能少。实验的主要结构如下思维导图：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/ff207c4ac994ae597a753f238bd6b2de/1483081405152.png-wm)
+![图片描述](../imgs/1483081405152.png-wm)
 ````

@@ -45,18 +45,18 @@
 首先使用 `virsh list` 命令查看当前环境中虚拟机的列表和状态，注意需要使用 sudo，另外需要加上参数 `--all` 才会显示所有关机状态的虚拟机：
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479890445878.png-wm)
+![图片描述](../imgs/1479890445878.png-wm_4.png)
 
 然后我们使用 `virsh start` 命令启动虚拟机，再次查看状态虚拟机已经进入 running 状态：
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479890565816.png-wm)
+![图片描述](../imgs/1479890565816.png-wm_4.png)
 
 注意由于虚拟机启动需要时间，大概要等四分钟左右我们就可以使用 SSH 访问两台虚拟机了。
 
 首先使用 SSH 连接到 Kali，我们大部分的攻击操作都需要在 Kali 虚拟机中进行，注意用户名root，密码 toor 是不显示的，使用命令 `ssh root@kali` 即可，因为当前实验环境中已经把 IP 地址和主机名的对应写入到了 `/etc/hosts` 文件中，避免输入不好记的 IP 地址：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1479890676283.png-wm)
+![图片描述](../imgs/1479890676283.png-wm_4.png)
 
 Kali 虚拟机启动后，我们可以开始渗透测试实验了。
 
@@ -112,13 +112,13 @@ msf > use exploit/windows/fileformat/adobe_pdf_embedded_exe
 
 **注意：msfconsole 的提示符中增加了 `adobe_pdf_embedded_exe` 信息。**
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2320timestamp1480500482197.png/wm)
+![此处输入图片的描述](../imgs/wm_19.png)
 
 ### 4.3 配置模块
 
 `show options` 查看攻击模块的配置信息：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2320timestamp1480500491041.png/wm)
+![此处输入图片的描述](../imgs/wm_20.png)
 
 目标软件是 Adobe Reader 的 8.x 及 9.x 版本，操作系统是 Windows XP SP3 的英语及西班牙语版本 和 Vista 及 Window 7 的 英语版本。请注意这些信息并不完整，并不仅仅局限在这些操作系统中。
 
@@ -135,13 +135,13 @@ msf > use exploit/windows/fileformat/adobe_pdf_embedded_exe
 
 最后，`show options` 查看下配置信息，然后开始执行，使用的是 `exploit` 命令：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2320timestamp1480500500682.png/wm)
+![此处输入图片的描述](../imgs/wm_21.png)
 
 ### 4.5 查看结果
 
 输出包含恶意代码的 PDF 文件在 `/root/.msf4/local/evil.pdf`，使用 `exit` 退出 msfconsole 后，可以查看该文件：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2320timestamp1480500507911.png/wm)
+![此处输入图片的描述](../imgs/wm_22.png)
 
 从上图中可以看到文件的大小增大了 `45K`，这部分增多的内容就是我们嵌入的后门程序。文件打开的效果会弹出一个提示信息引导用户去点击，点击后就会启动嵌入的程序。
 
@@ -182,11 +182,11 @@ msf > set lport 443
 
 后续的步骤与前面完全相同，根据需求设定输入的 PDF 文件和输出的 PDF 文件路径，然后 `exploit` 就可以得到结果了。
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2320timestamp1480500517940.png/wm)
+![此处输入图片的描述](../imgs/wm_23.png)
 
 ### 4.7 再次查看输出结果
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2320timestamp1480500524387.png/wm)
+![此处输入图片的描述](../imgs/wm_24.png)
 
 是不是比默认的 payload 还要小些？
 

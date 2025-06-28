@@ -53,49 +53,49 @@ SQL 注入通常情况下又会被人们分为：
 
 在实验桌面中，双击 Xfce 终端，打开终端：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374588595.png/wm)
+![此处输入图片的描述](../imgs/wm_246.png)
 
 使用 `sudo virsh start Metasploitable2` 命令即可启动我们的靶机系统虚拟机：
 
-![start-metasploit.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139532596.png/wm)
+![start-metasploit.png](../imgs/wm_247.png)
 
 大约需要四分钟，待得虚拟机完全启动之后我们打开桌面上的 Firefox：
 
-![open-firefox.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139552463.png/wm)
+![open-firefox.png](../imgs/wm_248.png)
 
 访问我们的靶机系统所使用的 IP 地址`192.168.122.102`：
 
-![view-metasploit-url.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139568548.png/wm)
+![view-metasploit-url.png](../imgs/wm_249.png)
 
 正常的启动靶机系统之后，我们访问其 IP 地址可以得到这样的一个页面。
 
 点击 DVMA 我们便可进入到 DVMA 的登陆页面，默认的登陆用户与密码是 admin 与 password，登陆之后便会进入这样的页面：
 
-![dvwa-index.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139587112.png/wm)
+![dvwa-index.png](../imgs/wm_250.png)
 
 为了能够进行最简单的攻击，我们会把安全默认调制最低，首先进入安全模式的调整页面：
 
-![dvwa-config-security.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139662479.png/wm)
+![dvwa-config-security.png](../imgs/wm_251.png)
 
 然后调整安全的 level 到 low：
 
-![dvwa-config-security-1.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139678741.png/wm)
+![dvwa-config-security-1.png](../imgs/wm_252.png)
 
 当看到页面的下方 Level 的显示变化后，说明修改成功了：
 
-![dvwa-config-security-proof.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139693059.png/wm)
+![dvwa-config-security-proof.png](../imgs/wm_253.png)
 
 ### 6.2 SQL 注入
 
 配置好我们的实验环境之后，我们便进入 DVWA 为我们所提供的 SQL Injection 的环境：
 
-![start-sql-injection](https://doc.shiyanlou.com/document-uid113508labid2411timestamp1482307148985.png/wm)
+![start-sql-injection](../imgs/wm_254.png)
 
 我们可以看到这是一个通过 User ID 来查询用户信息的一个环境，我们可以首先来简单尝试一下它的功能：
 
 我们在输入框中输入 1，然后提交我们可以得到这样的结果：
 
-![simple-use](https://doc.shiyanlou.com/document-uid113508labid2411timestamp1482307169640.png/wm)
+![simple-use](../imgs/wm_255.png)
 
 可以看到就是一个简单的通过 ID 编号查询到用户的姓与名。
 
@@ -113,7 +113,7 @@ SQL 注入通常情况下又会被人们分为：
 ' or 1=1#
 ```
 
-![test-or](https://doc.shiyanlou.com/document-uid113508labid2411timestamp1482307182920.png/wm)
+![test-or](../imgs/wm_256.png)
 
 我们可以看到返回了所有用户的姓名。
 
@@ -169,7 +169,7 @@ SELECT First_name, surname FROM 某张表 WHERE id = '' or 1=1#'
 
 我们可以看到这样的结果;
 
-![show-version](https://doc.shiyanlou.com/document-uid113508labid2411timestamp1482307196673.png/wm)
+![show-version](../imgs/wm_257.png)
 
 从结果中我们看到了在最后一条中多了一条版本信息，这是为什么呢？我们将我们的语句套入我们猜测的查询语句中：
 
@@ -188,7 +188,7 @@ SELECT First_name, surname FROM 某张表 WHERE id = '' or 1=1 union select null
 ```
 SELECT First_name, surname FROM 某张表 WHERE id = '' or 1=1 union select null,user() #'
 ```
-![show-user](https://doc.shiyanlou.com/document-uid113508labid2411timestamp1482307211857.png/wm)
+![show-user](../imgs/wm_258.png)
 
 我们使用的 root 用户登陆，root 账户拥有所有权限。
 
@@ -198,7 +198,7 @@ SELECT First_name, surname FROM 某张表 WHERE id = '' or 1=1 union select null
 ' or 1=1 union select null,User from mysql.user #
 ```
 
-![show-all-mysql-user](https://doc.shiyanlou.com/document-uid113508labid2411timestamp1482307222114.png/wm)
+![show-all-mysql-user](../imgs/wm_259.png)
 
 类似的用户信息获取扩展我们不再意义列举了。
 
@@ -208,7 +208,7 @@ SELECT First_name, surname FROM 某张表 WHERE id = '' or 1=1 union select null
 ' or 1=1 union select null,database() #
 ```
 
-![show-database](https://doc.shiyanlou.com/document-uid113508labid2411timestamp1482307232424.png/wm)
+![show-database](../imgs/wm_260.png)
 
 我们还可以查看所有的表的名称：
 
@@ -216,7 +216,7 @@ SELECT First_name, surname FROM 某张表 WHERE id = '' or 1=1 union select null
 ' or 1=1 union select null, table_name from information_schema.tables #
 ```
 
-![show-schema](https://doc.shiyanlou.com/document-uid113508labid2411timestamp1482307241963.png/wm)
+![show-schema](../imgs/wm_261.png)
 
 根据上一步我们知道了我们数据库的名称，我们可以只查看 dvwa 数据库的表有哪些：
 
@@ -224,7 +224,7 @@ SELECT First_name, surname FROM 某张表 WHERE id = '' or 1=1 union select null
 ' or 1=1 union select null, table_name from information_schema.tables where table_schema='dvwa' #
 ```
 
-![show-tables-dvwa](https://doc.shiyanlou.com/document-uid113508labid2411timestamp1482307253176.png/wm)
+![show-tables-dvwa](../imgs/wm_262.png)
 
 通过上述的结果我们可以了解到，数据库中所有表的名称，通过表名我们还可以通过这样的方式查看所有的表项：
 
@@ -232,7 +232,7 @@ SELECT First_name, surname FROM 某张表 WHERE id = '' or 1=1 union select null
 ' or 1=1 union select null, concat(table_name,0x0a,column_name) from information_schema.columns where table_name = 'users' #
 ```
 
-![show-tables-items](https://doc.shiyanlou.com/document-uid113508labid2411timestamp1482307263568.png/wm)
+![show-tables-items](../imgs/wm_263.png)
 
 这其中 concat() 是 MySQL 中一个很重要函数，该函数用于将多个字符串连接成一个字符串，也就是将 table_name、column_name 一同显示出来，这里的 0x0a 表示的是 `/n` 换行符，这样把表名与各个表项分开，不至于让我们分辨不出，更人性化一点。
 
@@ -244,7 +244,7 @@ SELECT first_name,last_name FROM users WHERE user_id = '获取到的输入内容
 
 我们可以通过查看原来来证实我们的猜想是否正确：
 
-![show-source-code](https://doc.shiyanlou.com/document-uid113508labid2411timestamp1482307276186.png/wm)
+![show-source-code](../imgs/wm_264.png)
 
 既然都能获取到表中有所有表项的信息了，我们能否将每个表项的内容也一同显示出来呢？
 
@@ -252,7 +252,7 @@ SELECT first_name,last_name FROM users WHERE user_id = '获取到的输入内容
 ' or 1=1 union select null,concat(user_id,0x0a,first_name,0x0a,last_name,0x0a,user,0x0a,password) from users #
 ```
 
-![show-all-detail-user](https://doc.shiyanlou.com/document-uid113508labid2411timestamp1482307289373.png/wm)
+![show-all-detail-user](../imgs/wm_265.png)
 
 从结果中我们看到的密码都是随机的数字与字母组合而成，而我们在登陆的时候，如 admin 密码并不是这样，很明显，这是密码在存储之前加过一次密来增加安全性，在 MySQL 中有单向加密与双向加密，其中单向的就 md5 的方式最为常用，双向的 ENCODE()、DENCODE() 较为常用。
 
@@ -264,7 +264,7 @@ vim password.txt
 
 以这样的格式保存：
 
-![save-password](https://doc.shiyanlou.com/document-uid113508labid2411timestamp1482307298617.png/wm)
+![save-password](../imgs/wm_266.png)
 
 然后使用 john 来破解：
 
@@ -272,7 +272,7 @@ vim password.txt
 john --format=raw-MD5 password.txt
 ```
 
-![show-password-directly](https://doc.shiyanlou.com/document-uid113508labid2411timestamp1482307316026.png/wm)
+![show-password-directly](../imgs/wm_267.png)
 
 我们可以看到所有用户的默认密码我们都破解出来了，我们可以是这样这些账户与密码登陆一下，验证是否正确。
 
@@ -288,7 +288,7 @@ john --format=raw-MD5 password.txt
 
 我们查看源代码，似乎与之前的没有太大的区别，但是我们注意看：
 
-![show-source-medium-code-.png](https://doc.shiyanlou.com/document-uid113508labid2411timestamp1482307336292.png/wm)
+![show-source-medium-code-.png](../imgs/wm_268.png)
 
 在获取到我们输入的内容之后并没有像 low 中的代码一样直接将数据传递给查询语句的变量，而是先交给了 mysql_real_escape_string() 处理。
 
@@ -302,7 +302,7 @@ mysql_real_escape_string() 函数的作用是将 SQL 字符串语句中的所有
 
 我们看到又可以再次看到结果了：
 
-![show-medium-1](https://doc.shiyanlou.com/document-uid113508labid2411timestamp1482307345996.png/wm)
+![show-medium-1](../imgs/wm_269.png)
 
 这说明我们只要不用受影响的特殊符号就不会出问题，例如 `'`单引号，`\`下划线这一类。
 
@@ -318,7 +318,7 @@ mysql_real_escape_string() 函数的作用是将 SQL 字符串语句中的所有
 
 我们可以查看一下源代码，并于 mdium 的代码相比较：
 
-![show-source-high-code.png](https://doc.shiyanlou.com/document-uid113508labid2411timestamp1482307359011.png/wm)
+![show-source-high-code.png](../imgs/wm_270.png)
 
 其中全关键的便是判断获取到的字符串是否为数字或数字字符串的 is_numeric()。因为执行 SQL 语句不可能用纯数字实现的，所以这样就完美的解决了 SQL 注入的问题。
 

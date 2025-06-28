@@ -63,55 +63,55 @@ CSRF 的中文名字叫跨站请求伪造，英文全名为：Cross-site request
 
 在实验桌面中，双击 Xfce 终端，打开终端：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid13labid2290timestamp1479374588595.png/wm)
+![此处输入图片的描述](../imgs/wm_205.png)
 
 使用 `sudo virsh start Metasploitable2` 命令即可启动我们的靶机系统虚拟机：
 
-![start-metasploit.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139532596.png/wm)
+![start-metasploit.png](../imgs/wm_206.png)
 
 等待大约四分钟，待得虚拟机完全启动之后我们打开桌面上的 Firefox：
 
-![open-firefox.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139552463.png/wm)
+![open-firefox.png](../imgs/wm_207.png)
 
 访问我们的靶机系统所使用的 IP 地址`192.168.122.102`：
 
-![view-metasploit-url.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139568548.png/wm)
+![view-metasploit-url.png](../imgs/wm_208.png)
 
 正常的启动靶机系统之后，我们访问其 IP 地址可以得到这样的一个页面。
 
 点击 DVMA 我们便可进入到 DVMA 的登陆页面，默认的登陆用户与密码是 admin 与 password，登陆之后便会进入这样的页面：
 
-![dvwa-index.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139587112.png/wm)
+![dvwa-index.png](../imgs/wm_209.png)
 
 为了能够进行最简单的攻击，我们会把安全默认调制最低，首先进入安全模式的调整页面：
 
-![dvwa-config-security.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139662479.png/wm)
+![dvwa-config-security.png](../imgs/wm_210.png)
 
 然后调整安全的 level 到 low：
 
-![dvwa-config-security-1.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139678741.png/wm)
+![dvwa-config-security-1.png](../imgs/wm_211.png)
 
 当看到页面的下方 Level 的显示变化后，说明修改成功了：
 
-![dvwa-config-security-proof.png](https://doc.shiyanlou.com/document-uid113508labid2407timestamp1482139693059.png/wm)
+![dvwa-config-security-proof.png](../imgs/wm_212.png)
 
 ### 5.4 CSRF 初试
 
 进入 DVWA 为我们所提供的 CSRF 的实验页面：
 
-![show-csrf](https://doc.shiyanlou.com/document-uid113508labid2429timestamp1482822396724.png/wm)
+![show-csrf](../imgs/wm_213.png)
 
 我们可以看到，实验环境为我们提供了一个修改密码的场景，在该场景中我们直接输入新的密码与确认新密码就可以修改了：
 
-![show-passwd](https://doc.shiyanlou.com/document-uid113508labid2429timestamp1482822406924.png/wm)
+![show-passwd](../imgs/wm_214.png)
 
 点击 change 的按钮：
 
-![show-change-success](https://doc.shiyanlou.com/document-uid113508labid2429timestamp1482822416840.png/wm)
+![show-change-success](../imgs/wm_215.png)
 
 提示成功的修改了密码，我们可以关掉浏览器尝试重新登陆：
 
-![show-try-again](https://doc.shiyanlou.com/document-uid113508labid2429timestamp1482822424358.png/wm)/wm)
+![show-try-again](../imgs/wm_216.png)/wm)
 
 此时我们会发现 `login failed`，我们尝试刚刚设置的密码，是可以登陆进来的，说明我们修改成功了。
 
@@ -119,11 +119,11 @@ CSRF 的中文名字叫跨站请求伪造，英文全名为：Cross-site request
 
 我们再次来到 CSRF 的修改密码页面，我们再次来修改密码：
 
-![change-passwd](https://doc.shiyanlou.com/document-uid113508labid2429timestamp1482822436739.png/wm)
+![change-passwd](../imgs/wm_217.png)
 
 我们再次点击 `change` 按钮，我们把注意力投放到我们的 URL 上：
 
-![show-url](https://doc.shiyanlou.com/document-uid113508labid2429timestamp1482822447155.png/wm)
+![show-url](../imgs/wm_218.png)
 
 可以看出这是通过 GET 方式来提交的代码，由此可以看出该站点此时多么的不安全，不说其他光是通过 URL 我就可以知道新修改的用户名、密码。
 
@@ -133,17 +133,17 @@ CSRF 的中文名字叫跨站请求伪造，英文全名为：Cross-site request
 http://192.168.122.102/dvwa/vulnerabilities/csrf/?password_new=test_shiyanlou&password_conf=test_shiyanlou&Change=Change#
 ```
 
-![show-change-again](https://doc.shiyanlou.com/document-uid113508labid2429timestamp1482822455636.png/wm)
+![show-change-again](../imgs/wm_219.png)
 
 我们可以看到同样可以修改成功，但是用户并没有输入任何的内容，用户根本就不知道又再次被修改了。我们可以验证一下是否真的修改成 `test_shiyanlou` 了。
 
 我们再次关闭浏览器（为的是不使用刚刚的 cookie 访问 dvwa 站点），重新打开浏览器，访问 dvwa 站点：
 
-![try-login](https://doc.shiyanlou.com/document-uid113508labid2429timestamp1482822472117.png/wm)
+![try-login](../imgs/wm_220.png)
 
 我们可以看到使用 `shiyanlou` 密码登陆失败 `login failed`，说明我们刚刚更改成功了。那我们再试试 `test_shiyanlou`：
 
-![try-test-passwd](https://doc.shiyanlou.com/document-uid113508labid2429timestamp1482822481096.png/wm)
+![try-test-passwd](../imgs/wm_221.png)
 
 我们可以看到，成功的登陆 dvwa 的平台，说明我们刚刚修改成功了，这就是 CSFR，在不盗取用户任何信息的情况，巧妙的借用用户之手更改了他的密码。
 
@@ -153,7 +153,7 @@ http://192.168.122.102/dvwa/vulnerabilities/csrf/?password_new=test_shiyanlou&pa
 
 我们在本地使用可以通过 F12 中网络选项查看到 cookie 值：
 
-![show-cookie](https://doc.shiyanlou.com/document-uid113508labid2429timestamp1482822490232.png/wm)
+![show-cookie](../imgs/wm_222.png)
 
 然后我们在 shiyanlou 终端中使用这样的命令：
 
@@ -165,7 +165,7 @@ curl --cookie "security=low; PHPSESSID=fefebfdeb6c27d8fac926ee5b735b714" --locat
 
 执行了之后我们可以看到为我们返回了一个页面的源代码回来：
 
-![show-code](https://doc.shiyanlou.com/document-uid113508labid2429timestamp1482822506572.png/wm)
+![show-code](../imgs/wm_223.png)
 
 细心的同学会找到 `<pre> Password Changed </pre>` 的字样，说明我们修改成功了。
 
@@ -175,7 +175,7 @@ curl --cookie "security=low; PHPSESSID=fefebfdeb6c27d8fac926ee5b735b714" --locat
 curl --cookie "security=low; PHPSESSID=fefebfdeb6c27d8fac926ee5b735b714" --location "http://192.168.122.102/dvwa/vulnerabilities/csrf/?password_new=shiyanlou&password_conf=shiyanlou&Change=Change#" | grep Password
 ```
 
-![show-code-changed](https://doc.shiyanlou.com/document-uid113508labid2429timestamp1482822531186.png/wm)
+![show-code-changed](../imgs/wm_224.png)
 
 验证一下我们是否成功登陆，只需要关闭浏览器、重新打开尝试登陆，或者点击左下角的 `logout` 然后重新登陆便可知道。
 
@@ -208,7 +208,7 @@ vim test.html
 
 保存退出后，我们在家目录中找到该文件：
 
-![show-file](https://doc.shiyanlou.com/document-uid113508labid2429timestamp1482822556032.png/wm)
+![show-file](../imgs/wm_225.png)
 
 双击后会在 firefox 中打开，成功加载后，我们回到 DVWA 平台，我们 `Logout` 后，再次登陆我们会发现密码已经变了，无法登陆。
 
@@ -218,7 +218,7 @@ vim test.html
 
 我们再次登陆 DVWA，我们来查看源码：
 
-![show-low-source-code](https://doc.shiyanlou.com/document-uid113508labid2429timestamp1482822563668.png/wm)/wm)
+![show-low-source-code](../imgs/wm_226.png)/wm)
 
 我们看到源码中直接获取变量，然后简单的判断，最终就加密存放至数据库中。
 

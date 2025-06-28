@@ -44,15 +44,15 @@ sudo wget http://labfile.oss.aliyuncs.com/courses/717/search.php
 
 成功的下载之后我们便可以通过 `ls -lah` 看到我们的 apache 根目录中多了 3 个文件出来 index.php、iframe.html、search.php。
 
-![show-ls](https://doc.shiyanlou.com/document-uid113508labid2437timestamp1483349907870.png/wm)
+![show-ls](../imgs/wm_137.png)
 
 然后我们通过 `sudo service apache2 start` 启动 apache：
 
-![start-apache](https://doc.shiyanlou.com/document-uid113508labid2437timestamp1483349922607.png/wm)
+![start-apache](../imgs/wm_138.png)
 
 打开桌面的 Firefox，在地址栏中输入 `localhost` 我们可以看到 apache 的首页代表我们成功启动好了我们的环境：
 
-![show-apache](https://doc.shiyanlou.com/document-uid113508labid2437timestamp1483349931415.png/wm)
+![show-apache](../imgs/wm_139.png)
 
 ### 5.3 避免点击挟持
 
@@ -66,7 +66,7 @@ sudo wget http://labfile.oss.aliyuncs.com/courses/717/search.php
 
 首先我们使用 `sudo vim /var/www/html/index.php` 进入该文件的修改界面，然后我们做如下的修改：
 
-![test-1](https://doc.shiyanlou.com/document-uid113508labid2437timestamp1483349942282.png/wm)
+![test-1](../imgs/wm_140.png)
 
 ```
 <!--\u5b9e\u9a8c1\u7684\u4ee3\u7801+iframe.html-->
@@ -88,25 +88,25 @@ sudo wget http://labfile.oss.aliyuncs.com/courses/717/search.php
 
 最后变成这样：
 
-![test-1-no-zhushi](https://doc.shiyanlou.com/document-uid113508labid2437timestamp1483349952412.png/wm)
+![test-1-no-zhushi](../imgs/wm_141.png)
 
 然后使用 `:wq` 保存退出，接着在 Firefox 的地址栏中输入 `localhost/index.php`，我们可以看到一个登陆场景的页面：
 
-![show-test1](https://doc.shiyanlou.com/document-uid113508labid2437timestamp1483349960592.png/wm)
+![show-test1](../imgs/wm_142.png)
 
 当我们点击左上角的 login 按钮是会有这样的弹窗提示：
 
-![此处输入图片的描述](https://doc.shiyanlou.com/document-uid113508labid2437timestamp1483349967646.png/wm)
+![此处输入图片的描述](../imgs/wm_143.png)
 
 提示我们成功的登陆。
 
 于此同时我们访问 `localhost/iframe.html`。我们可以看到一个一模一样的页面：
 
-![show-iframe](https://doc.shiyanlou.com/document-uid113508labid2437timestamp1483349974352.png/wm)
+![show-iframe](../imgs/wm_144.png)
 
 但是当我们点击页面的时候我们会发现有不一样的弹窗：
 
-![show-iframe-test](https://doc.shiyanlou.com/document-uid113508labid2437timestamp1483349988819.png/wm)
+![show-iframe-test](../imgs/wm_145.png)
 
 这就是点击挟持，通过一个相同界面的伪装，让你误以为是平时所使用的网站，但却是一个攻击者的网站，在攻击时，一旦点击就不会是一个弹窗了而是获取你的用户名、密码、cookie 等等的作用了。
 
@@ -195,11 +195,11 @@ X-Frame-Options 一共有三个值：
 
 我们在 Firefox 中输入 `localhost/index.php` 进入我们实现所准备好的登陆页面，紧接着我们输入用户名：`shiyanlou`，密码:`shiyanlou`。
 
-![login](https://doc.shiyanlou.com/document-uid113508labid2437timestamp1483350002283.png/wm)
+![login](../imgs/wm_146.png)
 
 通过登陆的方式使得服务器创建了 session，跳转至 search.php 的页面，在页面中我们内置了获取 cookie 的 javascript 代码，所以跳转过来之后我们可以看到这样的弹窗：
 
-![get-session](https://doc.shiyanlou.com/document-uid113508labid2437timestamp1483350017772.png/wm)
+![get-session](../imgs/wm_147.png)
 
 我们通过查看源代码便可知道，我们实现的非常简单：
 
@@ -256,7 +256,7 @@ ini_set("session.cookie_httponly", "True");
 
 接着使用 `:wq` 保存并退出，此时我们再次刷新我们的页面，我们可以看到虽然还有弹窗但是其中并无内容:
 
-![show-no-session](https://doc.shiyanlou.com/document-uid113508labid2437timestamp1483350027326.png/wm)
+![show-no-session](../imgs/wm_148.png)
 
 而阻止 javascript 获取我们 session 的便是 `httponly` 标记。
 
