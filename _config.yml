@@ -13,11 +13,11 @@ navbar:
   - text: "Home"
     url: "/index.md"
   - text: "Backdoor Attacks"
-    url: "/kali-backdoor/"
+    url: "/kali-backdoor/index.md"
   - text: "Server Attacks"
-    url: "/kali-server-attack/"
+    url: "/kali-server-attack/index.md"
   - text: "Web Attacks"
-    url: "/kali-web-attack/"
+    url: "/kali-web-attack/index.md"
 
 # Author settings
 author:
@@ -29,7 +29,6 @@ paginate: 5
 # Exclude specific files or directories from being processed
 exclude:
   - README.md
-  - LICENSE
 
 # Jekyll plugins (optional)
 plugins:
